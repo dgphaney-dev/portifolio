@@ -166,10 +166,9 @@ export default function Hero() {
                     </p>
                     <p>
                       <span className="text-slate-400">stackPrincipal:</span> [
-                      <span className="text-amber-300">"React"</span>,{' '}
-                      <span className="text-amber-300">"TypeScript"</span>,{' '}
-                      <span className="text-amber-300">"Node.js"</span>,{' '}
-                      <span className="text-amber-300">"Tailwind"</span>
+                      <span className="text-amber-300">"Python"</span>,{' '}
+                      <span className="text-amber-300">"MySQL"</span>,{' '}
+                      <span className="text-amber-300">"React"</span>
                       ],
                     </p>
                     <p>
