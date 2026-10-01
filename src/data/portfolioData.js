@@ -1,15 +1,15 @@
 export const portfolioData = {
   personal: {
-    name: "DG Dev",
+    name: "Douglas Phaney",
     role: "Desenvolvedor Full Stack & Frontend",
     tagline: "Transformo ideias em aplicações web modernas, rápidas e escaláveis.",
     bio: "Desenvolvedor focado em criar experiências digitais de alto impacto. Especializado no ecossistema JavaScript/TypeScript com React, Next.js, Node.js e Tailwind CSS. Apaixonado por código limpo, interfaces fluidas e soluções que resolvem problemas reais de negócios.",
     location: "Brasil (Disponível para Remoto e Híbrido)",
     availability: "Disponível para contratação imediata",
-    email: "contato.dgdev@gmail.com",
+    email: "douglasphalbuquerque@gmail.com",
     whatsapp: "5511999999999", // Coloque seu número com DDD
     github: "https://github.com",
-    linkedin: "https://linkedin.com",
+    linkedin: "https://www.linkedin.com/in/douglasphaney/",
     resumeUrl: "#", // Link para baixar seu PDF ou Google Drive
   },
 
@@ -45,28 +45,28 @@ export const portfolioData = {
 
   skills: {
     frontend: [
-      { name: "React.js", level: "Avançado", icon: "Atom" },
-      { name: "JavaScript (ES6+)", level: "Avançado", icon: "FileCode" },
+      { name: "React.js", level: "Intermediário", icon: "Atom" },
+      { name: "JavaScript (ES6+)", level: "Intermediário", icon: "FileCode" },
       { name: "TypeScript", level: "Intermediário", icon: "Code" },
-      { name: "Tailwind CSS", level: "Avançado", icon: "Palette" },
+      { name: "Tailwind CSS", level: "Intermediário", icon: "Palette" },
       { name: "Next.js", level: "Intermediário", icon: "Globe" },
-      { name: "HTML5 / CSS3", level: "Avançado", icon: "Layout" },
+      { name: "HTML5 / CSS3", level: "Intermediário", icon: "Layout" },
     ],
     backend: [
       { name: "Node.js", level: "Intermediário", icon: "Server" },
       { name: "Express.js", level: "Intermediário", icon: "Cpu" },
-      { name: "REST APIs", level: "Avançado", icon: "Network" },
+      { name: "REST APIs", level: "Intermediário", icon: "Network" },
       { name: "PostgreSQL", level: "Intermediário", icon: "Database" },
       { name: "MongoDB", level: "Intermediário", icon: "Layers" },
       { name: "Autenticação (JWT)", level: "Intermediário", icon: "ShieldCheck" },
     ],
     tools: [
-      { name: "Git & GitHub", level: "Avançado", icon: "GitBranch" },
-      { name: "Vite", level: "Avançado", icon: "Zap" },
-      { name: "Docker", level: "Básico/Interm.", icon: "Box" },
-      { name: "Vercel / Netlify", level: "Avançado", icon: "Cloud" },
+      { name: "Git & GitHub", level: "Intermediário", icon: "GitBranch" },
+      { name: "Vite", level: "Intermediário", icon: "Zap" },
+      { name: "Docker", level: "Intermediário", icon: "Box" },
+      { name: "Vercel / Netlify", level: "Intermediário", icon: "Cloud" },
       { name: "Figma (UI/UX)", level: "Intermediário", icon: "Figma" },
-      { name: "Postman / Insomnia", level: "Avançado", icon: "Send" },
+      { name: "Postman / Insomnia", level: "Intermediário", icon: "Send" },
     ],
   },
 

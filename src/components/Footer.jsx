@@ -19,7 +19,7 @@ export default function Footer() {
             <a href="#inicio" className="inline-flex items-center gap-2 group mb-3">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-cyan-400 p-[1.5px]">
                 <div className="w-full h-full bg-slate-950 rounded-[7px] flex items-center justify-center">
-                  <span className="text-white font-extrabold text-sm tracking-wider">DG</span>
+                  <span className="text-white font-extrabold text-sm tracking-wider">DP</span>
                 </div>
               </div>
               <span className="text-lg font-bold text-white tracking-tight">

@@ -41,7 +41,7 @@ export default function Navbar({ activeSection, darkMode, setDarkMode }) {
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[2px] shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
               <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
                 <span className="text-white font-extrabold text-lg tracking-wider bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text text-transparent">
-                  DG
+                  DP
                 </span>
               </div>
             </div>
