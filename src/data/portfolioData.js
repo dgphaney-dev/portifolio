@@ -3,7 +3,7 @@ export const portfolioData = {
     name: "Douglas Phaney",
     role: "Desenvolvedor React | Python | MySQL",
     tagline: "Desenvolvendo aplicações com React no front-end e Python & MySQL no back-end.",
-    bio: "Desenvolvedor com 1 ano e meio de prática e estudos focado no ecossistema web e dados. Construo interfaces dinâmicas com React, lógica e automações com Python e modelagem de bancos de dados relacionais com MySQL. Focado em código limpo, boas práticas e aprendizado contínuo.",
+    bio: "Graduando em Análise e Desenvolvimento de Sistemas (ADS) pela Católica e desenvolvedor com 1 ano e meio de prática e estudos focado no ecossistema web e dados. Construo interfaces reativas com React, automações e lógica com Python e modelagem de bancos de dados relacionais com MySQL. Focado em código limpo, boas práticas e aprendizado contínuo.",
     location: "Brasil (Disponível para Remoto e Híbrido)",
     availability: "Disponível para contratação imediata",
     email: "douglasphalbuquerque@gmail.com",
@@ -137,16 +137,16 @@ export const portfolioData = {
 
   education: [
     {
-      course: "Análise e Desenvolvimento de Sistemas / Ciência da Computação",
-      institution: "Ensino Superior",
-      period: "Em andamento / Concluído",
-      description: "Foco em engenharia de software, estruturas de dados, algoritmos e arquitetura de computadores.",
+      course: "Análise e Desenvolvimento de Sistemas (ADS)",
+      institution: "Católica",
+      period: "Em andamento",
+      description: "Graduação superior tecnológica com foco em engenharia de software, modelagem de banco de dados, lógica e arquitetura de sistemas computacionais.",
     },
     {
-      course: "Formação Especialista React & Node.js",
-      institution: "Plataformas de Especialização Tech",
-      period: "2023",
-      description: "Mais de 300 horas de capacitação prática intensiva com projetos reais, testes e boas práticas de desenvolvimento.",
+      course: "Desenvolvimento Web & Prática Contínua",
+      institution: "Cursos & Prática Autodidata",
+      period: "1 ano e meio de prática",
+      description: "Estudos práticos intensivos e desenvolvimento de projetos com React, Python e MySQL.",
     },
   ],
 };

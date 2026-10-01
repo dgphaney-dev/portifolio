@@ -72,7 +72,7 @@ export default function About() {
               </div>
               <div className="flex items-center gap-2 text-slate-300">
                 <GraduationCap className="w-4 h-4 text-purple-400 shrink-0" />
-                <span>Aprendizado Contínuo</span>
+                <span>ADS na Católica (Em andamento)</span>
               </div>
             </div>
           </div>
