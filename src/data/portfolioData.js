@@ -154,18 +154,18 @@ export const portfolioData = {
 
   experience: [
     {
-      role: "Desenvolvedor Full Stack (Freelancer)",
-      company: "Projetos Autônomos",
-      period: "2023 - Presente",
-      description: "Desenvolvimento de landing pages de alta conversão, portais web e sistemas de gestão sob demanda. Implementação de SEO, integração de pagamentos e suporte contínuo para clientes.",
-      technologies: ["React", "Tailwind CSS", "Node.js", "PostgreSQL", "Vercel"],
+      role: "Em Busca da Primeira Oportunidade (Estágio / Júnior)",
+      company: "Disponível para Contratação",
+      period: "Atualmente buscando",
+      description: "Estudante de Análise e Desenvolvimento de Sistemas na Católica com 1 ano e meio de dedicação prática. Busco oportunidade como Estagiário ou Desenvolvedor Júnior para agregar valor com React, Python e MySQL, com grande facilidade de aprendizado e trabalho em equipe.",
+      technologies: ["React", "Python", "MySQL", "JavaScript", "Git & GitHub"],
     },
     {
-      role: "Desenvolvedor Front-end Júnior / Bolsista",
-      company: "Projetos Práticos & Open Source",
-      period: "2022 - 2023",
-      description: "Criação de componentes acessíveis e reutilizáveis, refatoração de código legado e colaboração com times multidisciplinares utilizando Git Flow e metodologias ágeis (Scrum).",
-      technologies: ["JavaScript", "HTML/CSS", "React", "Git", "Figma"],
+      role: "Desenvolvimento de Projetos Pessoais & Prática Contínua",
+      company: "Estudos & Portfólio Prático",
+      period: "1 ano e meio de prática",
+      description: "Criação e manutenção de projetos reais como NextGen ERP, PDV de Supermercado, Sistema de Registro e sites responsivos, aprimorando lógica de programação, modelagem de banco de dados e componentização.",
+      technologies: ["Python", "MySQL", "React", "JavaScript", "HTML5", "CSS3"],
     },
   ],
 

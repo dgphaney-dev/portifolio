@@ -35,7 +35,7 @@ export default function Experience() {
               }`}
             >
               <Briefcase className="w-4 h-4" />
-              <span>Experiência Prática</span>
+              <span>Objetivo & Prática</span>
             </button>
             <button
               onClick={() => setActiveTab('education')}
