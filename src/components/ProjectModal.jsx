@@ -105,25 +105,46 @@ export default function ProjectModal({ project, onClose }) {
 
           {/* Action Links */}
           <div className="pt-6 border-t border-slate-800 flex flex-wrap items-center justify-end gap-3">
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-slate-300 bg-slate-800 hover:text-white hover:bg-slate-700 transition-all border border-slate-700/80"
-            >
-              <Github className="w-4 h-4" />
-              <span>Ver Código Fonte</span>
-            </a>
+            {project.isPrivate ? (
+              <>
+                <span className="px-3.5 py-2 rounded-xl text-xs font-semibold text-amber-300 bg-amber-500/10 border border-amber-500/30 flex items-center gap-1.5">
+                  🔒 Repositório Privado (Proprietário)
+                </span>
+                <a
+                  href="#contato"
+                  onClick={onClose}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-md shadow-purple-500/20 transition-all"
+                >
+                  <span>Solicitar Demonstração</span>
+                </a>
+              </>
+            ) : (
+              <>
+                {project.githubUrl && project.githubUrl !== '#' && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-slate-300 bg-slate-800 hover:text-white hover:bg-slate-700 transition-all border border-slate-700/80"
+                  >
+                    <Github className="w-4 h-4" />
+                    <span>Ver Código Fonte</span>
+                  </a>
+                )}
 
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 shadow-md shadow-indigo-500/20 transition-all"
-            >
-              <ExternalLink className="w-4 h-4" />
-              <span>Acessar Projeto Online</span>
-            </a>
+                {project.liveUrl && project.liveUrl !== '#' && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-md shadow-purple-500/20 transition-all"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    <span>Acessar Projeto</span>
+                  </a>
+                )}
+              </>
+            )}
           </div>
 
         </div>

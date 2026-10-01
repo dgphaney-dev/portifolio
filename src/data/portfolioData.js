@@ -89,8 +89,9 @@ export const portfolioData = {
       longDescription: "Projeto NextGen ERP focado em integrar diferentes setores corporativos, oferecendo controle operacional, organização de dados e interface dinâmica.",
       tags: ["JavaScript", "React", "Node.js", "MySQL", "Full Stack"],
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-      liveUrl: "https://github.com/douglasphaney/nextgen-erp",
-      githubUrl: "https://github.com/douglasphaney/nextgen-erp",
+      liveUrl: "#",
+      githubUrl: "#",
+      isPrivate: true,
     },
     {
       id: "pdv-supermercado",

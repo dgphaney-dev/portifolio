@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { Github, Linkedin } from '../Icons';
 import { portfolioData } from '../../data/portfolioData';
-import TechOrb3D from '../3d/TechOrb3D';
+import DeveloperAvatar3D from '../3d/DeveloperAvatar3D';
 
 export default function Hero() {
   const { personal } = portfolioData;
@@ -123,7 +123,7 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 via-magenta-500/10 to-cyan-500/20 rounded-full blur-[80px] pointer-events-none" />
             
             <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
-              <TechOrb3D />
+              <DeveloperAvatar3D />
             </div>
           </div>
 

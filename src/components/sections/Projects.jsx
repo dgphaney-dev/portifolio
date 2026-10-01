@@ -200,26 +200,40 @@ export default function Projects() {
                   </button>
 
                   <div className="flex items-center gap-2">
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-[#11111F] hover:bg-purple-600/20 text-slate-300 hover:text-purple-300 border border-white/[0.08] transition-colors"
-                      title="Ver Repositório no GitHub"
-                    >
-                      <Github className="w-4 h-4" />
-                    </a>
-
-                    {project.liveUrl && project.liveUrl !== '#' && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-lg bg-[#11111F] hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-white/[0.08] transition-colors"
-                        title="Ver Demonstração / Repositório"
+                    {project.isPrivate ? (
+                      <button
+                        onClick={() => setActiveModalProject(project)}
+                        className="p-2 rounded-lg bg-[#11111F] text-amber-300 border border-amber-500/30 flex items-center gap-1 text-[11px] font-semibold cursor-pointer"
+                        title="Código Privado (Proprietário)"
                       >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
+                        <span>🔒 Privado</span>
+                      </button>
+                    ) : (
+                      <>
+                        {project.githubUrl && project.githubUrl !== '#' && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-lg bg-[#11111F] hover:bg-purple-600/20 text-slate-300 hover:text-purple-300 border border-white/[0.08] transition-colors"
+                            title="Ver Repositório no GitHub"
+                          >
+                            <Github className="w-4 h-4" />
+                          </a>
+                        )}
+
+                        {project.liveUrl && project.liveUrl !== '#' && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-lg bg-[#11111F] hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-white/[0.08] transition-colors"
+                            title="Ver Demonstração / Repositório"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
