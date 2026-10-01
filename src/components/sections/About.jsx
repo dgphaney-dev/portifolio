@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Code2, 
   Database, 
@@ -6,7 +6,10 @@ import {
   Sparkles, 
   GraduationCap, 
   CheckCircle,
-  MapPin
+  MapPin,
+  Trophy,
+  Award,
+  Users
 } from 'lucide-react';
 import { portfolioData } from '../../data/portfolioData';
 
@@ -41,7 +44,7 @@ export default function About() {
         </div>
 
         {/* Grid: Composição Visual + Texto + Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-14">
           
           {/* Card Principal: Foto + Bio + Católica */}
           <div className="lg:col-span-6 p-7 sm:p-9 rounded-3xl bg-[#0D0D18]/80 border border-white/[0.08] backdrop-blur-xl flex flex-col justify-between shadow-2xl">
@@ -58,7 +61,7 @@ export default function About() {
                 <div className="text-center sm:text-left">
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-2">
                     <GraduationCap className="w-3.5 h-3.5" />
-                    ADS na Católica
+                    ADS na Católica (UCB)
                   </div>
                   <h3 className="text-2xl font-bold text-white">
                     {personal.name}
@@ -119,6 +122,78 @@ export default function About() {
             })}
           </div>
 
+        </div>
+
+        {/* Bloco Especial: Além do Código - Atleta Universitário (UCB / JUDF) */}
+        <div className="rounded-3xl bg-[#0D0D18]/80 border border-white/[0.08] backdrop-blur-xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-600/10 blur-[130px] pointer-events-none" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Texto & Conquistas */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider">
+                <Trophy className="w-3.5 h-3.5 text-amber-300" />
+                Além do Código · Atleta Universitário
+              </div>
+
+              <h3 className="text-2xl font-bold text-white">
+                Disciplina, Resiliência & Trabalho em Equipe
+              </h3>
+
+              <p className="text-sm text-slate-300 leading-relaxed">
+                Além do desenvolvimento de software, represento a <span className="text-white font-semibold">Universidade Católica de Brasília (UCB)</span> nos <span className="text-cyan-300 font-semibold">Jogos Universitários do Distrito Federal (JUDF)</span>.
+              </p>
+
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                A rotina de treinos e campeonatos fortaleceu valores essenciais para o mercado de tecnologia: comunicação clara, foco sob pressão, espírito de liderança e busca obstinada por evolução constante a cada partida e a cada projeto.
+              </p>
+
+              {/* Badges de Destaque Esportivo */}
+              <div className="flex flex-wrap gap-2.5 pt-2">
+                <span className="px-3 py-1.5 rounded-xl bg-[#11111F] border border-white/[0.08] text-xs font-medium text-amber-300 flex items-center gap-1.5">
+                  <Award className="w-3.5 h-3.5 text-amber-300" />
+                  Premiado no JUDF
+                </span>
+                <span className="px-3 py-1.5 rounded-xl bg-[#11111F] border border-white/[0.08] text-xs font-medium text-cyan-300 flex items-center gap-1.5">
+                  <Users className="w-3.5 h-3.5 text-cyan-300" />
+                  Atleta UCB (Católica)
+                </span>
+                <span className="px-3 py-1.5 rounded-xl bg-[#11111F] border border-white/[0.08] text-xs font-medium text-emerald-300 flex items-center gap-1.5">
+                  <CheckCircle className="w-3.5 h-3.5 text-emerald-300" />
+                  Cooperação & Disciplina
+                </span>
+              </div>
+            </div>
+
+            {/* Duas Fotos Reais da UCB e JUDF */}
+            <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+              {/* Foto 1: Troféu JUDF */}
+              <div className="relative group rounded-2xl overflow-hidden border border-white/[0.1] bg-[#080812] shadow-xl aspect-[3/4]">
+                <img
+                  src={personal.trophyPhoto}
+                  alt="Douglas Phaney com troféu do JUDF pela UCB"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080812] via-transparent to-transparent opacity-80" />
+                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-[#080812]/80 px-2 py-0.5 rounded backdrop-blur-sm">
+                  Premiação JUDF
+                </span>
+              </div>
+
+              {/* Foto 2: Em quadra UCB */}
+              <div className="relative group rounded-2xl overflow-hidden border border-white/[0.1] bg-[#080812] shadow-xl aspect-[3/4]">
+                <img
+                  src={personal.sportsPhoto}
+                  alt="Douglas Phaney em quadra representando a UCB"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080812] via-transparent to-transparent opacity-80" />
+                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-cyan-300 bg-[#080812]/80 px-2 py-0.5 rounded backdrop-blur-sm">
+                  Em Quadra · UCB
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>

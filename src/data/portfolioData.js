@@ -11,6 +11,10 @@ export const portfolioData = {
     github: "https://github.com/douglasphaney",
     linkedin: "https://www.linkedin.com/in/douglasphaney/",
     avatar: "/profile.png",
+    avatar3d: "/avatar_kinect_3d.jpg",
+    trophyPhoto: "/douglas_judf_trofeu.png",
+    sportsPhoto: "/douglas_esporte.png",
+    institution: "UCB - Universidade Católica de Brasília",
   },
 
   aboutCards: [

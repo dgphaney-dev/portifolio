@@ -52,8 +52,8 @@ export default function DeveloperAvatar3D() {
       <div className="relative w-72 h-72 sm:w-84 sm:h-84 rounded-3xl overflow-hidden p-[2px] bg-gradient-to-tr from-purple-500 via-magenta-500 to-cyan-400 shadow-2xl shadow-purple-500/25">
         <div className="relative w-full h-full rounded-[22px] overflow-hidden bg-[#080812]">
           <img
-            src="/avatar_3d.jpg"
-            alt="Boneco 3D de Douglas Phaney"
+            src="/avatar_kinect_3d.jpg"
+            alt="Boneco 3D estilo Kinect Adventures de Douglas Phaney"
             className="w-full h-full object-cover object-center scale-105 hover:scale-110 transition-transform duration-700"
           />
 
