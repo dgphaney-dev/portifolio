@@ -38,12 +38,12 @@ export default function Navbar({ activeSection, darkMode, setDarkMode }) {
             href="#inicio"
             className="flex items-center gap-2.5 group focus:outline-none"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[2px] shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-              <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                <span className="text-white font-extrabold text-lg tracking-wider bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text text-transparent">
-                  DP
-                </span>
-              </div>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[2px] shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform overflow-hidden">
+              <img
+                src={portfolioData.personal.avatar}
+                alt={portfolioData.personal.name}
+                className="w-full h-full object-cover rounded-[9px]"
+              />
             </div>
             <div className="flex flex-col text-left">
               <span className="text-base font-bold text-white tracking-tight group-hover:text-indigo-400 transition-colors flex items-center gap-1.5">

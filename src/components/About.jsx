@@ -46,10 +46,28 @@ export default function About() {
           {/* Bio Card */}
           <div className="lg:col-span-6 p-8 rounded-3xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-md flex flex-col justify-between shadow-xl">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-4">
-                Desenvolvedor Apaixonado por Resolver Problemas
-              </h3>
-              <p className="text-slate-300 leading-relaxed text-base mb-6">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 mb-6">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shrink-0 border-2 border-indigo-500/40 shadow-lg shadow-indigo-500/10 bg-slate-950">
+                  <img
+                    src={personal.avatar}
+                    alt={personal.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="text-center sm:text-left">
+                  <span className="inline-block text-xs font-semibold uppercase tracking-wider text-indigo-400 mb-1">
+                    ADS na Católica
+                  </span>
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    {personal.name}
+                  </h3>
+                  <p className="text-xs text-slate-400 font-medium">
+                    {personal.role}
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-slate-300 leading-relaxed text-base mb-4">
                 {personal.bio}
               </p>
               <p className="text-slate-400 leading-relaxed text-sm mb-6">

@@ -10,6 +10,7 @@ export const portfolioData = {
     whatsapp: "5511999999999", // Coloque seu número com DDD
     github: "https://github.com/douglasphaney",
     linkedin: "https://www.linkedin.com/in/douglasphaney/",
+    avatar: "/profile.png",
     resumeUrl: "#", // Link para baixar seu PDF ou Google Drive
   },
 

@@ -27,10 +27,23 @@ export default function Hero() {
           
           {/* Left Column: Text & CTAs */}
           <div className="lg:col-span-7 text-center lg:text-left">
-            {/* Availability Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm shadow-emerald-500/10 animate-pulse">
-              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-              {personal.availability}
+            {/* Profile Avatar & Availability Badge */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-6">
+              <div className="relative group">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[2.5px] bg-gradient-to-tr from-indigo-500 via-cyan-400 to-emerald-400 shadow-xl shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300">
+                  <img
+                    src={personal.avatar}
+                    alt={personal.name}
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                </div>
+                <span className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-slate-950 shadow-sm animate-pulse" title="Online / Disponível"></span>
+              </div>
+
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider shadow-sm shadow-emerald-500/10">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                {personal.availability}
+              </div>
             </div>
 
             {/* Main Headline */}
