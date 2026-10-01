@@ -1,30 +1,41 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Stats from './components/Stats';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import GithubStats from './components/GithubStats';
-import Experience from './components/Experience';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import ParticleBackground from './components/3d/ParticleBackground';
+import CustomCursor from './components/ui/CustomCursor';
+import SpotlightEffect from './components/ui/SpotlightEffect';
+
+import Navbar from './components/sections/Navbar';
+import Hero from './components/sections/Hero';
+import Stats from './components/sections/Stats';
+import About from './components/sections/About';
+import TechStack from './components/sections/TechStack';
+import FeaturedProject from './components/sections/FeaturedProject';
+import Projects from './components/sections/Projects';
+import GithubSection from './components/sections/GithubSection';
+import Experience from './components/sections/Experience';
+import Contact from './components/sections/Contact';
+import Footer from './components/sections/Footer';
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-indigo-500 selection:text-white font-sans antialiased overflow-x-hidden">
-      {/* Dynamic Background Noise / Mesh Effect */}
-      <div className="fixed inset-0 z-0 opacity-40 pointer-events-none bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px]" />
+    <div className="relative min-h-screen bg-[#080812] text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-purple-600 selection:text-white">
+      {/* Cursor interativo para desktop */}
+      <CustomCursor />
 
+      {/* Partículas e iluminação de fundo */}
+      <ParticleBackground />
+      <SpotlightEffect />
+
+      {/* Estrutura de conteúdo */}
       <div className="relative z-10">
         <Navbar />
         <main>
           <Hero />
           <Stats />
           <About />
-          <Skills />
+          <TechStack />
+          <FeaturedProject />
           <Projects />
-          <GithubStats />
+          <GithubSection />
           <Experience />
           <Contact />
         </main>
