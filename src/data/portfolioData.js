@@ -8,7 +8,7 @@ export const portfolioData = {
     location: "Brasil (Disponível para Remoto e Híbrido)",
     availability: "Disponível para Estágio & Júnior",
     email: "douglasphalbuquerque@gmail.com",
-    github: "https://github.com/douglasphaney",
+    github: "https://github.com/dgphaney-dev",
     linkedin: "https://www.linkedin.com/in/douglasphaney/",
     avatar: "/profile.png",
     avatar3d: "/avatar_kinect_3d.jpg",
@@ -80,7 +80,7 @@ export const portfolioData = {
     ],
     technologies: ["Python", "MySQL", "React", "JavaScript", "Desktop", "Cloud DB"],
     image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80",
-    githubUrl: "https://github.com/douglasphaney/nextgen-erp",
+    githubUrl: "https://github.com/dgphaney-dev/nextgen-erp",
   },
 
   projects: [
@@ -106,8 +106,8 @@ export const portfolioData = {
       longDescription: "Solução para rotina de caixa no varejo, priorizando agilidade na passagem de produtos, fechamento de turno e persistência em banco relacional.",
       tags: ["Python", "MySQL", "Desktop", "PDV", "Estoque"],
       image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80",
-      liveUrl: "https://github.com/douglasphaney",
-      githubUrl: "https://github.com/douglasphaney",
+      liveUrl: "https://github.com/dgphaney-dev",
+      githubUrl: "https://github.com/dgphaney-dev",
     },
     {
       id: "sistema-barbearia",
@@ -118,8 +118,8 @@ export const portfolioData = {
       longDescription: "Aplicação front-end projetada para barbearias modernas com visualização rápida no celular dos clientes.",
       tags: ["JavaScript", "HTML5", "CSS3", "Web"],
       image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&q=80",
-      liveUrl: "https://github.com/douglasphaney/sistema-barbearia",
-      githubUrl: "https://github.com/douglasphaney/sistema-barbearia",
+      liveUrl: "https://github.com/dgphaney-dev/sistema-barbearia",
+      githubUrl: "https://github.com/dgphaney-dev/sistema-barbearia",
     },
     {
       id: "sistema-de-registro",
@@ -130,8 +130,8 @@ export const portfolioData = {
       longDescription: "Projeto backend focado na validação consistente de entradas de dados, tratamento de erros e armazenamento seguro em MySQL.",
       tags: ["Python", "MySQL", "Backend", "Banco de Dados"],
       image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
-      liveUrl: "https://github.com/douglasphaney/sistema-de-registro",
-      githubUrl: "https://github.com/douglasphaney/sistema-de-registro",
+      liveUrl: "https://github.com/dgphaney-dev/sistema-de-registro",
+      githubUrl: "https://github.com/dgphaney-dev/sistema-de-registro",
     },
     {
       id: "site-de-venda-responsivo",
@@ -142,8 +142,8 @@ export const portfolioData = {
       longDescription: "Site de vendas com foco em performance e experiência de compra, layout responsivo e ótima usabilidade.",
       tags: ["HTML5", "CSS3", "JavaScript", "Web"],
       image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80",
-      liveUrl: "https://github.com/douglasphaney/site-de-venda-responsivo",
-      githubUrl: "https://github.com/douglasphaney/site-de-venda-responsivo",
+      liveUrl: "https://github.com/dgphaney-dev/site-de-venda-responsivo",
+      githubUrl: "https://github.com/dgphaney-dev/site-de-venda-responsivo",
     },
   ],
 

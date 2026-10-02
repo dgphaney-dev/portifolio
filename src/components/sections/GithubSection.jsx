@@ -1,10 +1,47 @@
-import React from 'react';
-import { ExternalLink, GitCommit, Flame, Code, Sparkles, FolderGit2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ExternalLink, GitCommit, Flame, Code, Sparkles, FolderGit2, Star, GitFork, BookOpen } from 'lucide-react';
+import { GitHubCalendar } from 'react-github-calendar';
 import { Github } from '../Icons';
 import { portfolioData } from '../../data/portfolioData';
 
 export default function GithubSection() {
   const { personal } = portfolioData;
+  const [repos, setRepos] = useState([]);
+  const [loadingRepos, setLoadingRepos] = useState(true);
+
+  // Busca repositórios públicos em tempo real diretamente da API do GitHub
+  useEffect(() => {
+    fetch('https://api.github.com/users/dgphaney-dev/repos?sort=updated&per_page=6')
+      .then((res) => {
+        if (!res.ok) throw new Error('Falha ao carregar repositórios');
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setRepos(data);
+        }
+      })
+      .catch((err) => {
+        console.warn('GitHub API rate limit ou erro:', err);
+      })
+      .finally(() => {
+        setLoadingRepos(false);
+      });
+  }, []);
+
+  const calendarTheme = {
+    dark: ['#121226', '#0e4429', '#006d32', '#26a641', '#39d353'],
+  };
+
+  const calendarLabels = {
+    totalCount: '{{count}} contribuições registradas no último ano',
+    legend: {
+      less: 'Menos',
+      more: 'Mais',
+    },
+    months: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    weekdays: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+  };
 
   const languages = [
     { name: 'Python', percent: '40%', color: 'bg-blue-500' },
@@ -33,11 +70,11 @@ export default function GithubSection() {
                   <h3 className="text-xl sm:text-2xl font-bold text-white">Atividade no GitHub</h3>
                   <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
                     <Flame className="w-3 h-3 fill-emerald-400" />
-                    Ativo
+                    Sincronizado ao Vivo
                   </span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                  Perfil oficial: <span className="font-mono text-purple-400">@douglasphaney</span>
+                  Perfil oficial: <a href="https://github.com/dgphaney-dev" target="_blank" rel="noopener noreferrer" className="font-mono text-purple-400 hover:text-purple-300 underline underline-offset-2">@dgphaney-dev</a>
                 </p>
               </div>
             </div>
@@ -47,8 +84,8 @@ export default function GithubSection() {
               <div className="px-4 py-2 rounded-xl bg-[#080812] border border-white/[0.08] flex items-center gap-2.5">
                 <GitCommit className="w-4 h-4 text-emerald-400" />
                 <div>
-                  <span className="block text-[11px] text-slate-400 font-medium">Último ano</span>
-                  <span className="text-sm font-bold text-emerald-400 font-mono">724 contribuições</span>
+                  <span className="block text-[11px] text-slate-400 font-medium">Dedicação Total</span>
+                  <span className="text-sm font-bold text-emerald-400 font-mono">724+ contribuições</span>
                 </div>
               </div>
 
@@ -58,22 +95,75 @@ export default function GithubSection() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs uppercase tracking-wider text-white bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-lg shadow-purple-500/25 transition-all hover:scale-105"
               >
-                <span>Ver GitHub</span>
+                <span>Ver Perfil GitHub</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>
 
-          {/* Gráfico de Contribuições Real */}
-          <div className="rounded-2xl bg-[#080812]/90 border border-white/[0.08] p-4 sm:p-6 mb-8 overflow-x-auto shadow-inner flex flex-col items-center">
-            <div className="min-w-[680px] w-full flex items-center justify-center">
-              <img
-                src="/github-contributions.png"
-                alt="Gráfico de Contribuições do GitHub de Douglas Phaney"
-                className="w-full max-h-56 object-contain rounded-xl"
+          {/* Gráfico de Contribuições Dinâmico Direto do GitHub */}
+          <div className="rounded-2xl bg-[#080812]/90 border border-white/[0.08] p-5 sm:p-7 mb-8 overflow-x-auto shadow-inner flex flex-col items-center">
+            <div className="min-w-[680px] w-full flex items-center justify-center text-slate-300">
+              <GitHubCalendar
+                username="dgphaney-dev"
+                colorScheme="dark"
+                theme={calendarTheme}
+                labels={calendarLabels}
+                fontSize={12}
+                blockSize={13}
+                blockMargin={4}
+                errorMessage="Conectando aos dados ao vivo do GitHub..."
               />
             </div>
           </div>
+
+          {/* Repositórios Públicos Conectados ao Vivo */}
+          {repos.length > 0 && (
+            <div className="mb-8">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-2">
+                <FolderGit2 className="w-4 h-4 text-cyan-400" />
+                Repositórios Públicos Recentes no GitHub
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                {repos.slice(0, 6).map((repo) => (
+                  <a
+                    key={repo.id}
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-4 rounded-xl bg-[#080812]/80 border border-white/[0.06] hover:border-purple-500/40 hover:bg-[#0D0D18] transition-all group flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <span className="font-mono text-sm font-semibold text-white group-hover:text-cyan-300 transition-colors truncate">
+                          {repo.name}
+                        </span>
+                        <ExternalLink className="w-3.5 h-3.5 text-slate-500 group-hover:text-cyan-400 transition-colors shrink-0" />
+                      </div>
+                      <p className="text-xs text-slate-400 line-clamp-2 mb-3">
+                        {repo.description || 'Repositório prático de desenvolvimento de software.'}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3 text-[11px] text-slate-400 pt-2 border-t border-white/[0.04]">
+                      {repo.language && (
+                        <span className="flex items-center gap-1.5 font-medium text-slate-300">
+                          <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                          {repo.language}
+                        </span>
+                      )}
+                      <span className="flex items-center gap-1 text-slate-400">
+                        <Star className="w-3 h-3 text-amber-400" />
+                        {repo.stargazers_count}
+                      </span>
+                      <span className="text-[10px] text-slate-500 ml-auto font-mono">
+                        {new Date(repo.updated_at).toLocaleDateString('pt-BR')}
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Linguagens Mais Utilizadas */}
           <div>
