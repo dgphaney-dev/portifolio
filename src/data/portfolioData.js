@@ -172,4 +172,34 @@ export const portfolioData = {
       description: "Graduação superior focada em engenharia de software, modelagem de banco de dados, lógica de programação e arquitetura de sistemas computacionais.",
     },
   ],
+
+  certifications: [
+    {
+      id: "fiap-python",
+      title: "Python - Nano Course",
+      issuer: "FIAP - Centro Universitário",
+      hours: "80 horas",
+      date: "20 de Maio de 2026",
+      validationCode: "26137E7BEEF7EC7B2F3AE181343B0F70",
+      validationUrl: "https://on.fiap.com.br/validar-certificado/",
+      pdfUrl: "/certificado-fiap-python.pdf",
+      description: "Certificação de 80 horas pela FIAP abrangendo fundamentos e tópicos avançados em Python: estruturas de dados, manipulação de arquivos, funções, modularização e lógica de programação aplicada.",
+      skills: ["Python", "Estruturas de Dados", "Automação", "Algoritmos"],
+      badge: "FIAP Certified",
+    },
+    {
+      id: "aws-ia",
+      title: "AWS - Agentes de IA em Campo",
+      issuer: "AWS & DIO (Digital Innovation One)",
+      hours: "18 horas",
+      date: "08 de Agosto de 2026",
+      validationCode: "WKHOHJVX",
+      validationUrl: "https://www.dio.me/certificate/WKHOHJVX",
+      pdfUrl: "/certificado-aws-ia.pdf",
+      description: "Bootcamp prático de computação em nuvem com Amazon Web Services (AWS) e desenvolvimento de agentes inteligentes com Inteligência Artificial generativa e aplicada.",
+      skills: ["AWS Cloud", "Inteligência Artificial", "Agentes de IA", "Cloud Computing"],
+      badge: "AWS & DIO Bootcamp",
+    },
+  ],
 };
+
