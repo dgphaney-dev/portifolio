@@ -31,9 +31,14 @@ export default function CustomCursor() {
       if (
         target.tagName === 'A' ||
         target.tagName === 'BUTTON' ||
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
         target.closest('a') ||
         target.closest('button') ||
-        target.getAttribute('role') === 'button'
+        target.getAttribute('role') === 'button' ||
+        target.closest('.group') ||
+        target.closest('[data-hoverable]') ||
+        window.getComputedStyle(target).cursor === 'pointer'
       ) {
         setIsHovered(true);
       } else {

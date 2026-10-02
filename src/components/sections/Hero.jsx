@@ -29,7 +29,7 @@ export default function Hero() {
           {/* Coluna Esquerda: Apresentação e Botões */}
           <div className="lg:col-span-7 text-center lg:text-left">
             {/* Badge de Disponibilidade & Foto */}
-            <div className="inline-flex items-center gap-3 p-1.5 pr-4 rounded-full bg-[#0D0D18]/90 border border-white/[0.08] shadow-lg mb-6 backdrop-blur-md">
+            <div className="inline-flex items-center gap-3 p-1.5 pr-4 rounded-full bg-[#0D0D18]/90 border border-white/[0.08] hover:border-emerald-500/40 hover:bg-[#111124] shadow-lg mb-6 backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-default">
               <div className="w-8 h-8 rounded-full overflow-hidden border border-purple-500/40">
                 <img
                   src={personal.avatar}
@@ -70,18 +70,18 @@ export default function Hero() {
               {/* Ver Projetos */}
               <a
                 href="#projetos"
-                className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:-translate-y-0.5 transition-all duration-200"
+                className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-lg shadow-purple-500/25 hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 <span>Ver Projetos</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-200" />
               </a>
 
               {/* Sobre Mim */}
               <a
                 href="#sobre"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider text-slate-200 bg-[#0D0D18]/90 hover:bg-[#11111F] border border-white/[0.08] hover:border-purple-500/40 hover:-translate-y-0.5 transition-all duration-200"
+                className="group inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider text-slate-200 bg-[#0D0D18]/90 hover:bg-[#11111F] border border-white/[0.08] hover:border-purple-500/60 hover:text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.25)] hover:scale-105 active:scale-95 transition-all duration-200"
               >
-                <User className="w-3.5 h-3.5 text-purple-400" />
+                <User className="w-3.5 h-3.5 text-purple-400 group-hover:scale-110 transition-transform" />
                 <span>Sobre Mim</span>
               </a>
 
@@ -90,10 +90,10 @@ export default function Hero() {
                 href={personal.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl font-medium text-xs text-slate-300 bg-[#0D0D18]/80 hover:bg-[#11111F] border border-white/[0.08] hover:text-white hover:border-white/20 transition-all"
+                className="group inline-flex items-center gap-2 px-4 py-3 rounded-xl font-semibold text-xs text-slate-300 bg-[#0D0D18]/80 hover:bg-[#11111F] border border-white/[0.08] hover:border-purple-400 hover:text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:scale-105 active:scale-95 transition-all duration-200"
                 title="GitHub Douglas Phaney"
               >
-                <Github className="w-4 h-4 text-purple-400" />
+                <Github className="w-4 h-4 text-purple-400 group-hover:rotate-12 transition-transform duration-200" />
                 <span>GitHub</span>
               </a>
 
@@ -102,10 +102,10 @@ export default function Hero() {
                 href={personal.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl font-medium text-xs text-slate-300 bg-[#0D0D18]/80 hover:bg-[#11111F] border border-white/[0.08] hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
+                className="group inline-flex items-center gap-2 px-4 py-3 rounded-xl font-semibold text-xs text-slate-300 bg-[#0D0D18]/80 hover:bg-[#11111F] border border-white/[0.08] hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:scale-105 active:scale-95 transition-all duration-200"
                 title="LinkedIn Douglas Phaney"
               >
-                <Linkedin className="w-4 h-4 text-cyan-400" />
+                <Linkedin className="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform duration-200" />
                 <span>LinkedIn</span>
               </a>
             </div>

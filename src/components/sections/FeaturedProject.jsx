@@ -133,7 +133,7 @@ export default function FeaturedProject() {
                 {featuredProject.technologies.map((tech, idx) => (
                   <span
                     key={idx}
-                    className="px-3 py-1 rounded-lg bg-purple-500/10 border border-purple-500/25 text-purple-300 text-xs font-medium"
+                    className="px-3 py-1 rounded-lg bg-purple-500/10 border border-purple-500/25 hover:border-cyan-400/50 hover:bg-purple-500/20 text-purple-300 hover:text-cyan-200 text-xs font-medium transition-all duration-200 hover:scale-105 cursor-default"
                   >
                     {tech}
                   </span>
@@ -145,7 +145,7 @@ export default function FeaturedProject() {
             <div className="pt-2 flex flex-wrap items-center gap-3.5">
               <button
                 onClick={() => setModalOpen(true)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-105 transition-all duration-200 cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-lg shadow-purple-500/25 hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer"
               >
                 <Info className="w-4 h-4" />
                 <span>Explorar Arquitetura</span>
@@ -153,7 +153,7 @@ export default function FeaturedProject() {
 
               <a
                 href="#contato"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-xs text-slate-300 hover:text-white bg-[#11111F] hover:bg-slate-800 border border-white/[0.08] transition-all"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider text-slate-300 hover:text-white bg-[#11111F] hover:bg-[#1a1a2e] border border-white/[0.08] hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.25)] hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 <MessageSquare className="w-4 h-4 text-cyan-400" />
                 <span>Solicitar Demonstração</span>

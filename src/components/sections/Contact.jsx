@@ -137,34 +137,34 @@ export default function Contact() {
                   href={personal.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3.5 rounded-xl bg-[#080812] hover:bg-[#11111F] border border-white/[0.08] hover:border-purple-500/40 text-slate-300 hover:text-white transition-all flex items-center gap-2.5 text-xs font-semibold"
+                  className="group p-3.5 rounded-xl bg-[#080812] hover:bg-[#111122] border border-white/[0.08] hover:border-purple-500/60 hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] text-slate-300 hover:text-white transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2.5 text-xs font-semibold"
                 >
-                  <Github className="w-4 h-4 text-purple-400" />
+                  <Github className="w-4 h-4 text-purple-400 group-hover:rotate-12 transition-transform duration-200" />
                   <span>GitHub</span>
-                  <ArrowUpRight className="w-3 h-3 ml-auto text-slate-500" />
+                  <ArrowUpRight className="w-3 h-3 ml-auto text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                 </a>
 
                 <a
                   href={personal.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3.5 rounded-xl bg-[#080812] hover:bg-[#11111F] border border-white/[0.08] hover:border-cyan-500/40 text-slate-300 hover:text-cyan-300 transition-all flex items-center gap-2.5 text-xs font-semibold"
+                  className="group p-3.5 rounded-xl bg-[#080812] hover:bg-[#111122] border border-white/[0.08] hover:border-cyan-500/60 hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] text-slate-300 hover:text-cyan-300 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2.5 text-xs font-semibold"
                 >
-                  <Linkedin className="w-4 h-4 text-cyan-400" />
+                  <Linkedin className="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform duration-200" />
                   <span>LinkedIn</span>
-                  <ArrowUpRight className="w-3 h-3 ml-auto text-slate-500" />
+                  <ArrowUpRight className="w-3 h-3 ml-auto text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                 </a>
               </div>
             </div>
 
             {/* Elemento Abstrato / Status de Contratação */}
-            <div className="p-6 rounded-3xl bg-[#0D0D18]/60 border border-white/[0.06] flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shrink-0">
+            <div className="p-6 rounded-3xl bg-[#0D0D18]/60 border border-white/[0.06] hover:border-cyan-500/40 hover:bg-[#111122] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] flex items-center gap-4 cursor-default group">
+              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 group-hover:scale-110 group-hover:bg-cyan-500/20 group-hover:border-cyan-400/50 flex items-center justify-center text-cyan-400 shrink-0 transition-all duration-300">
                 <MessageSquare className="w-6 h-6" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white">Disponibilidade</h4>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <h4 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">Disponibilidade</h4>
+                <p className="text-xs text-slate-400 mt-0.5 group-hover:text-slate-300 transition-colors">
                   Aberto para propostas de Estágio ou Júnior em desenvolvimento de software.
                 </p>
               </div>

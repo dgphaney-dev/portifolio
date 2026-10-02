@@ -73,10 +73,10 @@ export default function TechStack() {
                 key={index}
                 onMouseEnter={() => setHoveredIdx(index)}
                 onMouseLeave={() => setHoveredIdx(null)}
-                className={`relative group rounded-2xl p-5 bg-[#080812]/90 border border-white/[0.08] backdrop-blur-md transition-all duration-300 flex flex-col items-center justify-between text-center cursor-default ${
+                className={`relative group rounded-2xl p-5 bg-[#080812]/90 border backdrop-blur-md transition-all duration-300 flex flex-col items-center justify-between text-center cursor-pointer select-none ${
                   isHovered
-                    ? 'border-purple-500/60 -translate-y-2 shadow-2xl shadow-purple-500/20 scale-[1.03]'
-                    : 'hover:border-white/20'
+                    ? 'border-cyan-400/60 -translate-y-2.5 shadow-[0_10px_30px_rgba(6,182,212,0.25)] scale-105 bg-[#0D0D1E]'
+                    : 'border-white/[0.08] hover:border-purple-500/40 hover:-translate-y-1'
                 }`}
                 style={{
                   animationDelay: `${index * 120}ms`,
@@ -84,26 +84,26 @@ export default function TechStack() {
               >
                 {/* Glow interno no hover */}
                 <div
-                  className={`absolute inset-0 rounded-2xl bg-gradient-to-tr ${tech.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none`}
+                  className={`absolute inset-0 rounded-2xl bg-gradient-to-tr ${tech.color} opacity-0 group-hover:opacity-15 transition-opacity duration-300 pointer-events-none`}
                 />
 
-                {/* Ícone */}
-                <div className="w-12 h-12 rounded-xl bg-[#11111F] border border-white/[0.08] flex items-center justify-center text-slate-300 group-hover:text-cyan-300 group-hover:scale-110 transition-all duration-300 mb-3 shadow-inner">
-                  <Icon className="w-6 h-6" />
+                {/* Ícone com rotação e escala */}
+                <div className="w-13 h-13 rounded-2xl bg-[#11111F] border border-white/[0.08] flex items-center justify-center text-slate-300 group-hover:text-cyan-300 group-hover:scale-125 group-hover:rotate-6 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] group-hover:border-cyan-500/40 transition-all duration-300 mb-3 shadow-inner">
+                  <Icon className="w-6 h-6 transition-transform" />
                 </div>
 
                 {/* Nome */}
-                <h3 className="text-sm font-bold text-white group-hover:text-purple-300 transition-colors">
+                <h3 className="text-sm font-bold text-white group-hover:text-cyan-200 transition-colors">
                   {tech.name}
                 </h3>
 
                 {/* Categoria / Detalhe */}
-                <span className="text-[11px] text-slate-400 font-mono mt-1">
+                <span className="text-[11px] text-slate-400 font-mono mt-1 group-hover:text-slate-300 transition-colors">
                   {tech.category}
                 </span>
 
                 {/* Ponto indicador de status */}
-                <div className="mt-3 w-1.5 h-1.5 rounded-full bg-purple-500/60 group-hover:bg-cyan-400 group-hover:scale-150 transition-all" />
+                <div className="mt-3 w-1.5 h-1.5 rounded-full bg-purple-500/60 group-hover:bg-cyan-400 group-hover:scale-175 group-hover:shadow-[0_0_8px_#22d3ee] transition-all" />
               </div>
             );
           })}

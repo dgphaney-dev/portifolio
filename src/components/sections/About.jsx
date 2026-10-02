@@ -101,20 +101,20 @@ export default function About() {
               return (
                 <div
                   key={idx}
-                  className="p-6 rounded-3xl bg-[#0D0D18]/70 border border-white/[0.07] hover:border-purple-500/40 hover:bg-[#11111F] transition-all duration-300 group flex flex-col justify-between shadow-lg hover:shadow-purple-500/10 hover:-translate-y-1"
+                  className="p-6 rounded-3xl bg-[#0D0D18]/80 border border-white/[0.08] hover:border-purple-500/60 hover:bg-[#111124] transition-all duration-300 group flex flex-col justify-between shadow-lg hover:shadow-[0_0_30px_rgba(168,85,247,0.2)] hover:-translate-y-2 hover:scale-[1.02] cursor-default"
                 >
                   <div>
-                    <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-110 group-hover:bg-purple-500/20 group-hover:text-cyan-300 transition-all mb-4">
+                    <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-125 group-hover:rotate-6 group-hover:bg-purple-500/20 group-hover:text-cyan-300 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-all duration-300 mb-4">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="text-[11px] font-bold uppercase tracking-widest text-purple-400 block mb-1">
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-purple-400 block mb-1 group-hover:text-cyan-400 transition-colors">
                       {card.title}
                     </span>
                     <h4 className="text-sm sm:text-base font-bold text-white mb-2 group-hover:text-cyan-200 transition-colors">
                       {card.subtitle}
                     </h4>
                   </div>
-                  <p className="text-xs text-slate-400 leading-relaxed mt-2">
+                  <p className="text-xs text-slate-400 leading-relaxed mt-2 group-hover:text-slate-300 transition-colors">
                     {card.description}
                   </p>
                 </div>
@@ -125,14 +125,14 @@ export default function About() {
         </div>
 
         {/* Bloco Especial: Além do Código - Atleta Universitário (UCB / JUDF) */}
-        <div className="rounded-3xl bg-[#0D0D18]/80 border border-white/[0.08] backdrop-blur-xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-600/10 blur-[130px] pointer-events-none" />
+        <div className="rounded-3xl bg-[#0D0D18]/80 border border-white/[0.08] hover:border-cyan-500/30 transition-all duration-500 backdrop-blur-xl p-6 sm:p-8 shadow-2xl relative overflow-hidden group/athlete">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-600/10 blur-[130px] pointer-events-none group-hover/athlete:opacity-100 transition-opacity" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Texto & Conquistas */}
             <div className="lg:col-span-7 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider">
-                <Trophy className="w-3.5 h-3.5 text-amber-300" />
+                <Trophy className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
                 Além do Código · Atleta Universitário
               </div>
 
@@ -150,15 +150,15 @@ export default function About() {
 
               {/* Badges de Destaque Esportivo */}
               <div className="flex flex-wrap gap-2.5 pt-2">
-                <span className="px-3 py-1.5 rounded-xl bg-[#11111F] border border-white/[0.08] text-xs font-medium text-amber-300 flex items-center gap-1.5">
+                <span className="px-3.5 py-1.5 rounded-xl bg-[#11111F] border border-white/[0.08] hover:border-amber-400/50 hover:bg-[#16162a] text-xs font-medium text-amber-300 flex items-center gap-1.5 transition-all duration-200 hover:scale-105 cursor-default">
                   <Award className="w-3.5 h-3.5 text-amber-300" />
                   Premiado no JUDF
                 </span>
-                <span className="px-3 py-1.5 rounded-xl bg-[#11111F] border border-white/[0.08] text-xs font-medium text-cyan-300 flex items-center gap-1.5">
+                <span className="px-3.5 py-1.5 rounded-xl bg-[#11111F] border border-white/[0.08] hover:border-cyan-400/50 hover:bg-[#16162a] text-xs font-medium text-cyan-300 flex items-center gap-1.5 transition-all duration-200 hover:scale-105 cursor-default">
                   <Users className="w-3.5 h-3.5 text-cyan-300" />
                   Atleta UCB (Católica)
                 </span>
-                <span className="px-3 py-1.5 rounded-xl bg-[#11111F] border border-white/[0.08] text-xs font-medium text-emerald-300 flex items-center gap-1.5">
+                <span className="px-3.5 py-1.5 rounded-xl bg-[#11111F] border border-white/[0.08] hover:border-emerald-400/50 hover:bg-[#16162a] text-xs font-medium text-emerald-300 flex items-center gap-1.5 transition-all duration-200 hover:scale-105 cursor-default">
                   <CheckCircle className="w-3.5 h-3.5 text-emerald-300" />
                   Cooperação & Disciplina
                 </span>
@@ -168,27 +168,27 @@ export default function About() {
             {/* Duas Fotos Reais da UCB e JUDF */}
             <div className="lg:col-span-5 grid grid-cols-2 gap-4">
               {/* Foto 1: Troféu JUDF */}
-              <div className="relative group rounded-2xl overflow-hidden border border-white/[0.1] bg-[#080812] shadow-xl aspect-[3/4]">
+              <div className="relative group/photo rounded-2xl overflow-hidden border border-white/[0.1] hover:border-amber-400/60 bg-[#080812] shadow-xl aspect-[3/4] transition-all duration-300 hover:shadow-[0_0_25px_rgba(245,158,11,0.3)]">
                 <img
                   src={personal.trophyPhoto}
                   alt="Douglas Phaney com troféu do JUDF pela UCB"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover/photo:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#080812] via-transparent to-transparent opacity-80" />
-                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-[#080812]/80 px-2 py-0.5 rounded backdrop-blur-sm">
-                  Premiação JUDF
+                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-[#080812]/80 px-2 py-0.5 rounded backdrop-blur-sm group-hover/photo:bg-amber-500/20 group-hover/photo:text-amber-200 transition-colors">
+                  Premiação JUDF 🏆
                 </span>
               </div>
 
               {/* Foto 2: Em quadra UCB */}
-              <div className="relative group rounded-2xl overflow-hidden border border-white/[0.1] bg-[#080812] shadow-xl aspect-[3/4]">
+              <div className="relative group/photo rounded-2xl overflow-hidden border border-white/[0.1] hover:border-cyan-400/60 bg-[#080812] shadow-xl aspect-[3/4] transition-all duration-300 hover:shadow-[0_0_25px_rgba(6,182,212,0.3)]">
                 <img
                   src={personal.sportsPhoto}
                   alt="Douglas Phaney em quadra representando a UCB"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover/photo:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#080812] via-transparent to-transparent opacity-80" />
-                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-cyan-300 bg-[#080812]/80 px-2 py-0.5 rounded backdrop-blur-sm">
+                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-cyan-300 bg-[#080812]/80 px-2 py-0.5 rounded backdrop-blur-sm group-hover/photo:bg-cyan-500/20 group-hover/photo:text-cyan-200 transition-colors">
                   Em Quadra · UCB
                 </span>
               </div>

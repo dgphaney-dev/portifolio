@@ -36,13 +36,13 @@ export default function Experience() {
 
         {/* Tab Switcher com 3 Abas */}
         <div className="flex justify-center mb-14">
-          <div className="inline-flex flex-wrap justify-center p-1.5 rounded-2xl bg-[#0D0D18] border border-white/[0.08] gap-1 sm:gap-0">
+          <div className="inline-flex flex-wrap justify-center p-1.5 rounded-2xl bg-[#0D0D18] border border-white/[0.08] gap-1 sm:gap-1.5 shadow-inner">
             <button
               onClick={() => setActiveTab('experience')}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer ${
                 activeTab === 'experience'
-                  ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-md shadow-purple-500/25'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-lg shadow-purple-500/30'
+                  : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
               <Briefcase className="w-4 h-4" />
@@ -50,10 +50,10 @@ export default function Experience() {
             </button>
             <button
               onClick={() => setActiveTab('education')}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer ${
                 activeTab === 'education'
-                  ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-md shadow-purple-500/25'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-lg shadow-purple-500/30'
+                  : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
               <GraduationCap className="w-4 h-4" />
@@ -61,10 +61,10 @@ export default function Experience() {
             </button>
             <button
               onClick={() => setActiveTab('certifications')}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer ${
                 activeTab === 'certifications'
-                  ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-md shadow-purple-500/25'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-lg shadow-purple-500/30'
+                  : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
               <Award className="w-4 h-4" />

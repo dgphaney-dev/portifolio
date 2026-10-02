@@ -34,34 +34,34 @@ export default function Footer() {
                 href={personal.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-[#0D0D18] hover:bg-[#11111F] text-slate-400 hover:text-white border border-white/[0.08] transition-colors"
+                className="group p-2.5 rounded-xl bg-[#0D0D18] hover:bg-[#111122] text-slate-400 hover:text-white border border-white/[0.08] hover:border-purple-500/50 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:scale-110 active:scale-95 transition-all duration-200"
                 aria-label="GitHub de Douglas Phaney"
               >
-                <Github className="w-4 h-4" />
+                <Github className="w-4 h-4 group-hover:rotate-12 transition-transform duration-200" />
               </a>
 
               <a
                 href={personal.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-[#0D0D18] hover:bg-[#11111F] text-slate-400 hover:text-cyan-400 border border-white/[0.08] transition-colors"
+                className="group p-2.5 rounded-xl bg-[#0D0D18] hover:bg-[#111122] text-slate-400 hover:text-cyan-400 border border-white/[0.08] hover:border-cyan-400/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] hover:scale-110 active:scale-95 transition-all duration-200"
                 aria-label="LinkedIn de Douglas Phaney"
               >
-                <Linkedin className="w-4 h-4" />
+                <Linkedin className="w-4 h-4 group-hover:rotate-12 transition-transform duration-200" />
               </a>
 
               <a
                 href={`mailto:${personal.email}`}
-                className="p-2.5 rounded-xl bg-[#0D0D18] hover:bg-[#11111F] text-slate-400 hover:text-purple-400 border border-white/[0.08] transition-colors"
+                className="group p-2.5 rounded-xl bg-[#0D0D18] hover:bg-[#111122] text-slate-400 hover:text-purple-300 border border-white/[0.08] hover:border-purple-400/50 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:scale-110 active:scale-95 transition-all duration-200"
                 aria-label="Enviar E-mail para Douglas Phaney"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
               </a>
             </div>
 
             <button
               onClick={scrollToTop}
-              className="p-2.5 rounded-xl bg-purple-600/10 hover:bg-purple-600/20 text-purple-400 border border-purple-500/20 transition-all cursor-pointer flex items-center gap-1.5 text-xs font-semibold"
+              className="p-2.5 px-3.5 rounded-xl bg-purple-600/10 hover:bg-purple-600/25 text-purple-400 hover:text-white border border-purple-500/30 hover:border-purple-400/60 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer flex items-center gap-1.5 text-xs font-semibold"
               title="Voltar ao início da página"
             >
               <ArrowUp className="w-4 h-4" />

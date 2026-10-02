@@ -51,35 +51,35 @@ export default function Navbar() {
           {/* Logo DOUGLAS.DEV */}
           <a
             href="#home"
-            className="flex items-center gap-3 group focus:outline-none"
+            className="flex items-center gap-3 group focus:outline-none transition-transform hover:scale-105"
           >
-            <div className="w-9 h-9 rounded-xl p-[1.5px] bg-gradient-to-tr from-purple-600 via-magenta-500 to-cyan-400 group-hover:scale-105 transition-transform overflow-hidden shadow-md shadow-purple-500/20">
+            <div className="w-9 h-9 rounded-xl p-[1.5px] bg-gradient-to-tr from-purple-600 via-magenta-500 to-cyan-400 group-hover:shadow-[0_0_15px_rgba(168,85,247,0.6)] group-hover:rotate-3 transition-all duration-300 overflow-hidden shadow-md shadow-purple-500/20">
               <img
                 src={portfolioData.personal.avatar}
                 alt={portfolioData.personal.name}
-                className="w-full h-full object-cover rounded-[10px]"
+                className="w-full h-full object-cover rounded-[10px] group-hover:scale-110 transition-transform duration-300"
               />
             </div>
             <div className="flex items-center gap-1">
-              <span className="font-extrabold text-base tracking-wider bg-gradient-to-r from-white via-purple-200 to-cyan-300 bg-clip-text text-transparent font-mono">
+              <span className="font-extrabold text-base tracking-wider bg-gradient-to-r from-white via-purple-200 to-cyan-300 bg-clip-text text-transparent font-mono group-hover:text-cyan-200 transition-colors">
                 DOUGLAS.DEV
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse group-hover:scale-150 transition-transform"></span>
             </div>
           </a>
 
           {/* Desktop Nav Items */}
-          <nav className="hidden md:flex items-center gap-1 bg-[#0D0D18]/80 px-4 py-1.5 rounded-full border border-white/[0.08] backdrop-blur-md">
+          <nav className="hidden md:flex items-center gap-1 bg-[#0D0D18]/80 px-4 py-1.5 rounded-full border border-white/[0.08] backdrop-blur-md shadow-inner">
             {navItems.map((item) => {
               const isActive = activeSection === item.href.substring(1);
               return (
                 <a
                   key={item.name}
                   href={item.href}
-                  className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 hover:scale-105 active:scale-95 ${
                     isActive
-                      ? 'text-white bg-purple-600/30 border border-purple-500/40 shadow-sm shadow-purple-500/20'
-                      : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
+                      ? 'text-white bg-gradient-to-r from-purple-600/40 to-cyan-500/30 border border-purple-500/50 shadow-[0_0_15px_rgba(168,85,247,0.3)]'
+                      : 'text-slate-400 hover:text-white hover:bg-white/[0.08] hover:border hover:border-white/10'
                   }`}
                 >
                   {item.name}
@@ -92,10 +92,10 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <a
               href="#contato"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-md shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-105 transition-all duration-200"
+              className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-lg shadow-purple-500/25 hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] hover:scale-105 active:scale-95 transition-all duration-200"
             >
               <span>Fale Comigo</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
           </div>
 
