@@ -5,7 +5,8 @@ import {
   Sparkles, 
   Layers, 
   Info,
-  ArrowUpRight
+  ArrowUpRight,
+  Lock
 } from 'lucide-react';
 import { Github } from '../Icons';
 import { portfolioData } from '../../data/portfolioData';
