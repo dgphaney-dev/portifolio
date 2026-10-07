@@ -1,478 +1,692 @@
-import React, { useState } from 'react';
-import { Sparkles, ExternalLink, Info } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
+import { Sparkles, Compass } from 'lucide-react';
 
 export default function TechStack() {
-  const [activeNode, setActiveNode] = useState(null);
-  const [cardPos, setCardPos] = useState({ x: 0, y: 0 });
+  const containerRef = useRef(null);
+  const canvasRef = useRef(null);
+  const [hoveredNode, setHoveredNode] = useState(null);
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
-  // Hubs estelares (Nexus de constelação com brilho e flare)
-  const starHubs = [
-    { id: 'hub-tools', label: 'Tools', x: 280, y: 190 },
-    { id: 'hub-design', label: 'Design', x: 308, y: 315 },
-    { id: 'hub-frontend', label: 'Front-End', x: 442, y: 295 },
-    { id: 'hub-prog', label: 'Programming', x: 602, y: 265 },
-    { id: 'hub-cloud', label: 'Cloud & Infra', x: 675, y: 165 },
-    { id: 'hub-backend', label: 'Back-End', x: 660, y: 315 },
-  ];
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
 
-  // Nós de tecnologia (Pílulas circulares com logos e informações)
-  const skillNodes = [
-    // Ferramentas & Design
-    {
-      id: 'git',
-      name: 'Git',
-      category: 'Controle de Versão',
-      desc: 'Versionamento seguro, branching strategy e histórico consistente.',
-      x: 330,
-      y: 165,
-      r: 16,
-      color: '#f05032',
-      badgeBg: '#2d1b1b',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-rose-400">
-          <path d="M21.6 10.8l-8.4-8.4c-.8-.8-2-.8-2.8 0l-2.1 2.1 3.5 3.5c.6-.2 1.3 0 1.8.4.5.5.7 1.2.4 1.8l3.4 3.4c.6-.2 1.3 0 1.8.4.8.8.8 2 0 2.8s-2 .8-2.8 0c-.5-.5-.7-1.3-.4-1.8l-3.3-3.3v4.6c.4.3.7.8.7 1.4 0 1.1-.9 2-2 2s-2-.9-2-2c0-.6.3-1.1.7-1.4v-4.6c-.4-.3-.7-.8-.7-1.4 0-.6.3-1.2.8-1.5l-3.5-3.5-2.1 2.1c-.8.8-.8 2 0 2.8l8.4 8.4c.8.8 2 .8 2.8 0l8.4-8.4c.8-.8.8-2 0-2.8z" />
-        </svg>
-      ),
-    },
-    {
-      id: 'github',
-      name: 'GitHub',
-      category: 'Colaboração & CI',
-      desc: '724+ contribuições ativas, repositórios públicos e portfólio.',
-      x: 282,
-      y: 250,
-      r: 16,
-      color: '#a855f7',
-      badgeBg: '#211835',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-purple-300">
-          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-        </svg>
-      ),
-    },
-    {
-      id: 'tailwind',
-      name: 'Tailwind CSS',
-      category: 'Design & Estilo',
-      desc: 'Design responsivo ultra-rápido com glassmorphism e microinterações.',
-      x: 390,
-      y: 275,
-      r: 16,
-      color: '#38bdf8',
-      badgeBg: '#132838',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-sky-400">
-          <path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z" />
-        </svg>
-      ),
-    },
-    {
-      id: 'html-css',
-      name: 'HTML5 / CSS3',
-      category: 'Estruturação & Web',
-      desc: 'Semântica acessível, SEO e estilizações avançadas modernas.',
-      x: 370,
-      y: 335,
-      r: 15,
-      color: '#f97316',
-      badgeBg: '#2d1b15',
-      icon: (
-        <span className="font-bold text-[10px] text-orange-400 font-mono">&lt;/&gt;</span>
-      ),
-    },
+    let width = (canvas.width = containerRef.current.clientWidth);
+    let height = (canvas.height = Math.max(680, window.innerHeight * 0.75));
 
-    // Front-End & Interfaces
-    {
-      id: 'react',
-      name: 'React',
-      category: 'Front-End UI',
-      desc: 'Construção de SPAs dinâmicas, hooks, components modulares e estados.',
-      x: 500,
-      y: 305,
-      r: 17,
-      color: '#00d8ff',
-      badgeBg: '#122533',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-current text-cyan-400 stroke-[1.5]">
-          <ellipse cx="12" cy="12" rx="10" ry="4.5" />
-          <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(60 12 12)" />
-          <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(120 12 12)" />
-          <circle cx="12" cy="12" r="1.5" className="fill-current" />
-        </svg>
-      ),
-    },
-    {
-      id: 'javascript',
-      name: 'JavaScript',
-      category: 'Linguagem Core',
-      desc: 'Manipulação assíncrona, lógica de frontend e integração de APIs.',
-      x: 520,
-      y: 245,
-      r: 17,
-      color: '#f7df1e',
-      badgeBg: '#2e2912',
-      icon: (
-        <span className="font-black text-xs text-yellow-300 font-mono">JS</span>
-      ),
-    },
-    {
-      id: 'vite',
-      name: 'Vite / Tooling',
-      category: 'Build & Bundling',
-      desc: 'Ambiente moderno de desenvolvimento ultrarrápido com Hot Reload.',
-      x: 468,
-      y: 360,
-      r: 15,
-      color: '#bd34fe',
-      badgeBg: '#27173b',
-      icon: (
-        <span className="font-bold text-[10px] text-purple-300 font-mono">⚡</span>
-      ),
-    },
-    {
-      id: 'threejs',
-      name: 'Three.js / 3D',
-      category: 'WebGL & Interatividade',
-      desc: 'Renderização 3D, câmeras interativas e partículas imersivas.',
-      x: 495,
-      y: 190,
-      r: 15,
-      color: '#a855f7',
-      badgeBg: '#211835',
-      icon: (
-        <span className="font-bold text-[10px] text-purple-400 font-mono">3D</span>
-      ),
-    },
+    const handleResize = () => {
+      if (!containerRef.current) return;
+      width = canvas.width = containerRef.current.clientWidth;
+      height = canvas.height = containerRef.current.clientHeight || 680;
+      initPositions();
+    };
+    window.addEventListener('resize', handleResize);
 
-    // Backend, Linguagens & Dados
-    {
-      id: 'python',
-      name: 'Python',
-      category: 'Backend & Lógica',
-      desc: 'Certificação FIAP 80h: Lógica de sistemas, automação, PDV e regras de negócio.',
-      x: 602,
-      y: 350,
-      r: 17,
-      color: '#3776ab',
-      badgeBg: '#142536',
-      icon: (
-        <span className="font-black text-xs text-blue-400 font-mono">Py</span>
-      ),
-    },
-    {
-      id: 'nodejs',
-      name: 'Node.js',
-      category: 'Runtime Backend',
-      desc: 'Execução de servidores, microsserviços e APIs com ambiente JavaScript.',
-      x: 628,
-      y: 365,
-      r: 16,
-      color: '#539e43',
-      badgeBg: '#192b1a',
-      icon: (
-        <span className="font-black text-[11px] text-emerald-400 font-mono">JS</span>
-      ),
-    },
-    {
-      id: 'mysql',
-      name: 'MySQL',
-      category: 'Banco Relacional',
-      desc: 'Modelagem SQL relacional, índices, constraints e persistência em nuvem.',
-      x: 708,
-      y: 335,
-      r: 17,
-      color: '#00758f',
-      badgeBg: '#102733',
-      icon: (
-        <span className="font-bold text-[10px] text-cyan-300 font-mono">SQL</span>
-      ),
-    },
-    {
-      id: 'sqlite',
-      name: 'SQLite',
-      category: 'Banco Embutido',
-      desc: 'Armazenamento rápido local para sistemas desktop e testes ágeis.',
-      x: 720,
-      y: 285,
-      r: 14,
-      color: '#003b57',
-      badgeBg: '#11222e',
-      icon: (
-        <span className="font-bold text-[9px] text-sky-400 font-mono">DB</span>
-      ),
-    },
-    {
-      id: 'aws',
-      name: 'AWS Cloud',
-      category: 'Computação em Nuvem',
-      desc: 'Certificação DIO 18h: Agentes inteligentes em cloud, deploy e serviços AWS.',
-      x: 645,
-      y: 215,
-      r: 16,
-      color: '#ff9900',
-      badgeBg: '#312411',
-      icon: (
-        <span className="font-black text-[10px] text-amber-400 font-mono">AWS</span>
-      ),
-    },
-  ];
+    // --- ESTRELAS DO CÉU (220+ estrelas com twinkle e profundidade) ---
+    const starCount = 220;
+    const stars = Array.from({ length: starCount }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 2 + 0.6,
+      baseAlpha: Math.random() * 0.6 + 0.2,
+      twinkleSpeed: Math.random() * 0.03 + 0.008,
+      phase: Math.random() * Math.PI * 2,
+      color: ['#ffffff', '#bae6fd', '#e0e7ff', '#c084fc', '#67e8f9'][
+        Math.floor(Math.random() * 5)
+      ],
+      parallax: Math.random() * 0.08 + 0.02,
+    }));
 
-  // Conexões estelares da constelação
-  const links = [
-    // Ramo da Esquerda: Ferramentas & Design
-    { from: 'hub-tools', to: 'git' },
-    { from: 'hub-tools', to: 'github' },
-    { from: 'github', to: 'hub-design' },
-    { from: 'hub-design', to: 'html-css' },
-    { from: 'html-css', to: 'tailwind' },
-    { from: 'tailwind', to: 'hub-frontend' },
+    // --- METEOROS / SHOOTING STARS ---
+    const meteors = [];
+    let lastMeteorTime = 0;
 
-    // Ramo Central: Front-End & Javascript
-    { from: 'hub-frontend', to: 'react' },
-    { from: 'hub-frontend', to: 'vite' },
-    { from: 'hub-frontend', to: 'javascript' },
-    { from: 'javascript', to: 'threejs' },
-    { from: 'javascript', to: 'hub-prog' },
+    const spawnMeteor = () => {
+      // Nasce no canto superior ou lateral
+      const startX = Math.random() * width * 1.2 - width * 0.1;
+      const startY = Math.random() * (height * 0.4);
+      const angle = Math.PI / 4 + (Math.random() * 0.3 - 0.15); // ~45 graus
+      const speed = Math.random() * 10 + 12;
 
-    // Ramo da Direita: Programação, Cloud, Backend & Banco
-    { from: 'hub-prog', to: 'python' },
-    { from: 'hub-prog', to: 'nodejs' },
-    { from: 'hub-prog', to: 'aws' },
-    { from: 'aws', to: 'hub-cloud' },
-    { from: 'hub-prog', to: 'hub-backend' },
-    { from: 'hub-backend', to: 'mysql' },
-    { from: 'hub-backend', to: 'sqlite' },
-    { from: 'python', to: 'hub-backend' },
-    { from: 'nodejs', to: 'mysql' },
-  ];
+      meteors.push({
+        x: startX,
+        y: startY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        length: Math.random() * 90 + 70,
+        thickness: Math.random() * 1.8 + 1.2,
+        opacity: 1,
+        decay: Math.random() * 0.012 + 0.008,
+        color: Math.random() > 0.4 ? '#38bdf8' : '#e879f9',
+      });
+    };
 
-  // Helper para obter coordenadas de qualquer ponto (nó ou hub)
-  const getCoords = (id) => {
-    const hub = starHubs.find((h) => h.id === id);
-    if (hub) return { x: hub.x, y: hub.y };
-    const node = skillNodes.find((n) => n.id === id);
-    if (node) return { x: node.x, y: node.y };
-    return { x: 0, y: 0 };
-  };
+    // --- DADOS DA CONSTELAÇÃO (LAYOUT RELATIVO EM %) ---
+    const rawHubs = [
+      { id: 'hub-tools', label: 'Tools', rx: 0.22, ry: 0.32, color: '#a855f7' },
+      { id: 'hub-design', label: 'Design', rx: 0.28, ry: 0.65, color: '#f59e0b' },
+      { id: 'hub-frontend', label: 'Front-End', rx: 0.45, ry: 0.52, color: '#06b6d4' },
+      { id: 'hub-prog', label: 'Programming', rx: 0.63, ry: 0.44, color: '#6366f1' },
+      { id: 'hub-cloud', label: 'Cloud & Infra', rx: 0.74, ry: 0.24, color: '#f97316' },
+      { id: 'hub-backend', label: 'Back-End', rx: 0.73, ry: 0.62, color: '#10b981' },
+    ];
 
-  const isLinkActive = (fromId, toId) => {
-    if (!activeNode) return false;
-    return activeNode.id === fromId || activeNode.id === toId;
-  };
+    const rawSkills = [
+      {
+        id: 'git',
+        name: 'Git',
+        category: 'Controle de Versão',
+        desc: 'Versionamento seguro, branching strategy e histórico consistente.',
+        rx: 0.28,
+        ry: 0.25,
+        r: 20,
+        color: '#f05032',
+        symbol: 'GIT',
+      },
+      {
+        id: 'github',
+        name: 'GitHub',
+        category: 'Colaboração & CI',
+        desc: '724+ contribuições ativas, repositórios públicos e portfólio.',
+        rx: 0.24,
+        ry: 0.48,
+        r: 20,
+        color: '#c084fc',
+        symbol: 'GH',
+      },
+      {
+        id: 'html-css',
+        name: 'HTML5 / CSS3',
+        category: 'Estruturação & Web',
+        desc: 'Semântica acessível, SEO e estilizações avançadas modernas.',
+        rx: 0.35,
+        ry: 0.74,
+        r: 18,
+        color: '#f97316',
+        symbol: '</>',
+      },
+      {
+        id: 'tailwind',
+        name: 'Tailwind CSS',
+        category: 'Design & Estilo',
+        desc: 'Design responsivo ultra-rápido com glassmorphism e microinterações.',
+        rx: 0.37,
+        ry: 0.48,
+        r: 20,
+        color: '#38bdf8',
+        symbol: 'CSS',
+      },
+      {
+        id: 'javascript',
+        name: 'JavaScript',
+        category: 'Linguagem Core',
+        desc: 'Manipulação assíncrona, lógica de frontend e integração de APIs.',
+        rx: 0.53,
+        ry: 0.38,
+        r: 22,
+        color: '#facc15',
+        symbol: 'JS',
+      },
+      {
+        id: 'react',
+        name: 'React',
+        category: 'Front-End UI',
+        desc: 'Construção de SPAs dinâmicas, hooks, components modulares e estados.',
+        rx: 0.51,
+        ry: 0.58,
+        r: 22,
+        color: '#22d3ee',
+        symbol: '⚛',
+      },
+      {
+        id: 'vite',
+        name: 'Vite / Tooling',
+        category: 'Build & Bundling',
+        desc: 'Ambiente moderno de desenvolvimento ultrarrápido com Hot Reload.',
+        rx: 0.46,
+        ry: 0.73,
+        r: 18,
+        color: '#a855f7',
+        symbol: '⚡',
+      },
+      {
+        id: 'threejs',
+        name: 'Three.js / 3D',
+        category: 'WebGL & Interatividade',
+        desc: 'Renderização 3D, câmeras interativas e partículas imersivas.',
+        rx: 0.49,
+        ry: 0.24,
+        r: 18,
+        color: '#818cf8',
+        symbol: '3D',
+      },
+      {
+        id: 'python',
+        name: 'Python',
+        category: 'Backend & Lógica',
+        desc: 'Certificação FIAP 80h: Lógica de sistemas, automação, PDV e regras de negócio.',
+        rx: 0.62,
+        ry: 0.64,
+        r: 22,
+        color: '#38bdf8',
+        symbol: 'Py',
+      },
+      {
+        id: 'nodejs',
+        name: 'Node.js',
+        category: 'Runtime Backend',
+        desc: 'Execução de servidores, microsserviços e APIs com ambiente JavaScript.',
+        rx: 0.67,
+        ry: 0.74,
+        r: 20,
+        color: '#4ade80',
+        symbol: 'Node',
+      },
+      {
+        id: 'mysql',
+        name: 'MySQL',
+        category: 'Banco Relacional',
+        desc: 'Modelagem SQL relacional, índices, constraints e persistência em nuvem.',
+        rx: 0.82,
+        ry: 0.66,
+        r: 22,
+        color: '#06b6d4',
+        symbol: 'SQL',
+      },
+      {
+        id: 'sqlite',
+        name: 'SQLite',
+        category: 'Banco Embutido',
+        desc: 'Armazenamento rápido local para sistemas desktop e testes ágeis.',
+        rx: 0.84,
+        ry: 0.52,
+        r: 18,
+        color: '#38bdf8',
+        symbol: 'DB',
+      },
+      {
+        id: 'aws',
+        name: 'AWS Cloud',
+        category: 'Computação em Nuvem',
+        desc: 'Certificação DIO 18h: Agentes inteligentes em cloud, deploy e serviços AWS.',
+        rx: 0.70,
+        ry: 0.35,
+        r: 20,
+        color: '#fbbf24',
+        symbol: 'AWS',
+      },
+    ];
 
-  const handleMouseEnterNode = (node, e) => {
-    setActiveNode(node);
-    const rect = e.currentTarget.getBoundingClientRect();
-    const parentRect = e.currentTarget.closest('#skills-constellation-container').getBoundingClientRect();
-    setCardPos({
-      x: rect.left - parentRect.left + 25,
-      y: rect.top - parentRect.top - 20,
-    });
-  };
+    const rawLinks = [
+      { from: 'hub-tools', to: 'git' },
+      { from: 'hub-tools', to: 'github' },
+      { from: 'github', to: 'hub-design' },
+      { from: 'hub-design', to: 'html-css' },
+      { from: 'html-css', to: 'tailwind' },
+      { from: 'tailwind', to: 'hub-frontend' },
+      { from: 'hub-frontend', to: 'react' },
+      { from: 'hub-frontend', to: 'vite' },
+      { from: 'hub-frontend', to: 'javascript' },
+      { from: 'javascript', to: 'threejs' },
+      { from: 'javascript', to: 'hub-prog' },
+      { from: 'hub-prog', to: 'python' },
+      { from: 'hub-prog', to: 'nodejs' },
+      { from: 'hub-prog', to: 'aws' },
+      { from: 'aws', to: 'hub-cloud' },
+      { from: 'hub-prog', to: 'hub-backend' },
+      { from: 'hub-backend', to: 'mysql' },
+      { from: 'hub-backend', to: 'sqlite' },
+      { from: 'python', to: 'hub-backend' },
+      { from: 'nodejs', to: 'mysql' },
+    ];
+
+    let hubs = [];
+    let skills = [];
+
+    const initPositions = () => {
+      hubs = rawHubs.map((h) => ({
+        ...h,
+        x: h.rx * width,
+        y: h.ry * height,
+        baseX: h.rx * width,
+        baseY: h.ry * height,
+        vx: 0,
+        vy: 0,
+        isHub: true,
+        phase: Math.random() * Math.PI * 2,
+      }));
+
+      skills = rawSkills.map((s) => ({
+        ...s,
+        x: s.rx * width,
+        y: s.ry * height,
+        baseX: s.rx * width,
+        baseY: s.ry * height,
+        vx: 0,
+        vy: 0,
+        isHub: false,
+        phase: Math.random() * Math.PI * 2,
+      }));
+    };
+
+    initPositions();
+
+    // --- MOUSE E FÍSICA INTERATIVA ---
+    const mouse = { x: -1000, y: -1000, isHovering: false };
+    let draggedNode = null;
+
+    const onMouseMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.isHovering = true;
+
+      // Detecta nó sobre o qual o mouse está passando
+      let found = null;
+      for (const node of [...skills, ...hubs]) {
+        const dx = node.x - mouse.x;
+        const dy = node.y - mouse.y;
+        const r = (node.r || 16) + 8;
+        if (dx * dx + dy * dy < r * r) {
+          found = node;
+          break;
+        }
+      }
+
+      setHoveredNode(found);
+      if (found) {
+        setTooltipPos({ x: mouse.x, y: mouse.y });
+      }
+    };
+
+    const onMouseLeave = () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
+      mouse.isHovering = false;
+      draggedNode = null;
+      setHoveredNode(null);
+    };
+
+    const onMouseDown = () => {
+      for (const node of [...skills, ...hubs]) {
+        const dx = node.x - mouse.x;
+        const dy = node.y - mouse.y;
+        const r = (node.r || 16) + 12;
+        if (dx * dx + dy * dy < r * r) {
+          draggedNode = node;
+          break;
+        }
+      }
+    };
+
+    const onMouseUp = () => {
+      draggedNode = null;
+    };
+
+    canvas.addEventListener('mousemove', onMouseMove);
+    canvas.addEventListener('mouseleave', onMouseLeave);
+    canvas.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mouseup', onMouseUp);
+
+    // Suporte a toque mobile
+    const onTouchMove = (e) => {
+      if (!e.touches[0]) return;
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.touches[0].clientX - rect.left;
+      mouse.y = e.touches[0].clientY - rect.top;
+      mouse.isHovering = true;
+    };
+    canvas.addEventListener('touchmove', onTouchMove, { passive: true });
+    canvas.addEventListener('touchend', onMouseLeave);
+
+    // --- LOOP DE ANIMAÇÃO ---
+    let time = 0;
+
+    const render = () => {
+      time += 0.016;
+      ctx.clearRect(0, 0, width, height);
+
+      // 1. Fundo do Céu Noturno com Nebulosa Suave
+      const bgGrad = ctx.createRadialGradient(
+        width * 0.5,
+        height * 0.5,
+        50,
+        width * 0.5,
+        height * 0.5,
+        width * 0.7
+      );
+      bgGrad.addColorStop(0, '#101528');
+      bgGrad.addColorStop(0.5, '#0b0f19');
+      bgGrad.addColorStop(1, '#060812');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      // Manchas de Nebulosa Cósmica Colorida
+      const nebula1 = ctx.createRadialGradient(width * 0.35, height * 0.45, 10, width * 0.35, height * 0.45, 300);
+      nebula1.addColorStop(0, 'rgba(123, 70, 255, 0.14)');
+      nebula1.addColorStop(1, 'rgba(123, 70, 255, 0)');
+      ctx.fillStyle = nebula1;
+      ctx.fillRect(0, 0, width, height);
+
+      const nebula2 = ctx.createRadialGradient(width * 0.68, height * 0.55, 10, width * 0.68, height * 0.55, 320);
+      nebula2.addColorStop(0, 'rgba(6, 182, 212, 0.12)');
+      nebula2.addColorStop(1, 'rgba(6, 182, 212, 0)');
+      ctx.fillStyle = nebula2;
+      ctx.fillRect(0, 0, width, height);
+
+      // 2. Desenho de Estrelas Cintilantes (Céu Estrelado)
+      const mouseParallaxX = (mouse.x - width * 0.5) * 0.03;
+      const mouseParallaxY = (mouse.y - height * 0.5) * 0.03;
+
+      for (const s of stars) {
+        const currentAlpha = s.baseAlpha + Math.sin(time * 3 * s.twinkleSpeed * 60 + s.phase) * 0.25;
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = Math.max(0.1, Math.min(1, currentAlpha));
+
+        const sx = s.x - mouseParallaxX * s.parallax;
+        const sy = s.y - mouseParallaxY * s.parallax;
+
+        ctx.beginPath();
+        ctx.arc(sx, sy, s.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      // 3. Atualização e Desenho dos Meteoros
+      if (time - lastMeteorTime > Math.random() * 2.5 + 1.8) {
+        spawnMeteor();
+        lastMeteorTime = time;
+      }
+
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        const m = meteors[i];
+        m.x += m.vx;
+        m.y += m.vy;
+        m.opacity -= m.decay;
+
+        if (m.opacity <= 0 || m.x > width + 100 || m.y > height + 100) {
+          meteors.splice(i, 1);
+          continue;
+        }
+
+        const tailX = m.x - (m.vx / 15) * m.length;
+        const tailY = m.y - (m.vy / 15) * m.length;
+
+        const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
+        grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity})`);
+        grad.addColorStop(0.3, m.color === '#38bdf8' ? `rgba(56, 189, 248, ${m.opacity * 0.8})` : `rgba(232, 121, 249, ${m.opacity * 0.8})`);
+        grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = m.thickness;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(tailX, tailY);
+        ctx.stroke();
+
+        // Cabeça brilhante do meteoro
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.thickness * 1.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // 4. Física Interativa dos Nós da Constelação
+      const allNodes = [...hubs, ...skills];
+
+      for (const node of allNodes) {
+        if (node === draggedNode) {
+          node.x = mouse.x;
+          node.y = mouse.y;
+          node.vx = 0;
+          node.vy = 0;
+        } else {
+          // Movimento orgânico flutuante (Gravidade zero)
+          const floatOffset = Math.sin(time * 1.5 + node.phase) * 6;
+          const targetY = node.baseY + floatOffset;
+          const targetX = node.baseX + Math.cos(time * 1.2 + node.phase) * 4;
+
+          // Força de atração à posição base (Spring)
+          const k = 0.04;
+          const ax = (targetX - node.x) * k;
+          const ay = (targetY - node.y) * k;
+          node.vx = (node.vx + ax) * 0.86;
+          node.vy = (node.vy + ay) * 0.86;
+
+          // Repulsão suave do mouse ao se aproximar (< 160px)
+          if (mouse.isHovering) {
+            const dx = node.x - mouse.x;
+            const dy = node.y - mouse.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 160 && dist > 1) {
+              const force = (160 - dist) / 160;
+              node.vx += (dx / dist) * force * 1.6;
+              node.vy += (dy / dist) * force * 1.6;
+            }
+          }
+
+          node.x += node.vx;
+          node.y += node.vy;
+        }
+      }
+
+      // 5. Linhas da Constelação com Energia e Pulso de Luz
+      for (const link of rawLinks) {
+        const n1 = allNodes.find((n) => n.id === link.from);
+        const n2 = allNodes.find((n) => n.id === link.to);
+        if (!n1 || !n2) continue;
+
+        const isHighlighted =
+          draggedNode?.id === n1.id ||
+          draggedNode?.id === n2.id ||
+          hoveredNode?.id === n1.id ||
+          hoveredNode?.id === n2.id;
+
+        ctx.beginPath();
+        ctx.moveTo(n1.x, n1.y);
+        ctx.lineTo(n2.x, n2.y);
+
+        if (isHighlighted) {
+          ctx.strokeStyle = '#22d3ee';
+          ctx.lineWidth = 2.5;
+          ctx.shadowColor = '#06b6d4';
+          ctx.shadowBlur = 12;
+        } else {
+          ctx.strokeStyle = 'rgba(147, 197, 253, 0.25)';
+          ctx.lineWidth = 1.3;
+          ctx.shadowBlur = 0;
+        }
+
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        // Pulso de fóton viajando pela linha
+        const pulsePos = (Math.sin(time * 2 + (n1.x + n2.y) * 0.01) + 1) * 0.5;
+        const px = n1.x + (n2.x - n1.x) * pulsePos;
+        const py = n1.y + (n2.y - n1.y) * pulsePos;
+
+        ctx.fillStyle = isHighlighted ? '#ffffff' : 'rgba(192, 132, 252, 0.7)';
+        ctx.beginPath();
+        ctx.arc(px, py, isHighlighted ? 2.8 : 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // 6. Desenho dos Hubs Estelares (Nexus de 4 pontas com brilho radiante)
+      for (const hub of hubs) {
+        const isHover = hoveredNode?.id === hub.id;
+        ctx.save();
+        ctx.translate(hub.x, hub.y);
+
+        // Halo Difuso
+        const haloGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, isHover ? 26 : 18);
+        haloGrad.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+        haloGrad.addColorStop(0.3, isHover ? 'rgba(168, 85, 247, 0.8)' : 'rgba(168, 85, 247, 0.4)');
+        haloGrad.addColorStop(1, 'rgba(168, 85, 247, 0)');
+        ctx.fillStyle = haloGrad;
+        ctx.beginPath();
+        ctx.arc(0, 0, isHover ? 26 : 18, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Estrela de 4 Pontas Radiante (Estilo Caio Duque)
+        ctx.rotate(time * 0.4);
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowColor = hub.color;
+        ctx.shadowBlur = isHover ? 22 : 12;
+
+        const size = isHover ? 18 : 13;
+        ctx.beginPath();
+        ctx.moveTo(0, -size);
+        ctx.quadraticCurveTo(0, 0, size, 0);
+        ctx.quadraticCurveTo(0, 0, 0, size);
+        ctx.quadraticCurveTo(0, 0, -size, 0);
+        ctx.quadraticCurveTo(0, 0, 0, -size);
+        ctx.fill();
+
+        ctx.restore();
+
+        // Rótulo de Texto do Hub
+        ctx.fillStyle = isHover ? '#ffffff' : '#cbd5e1';
+        ctx.font = 'bold 11px Outfit, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.shadowColor = 'rgba(0,0,0,0.8)';
+        ctx.shadowBlur = 4;
+        ctx.fillText(hub.label, hub.x, hub.y + 18);
+        ctx.shadowBlur = 0;
+      }
+
+      // 7. Desenho dos Nós de Habilidade (Pílulas Glass com Logos)
+      for (const skill of skills) {
+        const isHover = hoveredNode?.id === skill.id;
+        const r = isHover ? skill.r * 1.25 : skill.r;
+
+        // Aura de Brilho no Hover
+        if (isHover) {
+          ctx.beginPath();
+          ctx.arc(skill.x, skill.y, r + 14, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(6, 182, 212, 0.25)';
+          ctx.fill();
+        }
+
+        // Círculo Fundo do Nó
+        ctx.beginPath();
+        ctx.arc(skill.x, skill.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = '#0f172a';
+        ctx.fill();
+
+        // Borda Colorida com Gradiente Cósmico
+        ctx.lineWidth = isHover ? 3 : 1.8;
+        ctx.strokeStyle = isHover ? skill.color : 'rgba(255, 255, 255, 0.35)';
+        ctx.shadowColor = isHover ? skill.color : 'transparent';
+        ctx.shadowBlur = isHover ? 18 : 0;
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        // Símbolo / Texto do Ícone Central
+        ctx.fillStyle = isHover ? '#ffffff' : skill.color;
+        ctx.font = `900 ${Math.round(r * 0.72)}px "Fira Code", monospace`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(skill.symbol, skill.x, skill.y);
+
+        // Nome da Tecnologia Abaixo do Nó
+        ctx.fillStyle = isHover ? '#ffffff' : '#94a3b8';
+        ctx.font = `${isHover ? 'bold' : 'normal'} 11px Outfit, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.shadowColor = 'rgba(0,0,0,0.8)';
+        ctx.shadowBlur = 5;
+        ctx.fillText(skill.name, skill.x, skill.y + r + 6);
+        ctx.shadowBlur = 0;
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', handleResize);
+      canvas.removeEventListener('mousemove', onMouseMove);
+      canvas.removeEventListener('mouseleave', onMouseLeave);
+      canvas.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('mouseup', onMouseUp);
+      canvas.removeEventListener('touchmove', onTouchMove);
+      canvas.removeEventListener('touchend', onMouseLeave);
+    };
+  }, []);
 
   return (
     <section id="tecnologias" className="py-24 relative overflow-hidden bg-[#0b0f19]">
-      {/* Nuvens cósmicas idênticas ao Caio Duque */}
-      <div className="skills-clouds" aria-hidden="true" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-purple-600/10 blur-[170px] pointer-events-none" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Título com Liquid Gradient Wave */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-3">
+        {/* Cabeçalho da Seção */}
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            Constelação de Habilidades
+            Constelação Interativa
           </div>
           <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
             <span className="skills-text-liquid">Skills Constellation</span>
           </h2>
-          <p className="mt-3 text-xs sm:text-sm text-slate-400">
-            Passe o mouse ou toque nos nós estelares para visualizar a arquitetura de conexões e especialidades.
+          <p className="mt-3 text-xs sm:text-sm text-slate-400 flex items-center justify-center gap-2">
+            <Compass className="w-4 h-4 text-purple-400 animate-spin" style={{ animationDuration: '8s' }} />
+            <span>Mova o mouse pelo céu para interagir com a gravidade, arraste os nós e observe os meteoros passando.</span>
           </p>
         </div>
 
-        {/* Canvas da Constelação SVG */}
-        <div id="skills-constellation-container" className="relative select-none">
-          
-          {/* Card Flutuante Interativo (Estilo Caio Duque) */}
-          {activeNode && (
+        {/* Canvas Expansivo da Constelação (Mais amplo e imersivo) */}
+        <div
+          ref={containerRef}
+          className="relative w-full rounded-3xl overflow-hidden border border-white/[0.08] shadow-[0_20px_60px_rgba(0,0,0,0.7)] bg-[#060812]"
+          style={{ height: '700px' }}
+        >
+          <canvas
+            ref={canvasRef}
+            className="w-full h-full block cursor-grab active:cursor-grabbing"
+          />
+
+          {/* Tooltip Card Flutuante (Caio Duque Glass) */}
+          {hoveredNode && !hoveredNode.isHub && (
             <div
-              className="skill-info-card opacity-100"
+              className="skill-info-card opacity-100 pointer-events-none"
               style={{
-                left: `${Math.min(Math.max(cardPos.x, 20), 750)}px`,
-                top: `${Math.min(Math.max(cardPos.y, 20), 380)}px`,
+                left: `${Math.min(Math.max(tooltipPos.x + 18, 20), containerRef.current ? containerRef.current.clientWidth - 260 : 700)}px`,
+                top: `${Math.min(Math.max(tooltipPos.y - 40, 20), 580)}px`,
               }}
             >
               <div className="flex items-center justify-between gap-2 mb-1">
-                <h4 className="font-bold text-white text-sm">{activeNode.name}</h4>
+                <h4 className="font-bold text-white text-sm">{hoveredNode.name}</h4>
                 <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-white/20 text-white">
-                  {activeNode.category}
+                  {hoveredNode.category}
                 </span>
               </div>
-              <p className="text-xs text-white/90 leading-relaxed font-normal">
-                {activeNode.desc}
+              <p className="text-xs text-white/95 leading-relaxed font-normal">
+                {hoveredNode.desc}
               </p>
             </div>
           )}
 
-          <svg
-            viewBox="0 0 1000 520"
-            className="w-full h-full overflow-visible pointer-events-auto"
-          >
-            <defs>
-              {/* Filtro de brilho cósmico */}
-              <filter id="glow-star" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-              <filter id="glow-node" x="-40%" y="-40%" width="180%" height="180%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
+          {/* Dica de Interatividade no canto inferior */}
+          <div className="absolute bottom-4 left-4 z-20 pointer-events-none hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/70 border border-white/10 backdrop-blur-md text-[11px] text-slate-300 font-mono">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span>Física ativa • Arraste ou passe o cursor sobre as estrelas</span>
+          </div>
 
-            {/* Estrelas de Fundo (Partículas cósmicas cintilantes) */}
-            {[
-              { cx: 120, cy: 90, r: 1.5, o: 0.6 },
-              { cx: 210, cy: 140, r: 1, o: 0.4 },
-              { cx: 160, cy: 380, r: 2, o: 0.5 },
-              { cx: 290, cy: 430, r: 1.2, o: 0.7 },
-              { cx: 410, cy: 110, r: 2, o: 0.8 },
-              { cx: 580, cy: 120, r: 1.5, o: 0.5 },
-              { cx: 750, cy: 110, r: 2, o: 0.6 },
-              { cx: 840, cy: 220, r: 1.2, o: 0.4 },
-              { cx: 820, cy: 390, r: 1.8, o: 0.7 },
-              { cx: 550, cy: 440, r: 1, o: 0.5 },
-              { cx: 690, cy: 450, r: 1.5, o: 0.6 },
-              { cx: 480, cy: 80, r: 2.2, o: 0.9 },
-            ].map((star, idx) => (
-              <circle
-                key={idx}
-                cx={star.cx}
-                cy={star.cy}
-                r={star.r}
-                fill="#ffffff"
-                opacity={star.o}
-                className="animate-pulse"
-              />
-            ))}
-
-            {/* Linhas da Constelação (SVG Strokes) */}
-            {links.map((link, idx) => {
-              const p1 = getCoords(link.from);
-              const p2 = getCoords(link.to);
-              const active = isLinkActive(link.from, link.to);
-
-              return (
-                <line
-                  key={idx}
-                  x1={p1.x}
-                  y1={p1.y}
-                  x2={p2.x}
-                  y2={p2.y}
-                  className={`skill-link ${active ? 'active' : ''}`}
-                />
-              );
-            })}
-
-            {/* Hubs Estelares (Nexus de 4 pontas com flare) */}
-            {starHubs.map((hub) => (
-              <g
-                key={hub.id}
-                className="skill-star-hub"
-                transform={`translate(${hub.x}, ${hub.y})`}
-              >
-                {/* Brilho radial difuso */}
-                <circle r="12" fill="rgba(168, 85, 247, 0.25)" filter="url(#glow-star)" />
-                <circle r="4" fill="#ffffff" />
-                
-                {/* Cruz estelar com flare */}
-                <path
-                  d="M0 -14 Q0 0 14 0 Q0 0 0 14 Q0 0 -14 0 Q0 0 0 -14 Z"
-                  fill="#ffffff"
-                  filter="url(#glow-star)"
-                />
-
-                {/* Rótulo do Hub */}
-                <text
-                  y="22"
-                  textAnchor="middle"
-                  className="fill-slate-300 font-mono text-[11px] font-bold tracking-wider"
-                >
-                  {hub.label}
-                </text>
-              </g>
-            ))}
-
-            {/* Nós de Habilidade (Pílulas / Círculos com ícones e rótulos) */}
-            {skillNodes.map((node) => {
-              const isHovered = activeNode?.id === node.id;
-
-              return (
-                <g
-                  key={node.id}
-                  className="skill-node"
-                  transform={`translate(${node.x}, ${node.y})`}
-                  onMouseEnter={(e) => handleMouseEnterNode(node, e)}
-                  onMouseLeave={() => setActiveNode(null)}
-                >
-                  {/* Aura no Hover */}
-                  {isHovered && (
-                    <circle
-                      r={node.r + 9}
-                      fill={node.color}
-                      opacity="0.3"
-                      filter="url(#glow-node)"
-                    />
-                  )}
-
-                  {/* Círculo Principal Glass */}
-                  <circle
-                    r={node.r}
-                    fill={node.badgeBg}
-                    className="glass"
-                    style={{ stroke: isHovered ? node.color : 'rgba(255, 255, 255, 0.35)' }}
-                  />
-
-                  {/* Conteúdo Central do Ícone */}
-                  <foreignObject
-                    x={-node.r}
-                    y={-node.r}
-                    width={node.r * 2}
-                    height={node.r * 2}
-                    className="pointer-events-none"
-                  >
-                    <div className="w-full h-full flex items-center justify-center">
-                      {node.icon}
-                    </div>
-                  </foreignObject>
-
-                  {/* Nome da Tecnologia Abaixo do Nó */}
-                  <text
-                    y={node.r + 14}
-                    textAnchor="middle"
-                    className="fill-white font-mono text-[11px] font-semibold tracking-wide drop-shadow-md"
-                  >
-                    {node.name}
-                  </text>
-                </g>
-              );
-            })}
-          </svg>
+          <div className="absolute bottom-4 right-4 z-20 pointer-events-none hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/70 border border-white/10 backdrop-blur-md text-[11px] text-slate-400 font-mono">
+            <span>☄️ Meteoros em tempo real</span>
+          </div>
         </div>
 
         {/* Rodapé da Seção */}
         <div className="mt-8 text-center flex items-center justify-center gap-3">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-xs text-slate-400 font-mono">
-            Conexões arquiteturais entre Frontend, Backend, Banco de Dados e Ferramentas.
+            Estrutura conectada entre Frontend, Backend, Banco de Dados, Cloud e Ferramentas.
           </span>
         </div>
 
