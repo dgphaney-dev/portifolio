@@ -12,8 +12,8 @@ export const portfolioData = {
     linkedin: "https://www.linkedin.com/in/douglasphaney/",
     avatar: "/profile.png",
     avatar3d: "/avatar_kinect_3d.jpg",
-    trophyPhoto: "/douglas_judf_trofeu.png",
-    sportsPhoto: "/douglas_esporte.png",
+    handballPhoto1: "/douglas_handebol_1.png",
+    handballPhoto2: "/douglas_handebol_2.jpg",
     institution: "UCB - Universidade Católica de Brasília",
   },
 

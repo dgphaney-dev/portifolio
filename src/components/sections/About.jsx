@@ -7,8 +7,8 @@ import {
   GraduationCap, 
   CheckCircle,
   MapPin,
-  Trophy,
-  Award,
+  Target,
+  Activity,
   Users,
   Briefcase,
   ArrowRight
@@ -136,72 +136,72 @@ export default function About() {
 
         </div>
 
-        {/* Card 2 Bento: Além do Código - Atleta Universitário (UCB / JUDF) */}
+        {/* Card 2 Bento: Além do Código - Atleta de Handebol (UCB) */}
         <div className="rounded-3xl glass-ultra p-7 sm:p-9 relative overflow-hidden group/athlete">
           <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-600/10 blur-[130px] pointer-events-none group-hover/athlete:opacity-100 transition-opacity" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Texto & Conquistas */}
+            {/* Texto & Competências */}
             <div className="lg:col-span-7 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider">
-                <Trophy className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-                Além do Código · Atleta Universitário
+                <Activity className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                Além do Código · Atleta de Handebol
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Disciplina, Resiliência & Trabalho em Equipe
+                Disciplina, Foco & Trabalho em Equipe
               </h3>
 
               <p className="text-sm text-slate-300 leading-relaxed">
-                Além do desenvolvimento de software, represento a <span className="text-white font-semibold">Universidade Católica de Brasília (UCB)</span> nos <span className="text-cyan-300 font-semibold">Jogos Universitários do Distrito Federal (JUDF)</span>.
+                Além do desenvolvimento de software, sou atleta de handebol representando a <span className="text-white font-semibold">Universidade Católica de Brasília (UCB)</span>.
               </p>
 
               <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                A rotina de treinos e campeonatos fortaleceu valores essenciais para o mercado de tecnologia: comunicação clara, foco sob pressão, espírito de liderança e busca obstinada por evolução constante a cada partida e a cada projeto.
+                A rotina intensa de treinos e jogos de alto rendimento desenvolve competências fundamentais que levo diretamente para a engenharia de software: comunicação rápida em equipe, visão tática sob pressão, resiliência e busca incansável por evolução e precisão a cada desafio.
               </p>
 
-              {/* Badges de Destaque Esportivo */}
+              {/* Badges de Destaque no Handebol */}
               <div className="flex flex-wrap gap-2.5 pt-2">
-                <span className="px-3.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-xs font-medium text-amber-300 flex items-center gap-1.5 transition-all duration-200 hover:scale-105 cursor-default shadow-sm">
-                  <Award className="w-3.5 h-3.5 text-amber-300" />
-                  Premiado no JUDF
-                </span>
                 <span className="px-3.5 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/25 text-xs font-medium text-cyan-300 flex items-center gap-1.5 transition-all duration-200 hover:scale-105 cursor-default shadow-sm">
                   <Users className="w-3.5 h-3.5 text-cyan-300" />
-                  Atleta UCB (Católica)
+                  Handebol · UCB (Católica)
+                </span>
+                <span className="px-3.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-xs font-medium text-amber-300 flex items-center gap-1.5 transition-all duration-200 hover:scale-105 cursor-default shadow-sm">
+                  <Target className="w-3.5 h-3.5 text-amber-300" />
+                  Visão Tática & Foco
                 </span>
                 <span className="px-3.5 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-xs font-medium text-emerald-300 flex items-center gap-1.5 transition-all duration-200 hover:scale-105 cursor-default shadow-sm">
                   <CheckCircle className="w-3.5 h-3.5 text-emerald-300" />
-                  Cooperação & Disciplina
+                  Comunicação & Resiliência
                 </span>
               </div>
             </div>
 
-            {/* Duas Fotos Reais da UCB e JUDF */}
+            {/* Duas Fotos Reais de Handebol */}
             <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-              {/* Foto 1: Troféu JUDF */}
-              <div className="relative group/photo rounded-2xl overflow-hidden border border-white/[0.12] hover:border-amber-400/60 bg-[#080812] shadow-xl aspect-[3/4] transition-all duration-300 hover:shadow-[0_0_25px_rgba(245,158,11,0.3)]">
+              {/* Foto 1: Handebol em quadra */}
+              <div className="relative group/photo rounded-2xl overflow-hidden border border-white/[0.12] hover:border-cyan-400/60 bg-[#080812] shadow-xl aspect-[3/4] transition-all duration-300 hover:shadow-[0_0_25px_rgba(6,182,212,0.3)]">
                 <img
-                  src={personal.trophyPhoto}
-                  alt="Douglas Phaney com troféu do JUDF pela UCB"
+                  src={personal.handballPhoto1}
+                  alt="Douglas Phaney jogando handebol pela UCB"
                   className="w-full h-full object-cover group-hover/photo:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-80" />
-                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-[#0b0f19]/80 px-2 py-0.5 rounded backdrop-blur-sm group-hover/photo:bg-amber-500/20 group-hover/photo:text-amber-200 transition-colors">
-                  Premiação JUDF 🏆
+                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-cyan-300 bg-[#0b0f19]/80 px-2 py-0.5 rounded backdrop-blur-sm group-hover/photo:bg-cyan-500/20 group-hover/photo:text-cyan-200 transition-colors font-mono">
+                  Em Quadra · UCB
                 </span>
               </div>
 
-              {/* Foto 2: Em quadra UCB */}
+              {/* Foto 2: Foco no Handebol */}
               <div className="relative group/photo rounded-2xl overflow-hidden border border-white/[0.12] hover:border-cyan-400/60 bg-[#080812] shadow-xl aspect-[3/4] transition-all duration-300 hover:shadow-[0_0_25px_rgba(6,182,212,0.3)]">
                 <img
-                  src={personal.sportsPhoto}
-                  alt="Douglas Phaney em quadra representando a UCB"
+                  src={personal.handballPhoto2}
+                  alt="Douglas Phaney em ação no handebol representando a UCB"
                   className="w-full h-full object-cover group-hover/photo:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-80" />
-                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-cyan-300 bg-[#0b0f19]/80 px-2 py-0.5 rounded backdrop-blur-sm group-hover/photo:bg-cyan-500/20 group-hover/photo:text-cyan-200 transition-colors">
-                  Em Quadra · UCB
+                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-cyan-300 bg-[#0b0f19]/80 px-2 py-0.5 rounded backdrop-blur-sm group-hover/photo:bg-cyan-500/20 group-hover/photo:text-cyan-200 transition-colors font-mono">
+                  Posicionamento & Foco
                 </span>
               </div>
             </div>
