@@ -177,31 +177,17 @@ export default function About() {
               </div>
             </div>
 
-            {/* Duas Fotos Reais de Handebol */}
-            <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-              {/* Foto 1: Handebol em quadra */}
-              <div className="relative group/photo rounded-2xl overflow-hidden border border-white/[0.12] hover:border-cyan-400/60 bg-[#080812] shadow-xl aspect-[3/4] transition-all duration-300 hover:shadow-[0_0_25px_rgba(6,182,212,0.3)]">
+            {/* Foto Real de Handebol em Quadra (UCB) */}
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="relative group/photo rounded-2xl overflow-hidden border border-white/[0.12] hover:border-cyan-400/60 bg-[#080812] shadow-2xl w-full max-w-xs sm:max-w-sm aspect-[3/4] transition-all duration-300 hover:shadow-[0_0_30px_rgba(6,182,212,0.35)]">
                 <img
-                  src={personal.handballPhoto1}
-                  alt="Douglas Phaney jogando handebol pela UCB"
-                  className="w-full h-full object-cover group-hover/photo:scale-110 transition-transform duration-700"
+                  src={personal.handballPhoto}
+                  alt="Douglas Phaney em quadra jogando handebol pela UCB"
+                  className="w-full h-full object-cover group-hover/photo:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-80" />
-                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-cyan-300 bg-[#0b0f19]/80 px-2 py-0.5 rounded backdrop-blur-sm group-hover/photo:bg-cyan-500/20 group-hover/photo:text-cyan-200 transition-colors font-mono">
-                  Atleta UCB
-                </span>
-              </div>
-
-              {/* Foto 2: Foco no Handebol */}
-              <div className="relative group/photo rounded-2xl overflow-hidden border border-white/[0.12] hover:border-cyan-400/60 bg-[#080812] shadow-xl aspect-[3/4] transition-all duration-300 hover:shadow-[0_0_25px_rgba(6,182,212,0.3)]">
-                <img
-                  src={personal.handballPhoto2}
-                  alt="Douglas Phaney em ação no handebol representando a UCB"
-                  className="w-full h-full object-cover group-hover/photo:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-80" />
-                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-cyan-300 bg-[#0b0f19]/80 px-2 py-0.5 rounded backdrop-blur-sm group-hover/photo:bg-cyan-500/20 group-hover/photo:text-cyan-200 transition-colors font-mono">
-                  Posicionamento & Foco
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-75" />
+                <span className="absolute bottom-3 left-3 text-[11px] font-bold uppercase tracking-wider text-cyan-300 bg-[#0b0f19]/85 px-3 py-1 rounded-lg backdrop-blur-md border border-white/10 group-hover/photo:bg-cyan-500/20 group-hover/photo:text-cyan-200 transition-colors font-mono">
+                  Atleta UCB · Handebol
                 </span>
               </div>
             </div>
