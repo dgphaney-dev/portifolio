@@ -14,15 +14,16 @@ import Experience from './components/sections/Experience';
 import Contact from './components/sections/Contact';
 import Footer from './components/sections/Footer';
 
-import { Sparkles, MessageSquare, MapPin } from 'lucide-react';
+import { Sparkles, MessageSquare, MapPin, Eye } from 'lucide-react';
 
 function App() {
-  const [visitorCount, setVisitorCount] = useState(1);
+  const [visitorCount, setVisitorCount] = useState(132);
 
   useEffect(() => {
-    // Contador sutil e amigável de visitantes
+    // Contador inteligente de visitantes com baseline e incremento contínuo
+    const BASE_SEED = 132;
     const stored = localStorage.getItem('dg_portfolio_visits');
-    const current = stored ? parseInt(stored, 10) + 1 : 1;
+    const current = stored ? parseInt(stored, 10) + 1 : BASE_SEED + 1;
     localStorage.setItem('dg_portfolio_visits', current.toString());
     setVisitorCount(current);
   }, []);
@@ -43,7 +44,7 @@ function App() {
       <div className="relative z-10">
         <Navbar />
         <main>
-          <Hero />
+          <Hero visitorCount={visitorCount} />
           <Stats />
           <About />
           <TechStack />
@@ -52,20 +53,29 @@ function App() {
           <Experience />
           <Contact />
         </main>
-        <Footer />
+        <Footer visitorCount={visitorCount} />
       </div>
 
       {/* Floating Visitor Pill (Bottom-Left Caio Duque style) */}
-      <aside aria-label="Status do visitante" className="visitor-counter hidden md:flex items-center">
+      <aside aria-label="Status do visitante" className="visitor-counter hidden sm:flex items-center gap-2">
         <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
         <span className="font-semibold text-xs tracking-wide text-white">Douglas Phaney</span>
         <span className="text-slate-500">•</span>
-        <span className="text-xs text-slate-300 font-mono flex items-center gap-1">
-          <MapPin className="w-3 h-3 text-purple-400" />
-          Brasília, DF
-        </span>
+        <a
+          href="https://hits.sh/douglasphaney-dev.github.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center hover:opacity-85 transition-opacity"
+          title="Contador global em nuvem (clique para ver analytics em tempo real)"
+        >
+          <img
+            src="https://hits.sh/douglasphaney-dev.github.io.svg?style=flat-square&label=VISITAS&color=06b6d4&labelColor=0b0f19"
+            alt="Contador Real de Visitas"
+            className="h-4 rounded"
+          />
+        </a>
         <span className="text-slate-500">•</span>
-        <span className="text-[11px] text-cyan-400 font-mono">Disponível</span>
+        <span className="text-[11px] text-emerald-400 font-mono">Online</span>
       </aside>
 
       {/* Floating Action Button with Pulsing Aura (Bottom-Right Caio Duque style) */}

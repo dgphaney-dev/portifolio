@@ -9,13 +9,14 @@ import {
   Award,
   GitCommit,
   Terminal,
-  ExternalLink
+  ExternalLink,
+  Eye
 } from 'lucide-react';
 import { Github, Linkedin } from '../Icons';
 import { portfolioData } from '../../data/portfolioData';
 import DeveloperAvatar3D from '../3d/DeveloperAvatar3D';
 
-export default function Hero() {
+export default function Hero({ visitorCount }) {
   const { personal } = portfolioData;
 
   const badges = [
@@ -35,7 +36,7 @@ export default function Hero() {
     },
     {
       id: 3,
-      title: 'Medalhista JUDF 🏆',
+      title: 'Handebol @ UCB',
       icon: Trophy,
       delay: 'animate-float-delay-2',
       color: 'from-amber-400 to-yellow-600',
@@ -84,18 +85,15 @@ export default function Hero() {
 
               {/* Textos */}
               <div className="max-w-xl">
-                {/* Glitch Name */}
-                <div className="glitch-wrapper mb-2">
-                  <h2
-                    className="glitch-text text-3xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] via-[#00d4ff] to-[#a855f7]"
-                    data-text={personal.name}
-                  >
+                {/* Nome Douglas Phaney Limpo e Premium */}
+                <h2 className="text-3xl min-[380px]:text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight mb-2">
+                  <span className="hero-name-premium">
                     {personal.name}
-                  </h2>
-                </div>
+                  </span>
+                </h2>
 
                 {/* Subtítulo Tecnológico */}
-                <p className="text-sm sm:text-base font-semibold text-purple-300/90 font-mono mb-2">
+                <p className="text-xs sm:text-base font-semibold text-purple-300/90 font-mono mb-2">
                   Estudante de Análise e Desenvolvimento de Sistemas (ADS)
                 </p>
 
@@ -107,7 +105,7 @@ export default function Hero() {
                 </p>
 
                 {/* Status Pills */}
-                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 mt-3 pt-2">
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-2.5 mt-3 pt-2">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     {personal.availability}
@@ -115,12 +113,27 @@ export default function Hero() {
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono text-slate-400 bg-white/[0.04] border border-white/[0.08]">
                     Brasília, DF • Remoto & Híbrido
                   </span>
+                  <a
+                    href="https://hits.sh/douglasphaney-dev.github.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono text-cyan-300 bg-cyan-500/10 border border-cyan-500/25 hover:border-cyan-400/50 hover:bg-cyan-500/20 transition-all cursor-pointer"
+                    title="Contador real em nuvem - Clique para abrir o painel de acessos"
+                  >
+                    <Eye className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Visitas:</span>
+                    <img
+                      src="https://hits.sh/douglasphaney-dev.github.io.svg?style=flat-square&label=&color=06b6d4&labelColor=0b0f19"
+                      alt="Contador Real de Visitas"
+                      className="h-3.5 rounded"
+                    />
+                  </a>
                 </div>
               </div>
             </div>
 
             {/* Direita: Badges Flutuantes com Diamond Gleam Tooltip (Estilo Caio Duque) */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3.5 shrink-0">
+            <div className="flex flex-wrap items-center justify-center lg:justify-end gap-2.5 sm:gap-3.5 shrink-0">
               {badges.map((badge) => {
                 const IconComponent = badge.icon;
                 return (
@@ -128,8 +141,8 @@ export default function Hero() {
                     key={badge.id}
                     className={`tooltip-diamond relative group cursor-pointer ${badge.delay}`}
                   >
-                    <div className="w-12 h-12 rounded-2xl bg-[#131726] border border-white/[0.12] hover:border-cyan-400/60 p-2.5 flex items-center justify-center text-slate-300 group-hover:text-white transition-all duration-300 shadow-lg shadow-black/40 group-hover:scale-115 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]">
-                      <IconComponent className="w-6 h-6 transition-transform group-hover:rotate-6" />
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-[#131726] border border-white/[0.12] hover:border-cyan-400/60 p-2 sm:p-2.5 flex items-center justify-center text-slate-300 group-hover:text-white transition-all duration-300 shadow-lg shadow-black/40 group-hover:scale-115 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]">
+                      <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:rotate-6" />
                     </div>
                     <span>{badge.title}</span>
                   </div>
@@ -140,7 +153,7 @@ export default function Hero() {
           </div>
 
           {/* Linha de Ações Rápidas (Stardust Buttons) */}
-          <div className="mt-8 pt-6 border-t border-white/[0.06] flex flex-wrap items-center justify-center sm:justify-start gap-3">
+          <div className="mt-8 pt-6 border-t border-white/[0.06] flex flex-wrap items-center justify-center sm:justify-start gap-2.5 sm:gap-3">
             <a href="#projetos" className="btn-star">
               <span>Ver Projetos</span>
               <ArrowRight className="w-3.5 h-3.5" />

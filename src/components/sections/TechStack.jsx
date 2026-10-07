@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Sparkles } from 'lucide-react';
+import RevealOnScroll from '../ui/RevealOnScroll';
 
 export default function TechStack() {
   const containerRef = useRef(null);
@@ -13,25 +14,28 @@ export default function TechStack() {
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
-    let width = (canvas.width = containerRef.current.clientWidth);
-    let height = (canvas.height = Math.max(680, window.innerHeight * 0.75));
+    let width = 0;
+    let height = 0;
+    let scale = 1.0;
 
     const handleResize = () => {
       if (!containerRef.current) return;
       width = canvas.width = containerRef.current.clientWidth;
-      height = canvas.height = containerRef.current.clientHeight || 680;
+      height = canvas.height = containerRef.current.clientHeight;
+      const isMobile = width < 768;
+      const isSmallMobile = width < 480;
+      scale = isSmallMobile ? 0.65 : isMobile ? 0.8 : 1.0;
       initPositions();
     };
-    window.addEventListener('resize', handleResize);
 
-    // --- DADOS DA CONSTELAÇÃO (LAYOUT RELATIVO EM %) ---
+    // --- DADOS DA CONSTELAÇÃO (TOPOLOGIA LIMPA SEM CRUZAMENTO DE LINHAS) ---
     const rawHubs = [
-      { id: 'hub-tools', label: 'Tools', rx: 0.22, ry: 0.32, color: '#a855f7' },
-      { id: 'hub-design', label: 'Design', rx: 0.28, ry: 0.65, color: '#f59e0b' },
-      { id: 'hub-frontend', label: 'Front-End', rx: 0.45, ry: 0.52, color: '#06b6d4' },
-      { id: 'hub-prog', label: 'Programming', rx: 0.63, ry: 0.44, color: '#6366f1' },
-      { id: 'hub-cloud', label: 'Cloud & Infra', rx: 0.74, ry: 0.24, color: '#f97316' },
-      { id: 'hub-backend', label: 'Back-End', rx: 0.73, ry: 0.62, color: '#10b981' },
+      { id: 'hub-tools', label: 'Tools', rx: 0.16, ry: 0.28, mrx: 0.20, mry: 0.14, color: '#a855f7' },
+      { id: 'hub-frontend', label: 'Front-End', rx: 0.32, ry: 0.44, mrx: 0.22, mry: 0.50, color: '#06b6d4' },
+      { id: 'hub-design', label: 'Design', rx: 0.24, ry: 0.68, mrx: 0.40, mry: 0.68, color: '#f59e0b' },
+      { id: 'hub-prog', label: 'Programming', rx: 0.58, ry: 0.42, mrx: 0.60, mry: 0.34, color: '#6366f1' },
+      { id: 'hub-cloud', label: 'Cloud & Infra', rx: 0.68, ry: 0.20, mrx: 0.80, mry: 0.14, color: '#f97316' },
+      { id: 'hub-backend', label: 'Back-End', rx: 0.78, ry: 0.48, mrx: 0.74, mry: 0.58, color: '#10b981' },
     ];
 
     const rawSkills = [
@@ -40,8 +44,10 @@ export default function TechStack() {
         name: 'Git',
         category: 'Controle de Versão',
         desc: 'Versionamento seguro, branching strategy e histórico consistente.',
-        rx: 0.28,
-        ry: 0.25,
+        rx: 0.10,
+        ry: 0.42,
+        mrx: 0.10,
+        mry: 0.26,
         r: 20,
         color: '#f05032',
         symbol: 'GIT',
@@ -51,85 +57,114 @@ export default function TechStack() {
         name: 'GitHub',
         category: 'Colaboração & CI',
         desc: 'Repositórios estruturados, versionamento e automação de código.',
-        rx: 0.24,
-        ry: 0.48,
+        rx: 0.22,
+        ry: 0.18,
+        mrx: 0.30,
+        mry: 0.22,
         r: 20,
         color: '#c084fc',
         symbol: 'GH',
-      },
-      {
-        id: 'html-css',
-        name: 'HTML5 & CSS3',
-        category: 'Estruturação & Estilo',
-        desc: 'Semântica moderna, CSS moderno, Grid, Flexbox e acessibilidade.',
-        rx: 0.36,
-        ry: 0.73,
-        r: 22,
-        color: '#e44d26',
-        symbol: '</>',
-      },
-      {
-        id: 'tailwind',
-        name: 'Tailwind CSS',
-        category: 'Estilização Ágil',
-        desc: 'Utility-first framework para interfaces responsivas de alta velocidade.',
-        rx: 0.38,
-        ry: 0.46,
-        r: 21,
-        color: '#06b6d4',
-        symbol: 'CSS',
-      },
-      {
-        id: 'vite',
-        name: 'Vite / Tooling',
-        category: 'Build & Bundler',
-        desc: 'HMR instantâneo, compilação de assets e configuração otimizada.',
-        rx: 0.46,
-        ry: 0.71,
-        r: 19,
-        color: '#f59e0b',
-        symbol: '⚡',
-      },
-      {
-        id: 'react',
-        name: 'React.js',
-        category: 'Front-End Moderno',
-        desc: 'Componentes reativos, hooks avançados, Context API e SPAs.',
-        rx: 0.52,
-        ry: 0.56,
-        r: 24,
-        color: '#00d8ff',
-        symbol: '⚛',
-      },
-      {
-        id: 'javascript',
-        name: 'JavaScript',
-        category: 'Linguagem Core',
-        desc: 'ES6+, assincronismo, manipulação DOM e arquitetura orientada a eventos.',
-        rx: 0.54,
-        ry: 0.37,
-        r: 23,
-        color: '#f7df1e',
-        symbol: 'JS',
       },
       {
         id: 'threejs',
         name: 'Three.js / 3D',
         category: 'Gráficos WebGL',
         desc: 'Criação de universos 3D, câmeras, iluminação e sistemas de partículas interativos.',
-        rx: 0.49,
-        ry: 0.24,
+        rx: 0.52,
+        ry: 0.20,
+        mrx: 0.54,
+        mry: 0.14,
         r: 19,
         color: '#ffffff',
         symbol: '3D',
+      },
+      {
+        id: 'aws',
+        name: 'AWS Cloud',
+        category: 'Cloud Computing',
+        desc: 'Certificação AWS Academy Cloud Foundations: EC2, S3, IAM e arquitetura.',
+        rx: 0.80,
+        ry: 0.18,
+        mrx: 0.88,
+        mry: 0.26,
+        r: 21,
+        color: '#ff9900',
+        symbol: 'AWS',
+      },
+      {
+        id: 'javascript',
+        name: 'JavaScript',
+        category: 'Linguagem Core',
+        desc: 'ES6+, assincronismo, manipulação DOM e arquitetura orientada a eventos.',
+        rx: 0.42,
+        ry: 0.32,
+        mrx: 0.36,
+        mry: 0.36,
+        r: 23,
+        color: '#f7df1e',
+        symbol: 'JS',
+      },
+      {
+        id: 'react',
+        name: 'React.js',
+        category: 'Front-End Moderno',
+        desc: 'Componentes reativos, hooks avançados, Context API e SPAs.',
+        rx: 0.42,
+        ry: 0.58,
+        mrx: 0.46,
+        mry: 0.52,
+        r: 24,
+        color: '#00d8ff',
+        symbol: '⚛',
+      },
+      {
+        id: 'tailwind',
+        name: 'Tailwind CSS',
+        category: 'Estilização Ágil',
+        desc: 'Utility-first framework para interfaces responsivas de alta velocidade.',
+        rx: 0.32,
+        ry: 0.74,
+        mrx: 0.20,
+        mry: 0.66,
+        r: 21,
+        color: '#06b6d4',
+        symbol: 'CSS',
+      },
+      {
+        id: 'html-css',
+        name: 'HTML5 & CSS3',
+        category: 'Estruturação & Estilo',
+        desc: 'Semântica moderna, CSS moderno, Grid, Flexbox e acessibilidade.',
+        rx: 0.18,
+        ry: 0.82,
+        mrx: 0.28,
+        mry: 0.82,
+        r: 22,
+        color: '#e44d26',
+        symbol: '</>',
+      },
+      {
+        id: 'vite',
+        name: 'Vite / Tooling',
+        category: 'Build & Bundler',
+        desc: 'HMR instantâneo, compilação de assets e configuração otimizada.',
+        rx: 0.36,
+        ry: 0.86,
+        mrx: 0.48,
+        mry: 0.82,
+        r: 19,
+        color: '#f59e0b',
+        symbol: '⚡',
       },
       {
         id: 'python',
         name: 'Python',
         category: 'Backend & Automação',
         desc: 'Linguagem principal: APIs, sistemas desktop, scripts e integração com MySQL.',
-        rx: 0.62,
-        ry: 0.61,
+        rx: 0.66,
+        ry: 0.58,
+        mrx: 0.82,
+        mry: 0.42,
         r: 24,
         color: '#3776ab',
         symbol: 'Py',
@@ -139,8 +174,10 @@ export default function TechStack() {
         name: 'Node.js',
         category: 'Runtime Backend',
         desc: 'Serviços backend rápidos, manipulação de streams e ecossistema npm.',
-        rx: 0.67,
-        ry: 0.72,
+        rx: 0.76,
+        ry: 0.76,
+        mrx: 0.88,
+        mry: 0.70,
         r: 21,
         color: '#22c55e',
         symbol: 'Node',
@@ -150,8 +187,10 @@ export default function TechStack() {
         name: 'MySQL',
         category: 'Banco Relacional',
         desc: 'Modelagem relacional, queries complexas, transações ACID e integridade.',
-        rx: 0.81,
-        ry: 0.64,
+        rx: 0.88,
+        ry: 0.58,
+        mrx: 0.70,
+        mry: 0.76,
         r: 23,
         color: '#00758f',
         symbol: 'SQL',
@@ -161,78 +200,112 @@ export default function TechStack() {
         name: 'SQLite',
         category: 'Banco Embutido',
         desc: 'Persistência de dados local de alta velocidade para aplicações desktop e testes.',
-        rx: 0.83,
-        ry: 0.51,
+        rx: 0.88,
+        ry: 0.80,
+        mrx: 0.82,
+        mry: 0.88,
         r: 19,
         color: '#38bdf8',
         symbol: 'DB',
       },
-      {
-        id: 'aws',
-        name: 'AWS Cloud',
-        category: 'Cloud Computing',
-        desc: 'Certificação AWS Academy Cloud Foundations: EC2, S3, IAM e arquitetura.',
-        rx: 0.70,
-        ry: 0.35,
-        r: 21,
-        color: '#ff9900',
-        symbol: 'AWS',
-      },
     ];
 
     const rawLinks = [
+      // Cluster Tools (Topo Esquerdo)
       { from: 'hub-tools', to: 'git' },
       { from: 'hub-tools', to: 'github' },
-      { from: 'hub-tools', to: 'hub-design' },
-      { from: 'hub-design', to: 'html-css' },
-      { from: 'html-css', to: 'hub-frontend' },
-      { from: 'hub-frontend', to: 'tailwind' },
-      { from: 'hub-frontend', to: 'vite' },
+      { from: 'git', to: 'github' },
+      { from: 'hub-tools', to: 'hub-frontend' },
+
+      // Cluster Front-End & Design (Meio Esquerdo)
       { from: 'hub-frontend', to: 'react' },
+      { from: 'hub-frontend', to: 'tailwind' },
       { from: 'hub-frontend', to: 'javascript' },
-      { from: 'javascript', to: 'threejs' },
+      { from: 'hub-frontend', to: 'hub-design' },
+      { from: 'hub-design', to: 'html-css' },
+      { from: 'hub-design', to: 'vite' },
+      { from: 'html-css', to: 'vite' },
+      { from: 'tailwind', to: 'html-css' },
+
+      // Pontes Centrais (Linguagens Core)
       { from: 'javascript', to: 'hub-prog' },
-      { from: 'hub-prog', to: 'python' },
-      { from: 'hub-prog', to: 'nodejs' },
+      { from: 'react', to: 'hub-prog' },
+      { from: 'javascript', to: 'threejs' },
+
+      // Cluster Cloud & 3D (Topo Direito)
       { from: 'hub-prog', to: 'hub-cloud' },
+      { from: 'hub-cloud', to: 'threejs' },
       { from: 'hub-cloud', to: 'aws' },
+
+      // Cluster Programming & Back-End (Baixo Direito)
+      { from: 'hub-prog', to: 'python' },
       { from: 'hub-prog', to: 'hub-backend' },
       { from: 'hub-backend', to: 'python' },
+      { from: 'hub-backend', to: 'nodejs' },
       { from: 'hub-backend', to: 'mysql' },
       { from: 'hub-backend', to: 'sqlite' },
-      { from: 'hub-backend', to: 'nodejs' },
-      { from: 'react', to: 'hub-prog' },
+      { from: 'mysql', to: 'sqlite' },
+      { from: 'nodejs', to: 'sqlite' },
     ];
 
     let hubs = [];
     let skills = [];
 
     const initPositions = () => {
-      hubs = rawHubs.map((h) => ({
-        ...h,
-        x: h.rx * width,
-        y: h.ry * height,
-        baseX: h.rx * width,
-        baseY: h.ry * height,
-        isHub: true,
-      }));
+      const isMobile = width < 768;
+      const isSmallMobile = width < 480;
+      scale = isSmallMobile ? 0.64 : isMobile ? 0.78 : 1.0;
 
-      skills = rawSkills.map((s) => ({
-        ...s,
-        x: s.rx * width,
-        y: s.ry * height,
-        baseX: s.rx * width,
-        baseY: s.ry * height,
-        isHub: false,
-      }));
+      // Área protegida para evitar corte de texto nas bordas em celulares
+      const padX = isSmallMobile ? 20 : isMobile ? 32 : 64;
+      const padY = isSmallMobile ? 24 : isMobile ? 36 : 64;
+      const usableW = Math.max(180, width - padX * 2);
+      const usableH = Math.max(260, height - padY * 2);
+
+      hubs = rawHubs.map((h) => {
+        const rx = isMobile ? h.mrx : h.rx;
+        const ry = isMobile ? h.mry : h.ry;
+        return {
+          ...h,
+          x: padX + rx * usableW,
+          y: padY + ry * usableH,
+          baseX: padX + rx * usableW,
+          baseY: padY + ry * usableH,
+          isHub: true,
+        };
+      });
+
+      skills = rawSkills.map((s) => {
+        const rx = isMobile ? s.mrx : s.rx;
+        const ry = isMobile ? s.mry : s.ry;
+        return {
+          ...s,
+          x: padX + rx * usableW,
+          y: padY + ry * usableH,
+          baseX: padX + rx * usableW,
+          baseY: padY + ry * usableH,
+          isHub: false,
+        };
+      });
     };
 
-    initPositions();
+    handleResize();
+    window.addEventListener('resize', handleResize);
 
     // --- INTERATIVIDADE DE HOVER E ARRASTO ---
     const mouse = { x: -1000, y: -1000, isHovering: false };
     let draggedNode = null;
     let dragOffset = { x: 0, y: 0 };
+
+    const getNodeAt = (x, y) => {
+      const allNodes = [...hubs, ...skills];
+      for (const node of allNodes) {
+        const dist = Math.hypot(node.x - x, node.y - y);
+        const hitRadius = (node.isHub ? 28 : node.r + 10) * scale;
+        if (dist <= hitRadius) return node;
+      }
+      return null;
+    };
 
     const onMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect();
@@ -240,18 +313,7 @@ export default function TechStack() {
       mouse.y = e.clientY - rect.top;
       mouse.isHovering = true;
 
-      // Detecção de hover para Tooltip
-      const allNodes = [...hubs, ...skills];
-      let found = null;
-      for (const node of allNodes) {
-        const dist = Math.hypot(node.x - mouse.x, node.y - mouse.y);
-        const hitRadius = node.isHub ? 26 : node.r + 6;
-        if (dist <= hitRadius) {
-          found = node;
-          break;
-        }
-      }
-
+      const found = getNodeAt(mouse.x, mouse.y);
       setHoveredNode(found);
       if (found) {
         setTooltipPos({ x: found.x, y: found.y });
@@ -271,16 +333,11 @@ export default function TechStack() {
       const clickX = e.clientX - rect.left;
       const clickY = e.clientY - rect.top;
 
-      const allNodes = [...hubs, ...skills];
-      for (const node of allNodes) {
-        const dist = Math.hypot(node.x - clickX, node.y - clickY);
-        const hitRadius = node.isHub ? 28 : node.r + 8;
-        if (dist <= hitRadius) {
-          draggedNode = node;
-          dragOffset.x = node.x - clickX;
-          dragOffset.y = node.y - clickY;
-          break;
-        }
+      const found = getNodeAt(clickX, clickY);
+      if (found) {
+        draggedNode = found;
+        dragOffset.x = found.x - clickX;
+        dragOffset.y = found.y - clickY;
       }
     };
 
@@ -293,19 +350,47 @@ export default function TechStack() {
     canvas.addEventListener('mousedown', onMouseDown);
     window.addEventListener('mouseup', onMouseUp);
 
+    const onTouchStart = (e) => {
+      if (!e.touches[0]) return;
+      const rect = canvas.getBoundingClientRect();
+      const touchX = e.touches[0].clientX - rect.left;
+      const touchY = e.touches[0].clientY - rect.top;
+      mouse.x = touchX;
+      mouse.y = touchY;
+      mouse.isHovering = true;
+
+      const found = getNodeAt(touchX, touchY);
+      if (found) {
+        draggedNode = found;
+        dragOffset.x = found.x - touchX;
+        dragOffset.y = found.y - touchY;
+        setHoveredNode(found);
+        setTooltipPos({ x: found.x, y: found.y });
+      } else {
+        setHoveredNode(null);
+      }
+    };
+
     const onTouchMove = (e) => {
       if (!e.touches[0]) return;
       const rect = canvas.getBoundingClientRect();
-      mouse.x = e.touches[0].clientX - rect.left;
-      mouse.y = e.touches[0].clientY - rect.top;
+      const touchX = e.touches[0].clientX - rect.left;
+      const touchY = e.touches[0].clientY - rect.top;
+      mouse.x = touchX;
+      mouse.y = touchY;
       mouse.isHovering = true;
+
+      if (draggedNode && e.cancelable) {
+        e.preventDefault();
+      }
     };
-    canvas.addEventListener('touchmove', onTouchMove, { passive: true });
+
+    canvas.addEventListener('touchstart', onTouchStart, { passive: true });
+    canvas.addEventListener('touchmove', onTouchMove, { passive: false });
     canvas.addEventListener('touchend', onMouseLeave);
 
     // --- LOOP DE RENDERIZAÇÃO LIMPO (CONSTELAÇÃO PARADA E ESTÁVEL) ---
     const render = () => {
-      // 100% transparente para que as estrelas 3D do Three.js apareçam com pureza total
       ctx.clearRect(0, 0, width, height);
 
       const allNodes = [...hubs, ...skills];
@@ -316,7 +401,6 @@ export default function TechStack() {
           node.x = mouse.x + dragOffset.x;
           node.y = mouse.y + dragOffset.y;
         } else {
-          // Retorno elástico suave à posição base caso tenha sido arrastado
           node.x += (node.baseX - node.x) * 0.15;
           node.y += (node.baseY - node.y) * 0.15;
         }
@@ -340,12 +424,12 @@ export default function TechStack() {
 
         if (isHighlighted) {
           ctx.strokeStyle = '#22d3ee';
-          ctx.lineWidth = 2.4;
+          ctx.lineWidth = 2.4 * scale;
           ctx.shadowColor = '#06b6d4';
-          ctx.shadowBlur = 12;
+          ctx.shadowBlur = 12 * scale;
         } else {
           ctx.strokeStyle = 'rgba(147, 197, 253, 0.28)';
-          ctx.lineWidth = 1.3;
+          ctx.lineWidth = 1.3 * scale;
           ctx.shadowBlur = 0;
         }
 
@@ -360,7 +444,7 @@ export default function TechStack() {
         ctx.translate(hub.x, hub.y);
 
         // Halo Difuso Radiante
-        const haloRadius = isHover ? 30 : 20;
+        const haloRadius = (isHover ? 30 : 20) * scale;
         const haloGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, haloRadius);
         haloGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
         haloGrad.addColorStop(0.35, isHover ? 'rgba(168, 85, 247, 0.85)' : 'rgba(168, 85, 247, 0.45)');
@@ -373,9 +457,9 @@ export default function TechStack() {
         // Estrela de 4 pontas fixa
         ctx.fillStyle = '#ffffff';
         ctx.shadowColor = hub.color;
-        ctx.shadowBlur = isHover ? 24 : 14;
+        ctx.shadowBlur = (isHover ? 24 : 14) * scale;
 
-        const size = isHover ? 18 : 13;
+        const size = (isHover ? 18 : 13) * scale;
         ctx.beginPath();
         ctx.moveTo(0, -size);
         ctx.quadraticCurveTo(0, 0, size, 0);
@@ -389,26 +473,26 @@ export default function TechStack() {
 
         // Texto do Hub
         ctx.fillStyle = isHover ? '#ffffff' : '#cbd5e1';
-        ctx.font = 'bold 12px Outfit, sans-serif';
+        ctx.font = `bold ${Math.max(9, Math.round(12 * scale))}px Outfit, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.shadowColor = 'rgba(0,0,0,0.9)';
         ctx.shadowBlur = 6;
-        ctx.fillText(hub.label, hub.x, hub.y + 18);
+        ctx.fillText(hub.label, hub.x, hub.y + 16 * scale);
         ctx.shadowBlur = 0;
       }
 
       // Nós de Habilidades Firmes e Parados
       for (const skill of skills) {
         const isHover = hoveredNode?.id === skill.id;
-        const r = isHover ? skill.r * 1.25 : skill.r;
+        const r = (isHover ? skill.r * 1.25 : skill.r) * scale;
 
         // Anel de Aura Neon Fixo
         ctx.beginPath();
-        ctx.arc(skill.x, skill.y, r + 4, 0, Math.PI * 2);
+        ctx.arc(skill.x, skill.y, r + 4 * scale, 0, Math.PI * 2);
         ctx.strokeStyle = skill.color;
         ctx.globalAlpha = isHover ? 0.85 : 0.28;
-        ctx.lineWidth = 1.2;
+        ctx.lineWidth = 1.2 * scale;
         ctx.stroke();
         ctx.globalAlpha = 1.0;
 
@@ -419,28 +503,28 @@ export default function TechStack() {
         ctx.fill();
 
         // Borda Colorida com Sombra Neon
-        ctx.lineWidth = isHover ? 3.2 : 2.0;
+        ctx.lineWidth = (isHover ? 3.0 : 2.0) * scale;
         ctx.strokeStyle = skill.color;
         ctx.shadowColor = skill.color;
-        ctx.shadowBlur = isHover ? 22 : 10;
+        ctx.shadowBlur = (isHover ? 20 : 10) * scale;
         ctx.stroke();
         ctx.shadowBlur = 0;
 
         // Símbolo / Texto do Ícone Central
         ctx.fillStyle = isHover ? '#ffffff' : skill.color;
-        ctx.font = `900 ${Math.round(r * 0.74)}px "Fira Code", monospace`;
+        ctx.font = `900 ${Math.max(9, Math.round(r * 0.74))}px "Fira Code", monospace`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(skill.symbol, skill.x, skill.y);
 
         // Nome da Tecnologia Abaixo do Nó
         ctx.fillStyle = isHover ? '#ffffff' : '#cbd5e1';
-        ctx.font = `${isHover ? 'bold' : '500'} 11px Outfit, sans-serif`;
+        ctx.font = `${isHover ? 'bold' : '500'} ${Math.max(9, Math.round(11 * scale))}px Outfit, sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.shadowColor = 'rgba(0,0,0,0.9)';
         ctx.shadowBlur = 6;
-        ctx.fillText(skill.name, skill.x, skill.y + r + 7);
+        ctx.fillText(skill.name, skill.x, skill.y + r + 5 * scale);
         ctx.shadowBlur = 0;
       }
 
@@ -456,48 +540,67 @@ export default function TechStack() {
       canvas.removeEventListener('mouseleave', onMouseLeave);
       canvas.removeEventListener('mousedown', onMouseDown);
       window.removeEventListener('mouseup', onMouseUp);
+      canvas.removeEventListener('touchstart', onTouchStart);
       canvas.removeEventListener('touchmove', onTouchMove);
       canvas.removeEventListener('touchend', onMouseLeave);
     };
   }, []);
 
   return (
-    <section id="tecnologias" className="py-24 relative overflow-hidden bg-transparent">
+    <section id="tecnologias" className="py-20 sm:py-24 relative overflow-hidden bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Cabeçalho da Seção */}
-        <div className="text-center max-w-3xl mx-auto mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-            Constelação de Habilidades
+        <RevealOnScroll direction="up" delay={0}>
+          <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+              Constelação de Habilidades
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+              <span className="skills-text-liquid">Skills Constellation</span>
+            </h2>
+            <p className="mt-3 text-xs sm:text-sm text-slate-400 flex items-center justify-center gap-2">
+              <span>Toque ou passe o cursor sobre as estrelas para ver detalhes das tecnologias.</span>
+            </p>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
-            <span className="skills-text-liquid">Skills Constellation</span>
-          </h2>
-          <p className="mt-3 text-xs sm:text-sm text-slate-400 flex items-center justify-center gap-2">
-            <span>Passe o cursor sobre os nós para visualizar detalhes das tecnologias.</span>
-          </p>
-        </div>
+        </RevealOnScroll>
 
-        {/* Constelação Aberta e Integrada ao Espaço Cósmico (Sem caixa, sem estrelas duplicadas) */}
+        {/* Constelação Aberta e Integrada ao Espaço Cósmico */}
         <div
           ref={containerRef}
-          className="relative w-full overflow-visible"
-          style={{ height: '680px' }}
+          className="relative w-full overflow-visible h-[500px] sm:h-[560px] md:h-[680px]"
         >
           <canvas
             ref={canvasRef}
-            className="w-full h-full block cursor-grab active:cursor-grabbing"
+            className="w-full h-full block cursor-grab active:cursor-grabbing touch-pan-y"
           />
 
-          {/* Tooltip Card Flutuante */}
+          {/* Tooltip Card Flutuante Responsivo */}
           {hoveredNode && !hoveredNode.isHub && (
             <div
               className="skill-info-card opacity-100 pointer-events-none"
-              style={{
-                left: `${Math.min(Math.max(tooltipPos.x + 18, 20), containerRef.current ? containerRef.current.clientWidth - 260 : 700)}px`,
-                top: `${Math.min(Math.max(tooltipPos.y - 40, 20), 580)}px`,
-              }}
+              style={
+                containerRef.current && containerRef.current.clientWidth < 640
+                  ? {
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      top: `${Math.min(
+                        Math.max(tooltipPos.y - 75, 12),
+                        (containerRef.current?.clientHeight || 640) - 130
+                      )}px`,
+                    }
+                  : {
+                      left: `${Math.min(
+                        Math.max(tooltipPos.x + 18, 20),
+                        (containerRef.current?.clientWidth || 360) - 270
+                      )}px`,
+                      top: `${Math.min(
+                        Math.max(tooltipPos.y - 40, 20),
+                        580
+                      )}px`,
+                    }
+              }
             >
               <div className="flex items-center justify-between gap-2 mb-1">
                 <h4 className="font-bold text-white text-sm">{hoveredNode.name}</h4>
@@ -513,7 +616,7 @@ export default function TechStack() {
         </div>
 
         {/* Rodapé da Seção */}
-        <div className="mt-6 text-center flex items-center justify-center gap-3">
+        <div className="mt-4 sm:mt-6 text-center flex items-center justify-center gap-3">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-xs text-slate-400 font-mono">
             Estrutura conectada entre Frontend, Backend, Banco de Dados, Cloud e Ferramentas.

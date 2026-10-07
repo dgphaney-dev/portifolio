@@ -1,9 +1,9 @@
 import React from 'react';
-import { ArrowUp, Mail, Heart, Sparkles } from 'lucide-react';
+import { ArrowUp, Mail, Heart, Sparkles, Eye } from 'lucide-react';
 import { Github, Linkedin } from '../Icons';
 import { portfolioData } from '../../data/portfolioData';
 
-export default function Footer() {
+export default function Footer({ visitorCount }) {
   const { personal } = portfolioData;
 
   const scrollToTop = () => {
@@ -72,9 +72,27 @@ export default function Footer() {
 
         </div>
 
-        {/* Copyright & Stack */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-3 font-mono">
+        {/* Copyright, Visitor Badge & Stack */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-4 font-mono">
           <p>© {new Date().getFullYear()} {personal.name} · Brasília, DF</p>
+
+          {/* Badge Contador Real de Visitantes em Nuvem */}
+          <a
+            href="https://hits.sh/douglasphaney-dev.github.io/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-cyan-400/40 text-slate-300 transition-all shadow-sm group"
+            title="Contador global em nuvem - Clique para ver o painel de acessos em tempo real"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-[11px] font-mono text-slate-300">Visitantes Globais:</span>
+            <img 
+              src="https://hits.sh/douglasphaney-dev.github.io.svg?style=flat-square&label=TOTAL&color=06b6d4&labelColor=0b0f19"
+              alt="Contador Real de Visitantes em Nuvem"
+              className="h-4 rounded opacity-90 group-hover:opacity-100 transition-opacity"
+            />
+          </a>
+
           <p className="flex items-center gap-1">
             <span>Construído com</span>
             <span className="text-purple-400 font-bold">React 19</span>

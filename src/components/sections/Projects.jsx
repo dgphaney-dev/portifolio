@@ -17,6 +17,7 @@ import {
 import { Github } from '../Icons';
 import { portfolioData } from '../../data/portfolioData';
 import ProjectModal from '../ProjectModal';
+import RevealOnScroll from '../ui/RevealOnScroll';
 
 export default function Projects() {
   const { projects } = portfolioData;
@@ -113,12 +114,12 @@ export default function Projects() {
         {/* Filtros de Categoria & Busca */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-12 pb-6 border-b border-white/[0.08]">
           {/* Categorias em estilo Caio Duque */}
-          <div className="flex flex-wrap items-center justify-center gap-2 w-full md:w-auto">
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 w-full md:w-auto">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
                   selectedCategory === cat
                     ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-lg shadow-purple-500/25 scale-105'
                     : 'glass-ultra text-slate-400 hover:text-white'
@@ -170,15 +171,20 @@ export default function Projects() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {filteredProjects.map((project) => {
+            {filteredProjects.map((project, index) => {
               const tagInfo = getNeonTagDetails(project);
               const TagIcon = tagInfo.icon;
 
               return (
-                <div
+                <RevealOnScroll
                   key={project.id}
-                  className="group relative rounded-3xl glass-ultra overflow-hidden flex flex-col justify-between"
+                  delay={(index % 3) * 110}
+                  direction="up"
+                  className="h-full"
                 >
+                  <div
+                    className="group relative rounded-3xl glass-ultra overflow-hidden flex flex-col justify-between h-full"
+                  >
                   {/* Top-Right Neon Tag Badge */}
                   <div className="absolute top-4 right-4 z-20">
                     <div className={`neon-tag ${tagInfo.className}`}>
@@ -292,8 +298,9 @@ export default function Projects() {
                   </div>
 
                 </div>
-              );
-            })}
+              </RevealOnScroll>
+            );
+          })}
           </div>
         )}
 

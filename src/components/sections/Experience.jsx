@@ -14,6 +14,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { portfolioData } from '../../data/portfolioData';
+import RevealOnScroll from '../ui/RevealOnScroll';
 
 export default function Experience() {
   const { experience, education, certifications = [] } = portfolioData;
@@ -35,59 +36,64 @@ export default function Experience() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Cabeçalho da Seção com Liquid Gradient Wave */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-pink-500/10 border border-pink-500/25 text-pink-400 text-xs font-semibold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            Trajetória & Foco
+        <RevealOnScroll direction="up" delay={0}>
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-pink-500/10 border border-pink-500/25 text-pink-400 text-xs font-semibold uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5" />
+              Trajetória & Foco
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+              <span className="journey-text-liquid">Trajetória & Certificações</span>
+            </h2>
+            <p className="mt-4 text-sm sm:text-base text-slate-400">
+              Minha caminhada prática na programação, formação superior na Católica e certificações técnicas comprovadas.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            <span className="journey-text-liquid">Trajetória & Certificações</span>
-          </h2>
-          <p className="mt-4 text-sm sm:text-base text-slate-400">
-            Minha caminhada prática na programação, formação superior na Católica e certificações técnicas comprovadas.
-          </p>
-        </div>
+        </RevealOnScroll>
 
         {/* Tab Switcher com 3 Abas Estilo Caio Duque */}
-        <div className="flex justify-center mb-14">
-          <div className="inline-flex flex-wrap justify-center p-1.5 rounded-2xl glass-ultra gap-1 sm:gap-2">
+        <RevealOnScroll direction="up" delay={100}>
+          <div className="flex justify-center mb-10 sm:mb-14">
+          <div className="inline-flex flex-wrap justify-center p-1 sm:p-1.5 rounded-2xl glass-ultra gap-1 sm:gap-2">
             <button
               onClick={() => setActiveTab('experience')}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 activeTab === 'experience'
                   ? 'bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white shadow-lg shadow-pink-500/30 scale-105'
                   : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
-              <Briefcase className="w-4 h-4" />
+              <Briefcase className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
               <span>Objetivo & Prática</span>
             </button>
             <button
               onClick={() => setActiveTab('education')}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 activeTab === 'education'
                   ? 'bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white shadow-lg shadow-pink-500/30 scale-105'
                   : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
-              <GraduationCap className="w-4 h-4" />
+              <GraduationCap className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
               <span>Formação Superior</span>
             </button>
             <button
               onClick={() => setActiveTab('certifications')}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 activeTab === 'certifications'
                   ? 'bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white shadow-lg shadow-pink-500/30 scale-105'
                   : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
-              <Award className="w-4 h-4" />
+              <Award className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
               <span>Certificações</span>
             </button>
           </div>
         </div>
+      </RevealOnScroll>
 
-        {/* Conteúdo Dinâmico por Aba */}
+      {/* Conteúdo Dinâmico por Aba */}
+      <RevealOnScroll direction="up" delay={180}>
         <div className="relative pl-6 sm:pl-8 border-l border-pink-500/30 space-y-10">
           
           {/* ABA 1: OBJETIVO & PRÁTICA */}
@@ -210,7 +216,7 @@ export default function Experience() {
                       <span className="text-cyan-300 font-semibold truncate select-all">{cert.validationCode}</span>
                     </div>
 
-                    <div className="flex items-center gap-2 shrink-0">
+                    <div className="flex flex-wrap items-center gap-2 shrink-0">
                       <button
                         onClick={() => handleCopy(cert.validationCode)}
                         className="px-3 py-1.5 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-[11px] font-mono text-slate-300 hover:text-white transition-colors flex items-center gap-1.5 border border-white/[0.08] cursor-pointer"
@@ -275,8 +281,9 @@ export default function Experience() {
           )}
 
         </div>
+      </RevealOnScroll>
 
-      </div>
+    </div>
     </section>
   );
 }

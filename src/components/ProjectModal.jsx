@@ -19,24 +19,24 @@ export default function ProjectModal({ project, onClose }) {
   if (!project) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
       {/* Backdrop Click */}
       <div className="absolute inset-0" onClick={onClose} />
 
       {/* Modal Content */}
-      <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl shadow-black/80 z-10">
+      <div className="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl shadow-black/80 z-10">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-slate-950/80 border border-slate-700/80 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+          className="absolute top-3.5 right-3.5 z-20 p-2 sm:p-2.5 rounded-full bg-slate-950/80 border border-slate-700/80 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
           aria-label="Fechar modal"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Project Image Header */}
-        <div className="relative h-60 sm:h-72 w-full overflow-hidden bg-slate-950">
+        <div className="relative h-48 min-[400px]:h-56 sm:h-72 w-full overflow-hidden bg-slate-950">
           <img
             src={project.image}
             alt={project.title}
@@ -44,12 +44,12 @@ export default function ProjectModal({ project, onClose }) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
           
-          <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
+          <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 flex flex-wrap items-end justify-between gap-3">
             <div>
-              <span className="px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-2 inline-block">
+              <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-[11px] sm:text-xs font-semibold uppercase tracking-wider mb-1.5 sm:mb-2 inline-block">
                 {project.category}
               </span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+              <h3 className="text-xl sm:text-3xl font-extrabold text-white">
                 {project.title}
               </h3>
             </div>
@@ -57,13 +57,13 @@ export default function ProjectModal({ project, onClose }) {
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 sm:p-8 space-y-6">
+        <div className="p-4 sm:p-8 space-y-5 sm:space-y-6">
           {/* Detailed Description */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
               Sobre o Projeto
             </h4>
-            <p className="text-slate-300 leading-relaxed text-base">
+            <p className="text-slate-300 leading-relaxed text-sm sm:text-base">
               {project.longDescription || project.description}
             </p>
           </div>
@@ -74,9 +74,9 @@ export default function ProjectModal({ project, onClose }) {
               <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">
                 Destaques & Funcionalidades
               </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
                 {project.highlights.map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-sm text-slate-300 bg-slate-950/50 p-3 rounded-xl border border-slate-800/60">
+                  <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300 bg-slate-950/50 p-2.5 sm:p-3 rounded-xl border border-slate-800/60">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </div>
@@ -87,15 +87,15 @@ export default function ProjectModal({ project, onClose }) {
 
           {/* Technologies Used */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5 sm:mb-3 flex items-center gap-1.5">
               <Layers className="w-3.5 h-3.5 text-indigo-400" />
               Tecnologias Utilizadas
             </h4>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
               {project.tags.map((tag, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium"
+                  className="px-2.5 sm:px-3 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-[11px] sm:text-xs font-medium"
                 >
                   {tag}
                 </span>
@@ -104,16 +104,16 @@ export default function ProjectModal({ project, onClose }) {
           </div>
 
           {/* Action Links */}
-          <div className="pt-6 border-t border-slate-800 flex flex-wrap items-center justify-end gap-3">
+          <div className="pt-5 sm:pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3">
             {project.isPrivate ? (
               <>
-                <span className="px-3.5 py-2 rounded-xl text-xs font-semibold text-amber-300 bg-amber-500/10 border border-amber-500/30 flex items-center gap-1.5">
+                <span className="px-3.5 py-2 rounded-xl text-xs font-semibold text-amber-300 bg-amber-500/10 border border-amber-500/30 flex items-center justify-center gap-1.5">
                   🔒 Repositório Privado (Proprietário)
                 </span>
                 <a
                   href="#contato"
                   onClick={onClose}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-md shadow-purple-500/20 transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-md shadow-purple-500/20 transition-all text-center"
                 >
                   <span>Solicitar Demonstração</span>
                 </a>
@@ -125,7 +125,7 @@ export default function ProjectModal({ project, onClose }) {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-slate-300 bg-slate-800 hover:text-white hover:bg-slate-700 transition-all border border-slate-700/80"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-slate-300 bg-slate-800 hover:text-white hover:bg-slate-700 transition-all border border-slate-700/80 text-center"
                   >
                     <Github className="w-4 h-4" />
                     <span>Ver Código Fonte</span>
@@ -137,7 +137,7 @@ export default function ProjectModal({ project, onClose }) {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-md shadow-purple-500/20 transition-all"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-md shadow-purple-500/20 transition-all text-center"
                   >
                     <ExternalLink className="w-4 h-4" />
                     <span>Acessar Projeto</span>

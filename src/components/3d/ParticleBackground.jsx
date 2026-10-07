@@ -165,6 +165,14 @@ export default function ParticleBackground() {
       mouse.y = (event.clientY - windowHalfY) * 0.001;
     };
 
+    const handleTouchMove = (event) => {
+      if (!event.touches[0]) return;
+      const windowHalfX = window.innerWidth / 2;
+      const windowHalfY = window.innerHeight / 2;
+      mouse.x = (event.touches[0].clientX - windowHalfX) * 0.001;
+      mouse.y = (event.touches[0].clientY - windowHalfY) * 0.001;
+    };
+
     const handleScroll = () => {
       scrollY = window.scrollY;
     };
@@ -176,6 +184,7 @@ export default function ParticleBackground() {
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
 
@@ -267,6 +276,7 @@ export default function ParticleBackground() {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
 

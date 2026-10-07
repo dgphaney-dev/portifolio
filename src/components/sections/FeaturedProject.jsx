@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { portfolioData } from '../../data/portfolioData';
 import ProjectModal from '../ProjectModal';
+import RevealOnScroll from '../ui/RevealOnScroll';
 
 export default function FeaturedProject() {
   const { featuredProject } = portfolioData;
@@ -41,21 +42,24 @@ export default function FeaturedProject() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Cabeçalho da Seção com Liquid Gradient Wave */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            {featuredProject.badge}
+        <RevealOnScroll direction="up" delay={0}>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5" />
+              {featuredProject.badge}
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+              <span className="projects-text-liquid">Arquitetura Integrada</span>
+            </h2>
+            <p className="mt-4 text-sm sm:text-base text-slate-400">
+              Ponto de Venda de alta performance (Desktop) integrado a Painel Administrativo Web e Cloud Database.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            <span className="projects-text-liquid">Arquitetura Integrada</span>
-          </h2>
-          <p className="mt-4 text-sm sm:text-base text-slate-400">
-            Ponto de Venda de alta performance (Desktop) integrado a Painel Administrativo Web e Cloud Database.
-          </p>
-        </div>
+        </RevealOnScroll>
 
         {/* Layout Bento Glass-Ultra Dividido Esquerda / Direita */}
-        <div className="rounded-3xl glass-ultra p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative overflow-hidden">
+        <RevealOnScroll direction="up" delay={120}>
+          <div className="rounded-3xl glass-ultra p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative overflow-hidden">
           
           {/* Top-Right Neon Tag Badge (Caio Duque style) */}
           <div className="absolute top-6 right-6 z-20">
@@ -178,8 +182,8 @@ export default function FeaturedProject() {
             </div>
 
           </div>
-
         </div>
+      </RevealOnScroll>
 
       </div>
 

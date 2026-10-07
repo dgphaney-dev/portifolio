@@ -13,6 +13,7 @@ export const portfolioData = {
     avatar: "/profile.png",
     avatar3d: "/avatar_kinect_3d.jpg",
     handballPhoto: "/douglas_handebol_2.jpg",
+    handballPhotoCourt: "/douglas_handebol_3.png",
     institution: "UCB - Universidade Católica de Brasília",
   },
 
