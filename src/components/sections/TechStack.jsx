@@ -733,11 +733,11 @@ export default function TechStack() {
           </p>
         </div>
 
-        {/* Container Glass Ultra Translúcido com Céu Estrelado */}
+        {/* Constelação Aberta e Integrada ao Espaço Cósmico (Sem caixa, sem bordas) */}
         <div
           ref={containerRef}
-          className="relative w-full rounded-3xl overflow-hidden border border-white/[0.12] shadow-[0_20px_60px_rgba(0,0,0,0.7)] glass-ultra"
-          style={{ height: '700px' }}
+          className="relative w-full overflow-visible"
+          style={{ height: '720px' }}
         >
           <canvas
             ref={canvasRef}
@@ -764,24 +764,17 @@ export default function TechStack() {
               </p>
             </div>
           )}
-
-          {/* Dica de Interatividade no canto inferior */}
-          <div className="absolute bottom-4 left-4 z-20 pointer-events-none hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-white/10 backdrop-blur-md text-[11px] text-slate-300 font-mono">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-            <span>Física em tempo real • Passe o mouse ou arraste as estrelas</span>
-          </div>
-
-          <div className="absolute bottom-4 right-4 z-20 pointer-events-none hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-white/10 backdrop-blur-md text-[11px] text-cyan-300 font-mono">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span>☄️ Meteoros ativos a cada ~3s</span>
-          </div>
         </div>
 
-        {/* Rodapé da Seção */}
-        <div className="mt-8 text-center flex items-center justify-center gap-3">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs text-slate-400 font-mono">
-            Estrutura conectada entre Frontend, Backend, Banco de Dados, Cloud e Ferramentas.
+        {/* Rodapé da Seção com Badges Sutis */}
+        <div className="mt-4 text-center flex flex-wrap items-center justify-center gap-3">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/60 border border-white/10 backdrop-blur-md text-[11px] text-slate-300 font-mono">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span>Física interativa no espaço • Arraste ou aproxime o cursor</span>
+          </span>
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/60 border border-white/10 backdrop-blur-md text-[11px] text-cyan-300 font-mono">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            <span>☄️ Meteoros ativos em tempo real</span>
           </span>
         </div>
 
