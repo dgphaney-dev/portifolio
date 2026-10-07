@@ -132,13 +132,13 @@ export default function ParticleBackground() {
     window.addEventListener('resize', handleResize);
 
     // 5. Loop de Animação
-    const clock = new THREE.Clock();
+    const startTime = performance.now();
     let animationFrameId;
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
-      const elapsedTime = clock.getElapsedTime();
+      const elapsedTime = (performance.now() - startTime) * 0.001;
 
       // Rotação sutil do universo
       particles.rotation.y += 0.0008;
