@@ -78,7 +78,7 @@ export default function Hero() {
                 <img
                   src={personal.avatar}
                   alt={personal.name}
-                  className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-full ring-4 ring-indigo-500/50 object-cover object-top shadow-2xl animate-float bg-slate-900"
+                  className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-full ring-4 ring-indigo-500/50 object-cover object-center shadow-2xl animate-float bg-slate-900"
                 />
               </div>
 
