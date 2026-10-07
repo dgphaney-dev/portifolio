@@ -11,14 +11,18 @@ export default function GithubSection() {
 
   // Busca repositórios públicos em tempo real diretamente da API do GitHub
   useEffect(() => {
-    fetch('https://api.github.com/users/dgphaney-dev/repos?sort=updated&per_page=6')
+    fetch('https://api.github.com/users/dgphaney-dev/repos?sort=updated&per_page=10')
       .then((res) => {
         if (!res.ok) throw new Error('Falha ao carregar repositórios');
         return res.json();
       })
       .then((data) => {
         if (Array.isArray(data)) {
-          setRepos(data);
+          // Filtra o repositório especial de perfil que tem o mesmo nome do usuário
+          const filtered = data
+            .filter((r) => r.name.toLowerCase() !== 'dgphaney-dev')
+            .slice(0, 6);
+          setRepos(filtered);
         }
       })
       .catch((err) => {
@@ -74,7 +78,7 @@ export default function GithubSection() {
                   </span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                  Perfil oficial: <a href="https://github.com/dgphaney-dev" target="_blank" rel="noopener noreferrer" className="font-mono text-cyan-400 hover:text-purple-300 underline underline-offset-2">@dgphaney-dev</a>
+                  Repositórios, contribuições e desenvolvimento contínuo em código aberto
                 </p>
               </div>
             </div>
