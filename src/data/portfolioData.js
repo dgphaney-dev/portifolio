@@ -12,7 +12,7 @@ export const portfolioData = {
     linkedin: "https://www.linkedin.com/in/douglasphaney/",
     avatar: "/profile.png",
     avatar3d: "/avatar_kinect_3d.jpg",
-    handballPhoto1: "/douglas_handebol_1.png",
+    handballPhoto1: "/douglas_atleta_trofeu.png",
     handballPhoto2: "/douglas_handebol_2.jpg",
     institution: "UCB - Universidade Católica de Brasília",
   },
@@ -45,7 +45,7 @@ export const portfolioData = {
   ],
 
   stats: [
-    { label: "Contribuições no GitHub", value: "724+" },
+    { label: "Contribuições no GitHub", value: "959+" },
     { label: "Anos Estudando Tecnologia", value: "1.5" },
     { label: "Projetos Desenvolvidos", value: "5+" },
     { label: "Dedicação & Aprendizado", value: "100%" },

@@ -1,118 +1,205 @@
 import React, { useEffect, useRef } from 'react';
+import * as THREE from 'three';
 
 export default function ParticleBackground() {
-  const canvasRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Verificar preferência de redução de movimento
+    // Verificar preferência de redução de movimento do usuário
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    let animationFrameId;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    const container = containerRef.current;
+    if (!container) return;
 
-    // Ajustar número de partículas com base na largura da tela para não sobrecarregar mobile
-    const isMobile = width < 768;
-    const particleCount = isMobile ? 25 : 55;
+    // 1. Configuração da Cena, Câmera 3D e Renderizador WebGL
+    const scene = new THREE.Scene();
 
-    const particles = [];
-    const colors = ['#9333ea', '#3b82f6', '#d946ef', '#06b6d4'];
+    const camera = new THREE.PerspectiveCamera(
+      60,
+      window.innerWidth / window.innerHeight,
+      1,
+      3000
+    );
+    camera.position.z = 700;
 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        radius: Math.random() * 1.8 + 0.8,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        alpha: Math.random() * 0.5 + 0.2,
-      });
+    const renderer = new THREE.WebGLRenderer({
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance',
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    // 2. Universo de Estrelas em 360 Graus (Esfera Cósmica Completa)
+    const starCount = window.innerWidth < 768 ? 1000 : 2200;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(starCount * 3);
+    const colors = new Float32Array(starCount * 3);
+    const sizes = new Float32Array(starCount);
+
+    const palette = [
+      new THREE.Color('#ffffff'), // Branco puro
+      new THREE.Color('#93c5fd'), // Azul estelar suave
+      new THREE.Color('#38bdf8'), // Ciano neon
+      new THREE.Color('#c084fc'), // Roxo cósmico
+      new THREE.Color('#f472b6'), // Rosa nebulosa
+    ];
+
+    for (let i = 0; i < starCount; i++) {
+      // Distribuição esférica em 360 graus para imersão total
+      const radius = 300 + Math.random() * 1200;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(Math.random() * 2 - 1);
+
+      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = radius * Math.cos(phi);
+
+      const color = palette[Math.floor(Math.random() * palette.length)];
+      colors[i * 3] = color.r;
+      colors[i * 3 + 1] = color.g;
+      colors[i * 3 + 2] = color.b;
+
+      sizes[i] = Math.random() * 2.8 + 1.2;
     }
 
-    let mouseX = -1000;
-    let mouseY = -1000;
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+    // Textura circular suave para as partículas
+    const canvas = document.createElement('canvas');
+    canvas.width = 32;
+    canvas.height = 32;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+    grad.addColorStop(0, 'rgba(255,255,255,1)');
+    grad.addColorStop(0.3, 'rgba(255,255,255,0.8)');
+    grad.addColorStop(0.7, 'rgba(168,85,247,0.3)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 32, 32);
+    const texture = new THREE.CanvasTexture(canvas);
+
+    const material = new THREE.PointsMaterial({
+      size: 4,
+      vertexColors: true,
+      map: texture,
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+
+    const starField = new THREE.Points(geometry, material);
+    scene.add(starField);
+
+    // 3. Nebulosa Cósmica de Poeira Espacial Secundária
+    const dustGeometry = new THREE.BufferGeometry();
+    const dustCount = 400;
+    const dustPositions = new Float32Array(dustCount * 3);
+    for (let i = 0; i < dustCount; i++) {
+      dustPositions[i * 3] = (Math.random() - 0.5) * 1600;
+      dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 1600;
+      dustPositions[i * 3 + 2] = (Math.random() - 0.5) * 1600;
+    }
+    dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
+
+    const dustMaterial = new THREE.PointsMaterial({
+      size: 7,
+      color: 0x7c3aed,
+      transparent: true,
+      opacity: 0.25,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const dustField = new THREE.Points(dustGeometry, dustMaterial);
+    scene.add(dustField);
+
+    // 4. Interação com o Mouse (Controle de Câmera 360 Graus)
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetRotationX = 0;
+    let targetRotationY = 0;
+    let scrollY = 0;
+    let targetScrollY = 0;
 
     const handleMouseMove = (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      // Coordenadas normalizadas [-1, 1]
+      const nx = (e.clientX / window.innerWidth) * 2 - 1;
+      const ny = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      // Ângulos de rotação 360 no espaço
+      targetRotationY = nx * Math.PI * 0.7; // Rotação horizontal (Yaw 360)
+      targetRotationX = ny * Math.PI * 0.35; // Rotação vertical (Pitch)
+    };
+
+    const handleScroll = () => {
+      targetScrollY = window.scrollY;
     };
 
     const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize, { passive: true });
 
-    const render = () => {
-      ctx.clearRect(0, 0, width, height);
+    // 5. Loop de Renderização Contínua em 60fps/120fps
+    let animationFrameId;
 
-      // Atualizar e desenhar partículas
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
+    const animate = () => {
+      animationFrameId = requestAnimationFrame(animate);
 
-        if (p.x < 0) p.x = width;
-        if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height;
-        if (p.y > height) p.y = 0;
+      // Rotação autônoma lenta do universo
+      starField.rotation.y += 0.0003;
+      dustField.rotation.y -= 0.0002;
 
-        // Desenhar partícula
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.shadowColor = p.color;
-        ctx.shadowBlur = 6;
-        ctx.fill();
-        ctx.restore();
+      // Interpolação suave (lerp) com a posição do mouse em 360
+      mouseX += (targetRotationY - mouseX) * 0.04;
+      mouseY += (targetRotationX - mouseY) * 0.04;
+      scrollY += (targetScrollY - scrollY) * 0.06;
 
-        // Linhas de conexão sutis entre partículas próximas
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+      // Efeito de rolamento (Warp através do espaço 3D conforme scrolla o site)
+      camera.position.x = Math.sin(mouseX) * 700;
+      camera.position.z = Math.cos(mouseX) * 700 - scrollY * 0.15;
+      camera.position.y = mouseY * 250 - scrollY * 0.08;
 
-          if (dist < 110) {
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = '#a855f7';
-            ctx.globalAlpha = (1 - dist / 110) * 0.12;
-            ctx.stroke();
-            ctx.restore();
-          }
-        }
-      }
+      camera.lookAt(0, -scrollY * 0.05, -scrollY * 0.15);
 
-      animationFrameId = requestAnimationFrame(render);
+      renderer.render(scene, camera);
     };
 
-    render();
+    animate();
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+
+      // Limpeza de recursos WebGL
+      geometry.dispose();
+      material.dispose();
+      dustGeometry.dispose();
+      dustMaterial.dispose();
+      texture.dispose();
+      renderer.dispose();
+      if (container && renderer.domElement) {
+        container.removeChild(renderer.domElement);
+      }
     };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-70"
+    <div
+      ref={containerRef}
+      className="fixed inset-0 pointer-events-none -z-10 overflow-hidden"
       aria-hidden="true"
     />
   );

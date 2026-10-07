@@ -188,7 +188,7 @@ export default function About() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-80" />
                 <span className="absolute bottom-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wider text-cyan-300 bg-[#0b0f19]/80 px-2 py-0.5 rounded backdrop-blur-sm group-hover/photo:bg-cyan-500/20 group-hover/photo:text-cyan-200 transition-colors font-mono">
-                  Em Quadra · UCB
+                  Atleta UCB
                 </span>
               </div>
 
