@@ -49,23 +49,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo DOUGLAS.DEV */}
+          {/* Logo Douglas Phaney */}
           <a
             href="#home"
-            className="flex items-center gap-3 group focus:outline-none transition-transform hover:scale-105"
+            className="flex items-center gap-2 group focus:outline-none transition-transform hover:scale-105"
           >
-            <div className="w-9 h-9 rounded-xl p-[1.5px] bg-gradient-to-tr from-purple-600 via-magenta-500 to-cyan-400 group-hover:shadow-[0_0_15px_rgba(168,85,247,0.6)] group-hover:rotate-3 transition-all duration-300 overflow-hidden shadow-md shadow-purple-500/20">
-              <img
-                src={portfolioData.personal.avatar}
-                alt={portfolioData.personal.name}
-                className="w-full h-full object-cover rounded-[10px] group-hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-            <div className="flex items-center gap-1">
-              <span className="font-extrabold text-base tracking-wider bg-gradient-to-r from-white via-purple-200 to-cyan-300 bg-clip-text text-transparent font-mono group-hover:text-cyan-200 transition-colors">
-                DOUGLAS.DEV
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse group-hover:scale-150 transition-transform"></span>
-            </div>
+            <span className="font-extrabold text-lg sm:text-xl tracking-wide bg-gradient-to-r from-white via-purple-100 to-cyan-300 bg-clip-text text-transparent group-hover:text-cyan-200 transition-colors">
+              Douglas Phaney
+            </span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse group-hover:scale-150 transition-transform"></span>
           </a>
 
           {/* Desktop Nav Items */}

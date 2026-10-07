@@ -17,10 +17,11 @@ export default function Footer() {
           
           {/* Logo / Nome com efeito cósmico */}
           <div className="text-center md:text-left">
-            <a href="#home" className="inline-flex items-center gap-2.5 mb-2 group">
-              <span className="text-xl font-black text-white tracking-wider font-mono">
-                DOUGLAS<span className="text-cyan-400 group-hover:text-purple-400 transition-colors">.DEV</span>
+            <a href="#home" className="inline-flex items-center gap-2 mb-2 group">
+              <span className="text-xl font-black bg-gradient-to-r from-white via-purple-100 to-cyan-300 bg-clip-text text-transparent tracking-wide group-hover:text-cyan-200 transition-colors">
+                Douglas Phaney
               </span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             </a>
             <p className="text-xs text-slate-400 italic font-mono">
               “Desenvolvendo, aprendendo e evoluindo.”
