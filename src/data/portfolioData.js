@@ -116,6 +116,24 @@ export const portfolioData = {
       githubUrl: "https://github.com/dgphaney-dev/sistema-barbearia",
     },
     {
+      id: "sistema-biblioteca",
+      title: "Sistema Biblioteca - Gestão & Empréstimos",
+      category: "Backend",
+      featured: true,
+      description: "Sistema completo em Python para gestão de acervo bibliográfico, controle de empréstimos, cadastro de usuários e persistência em banco de dados SQLite com testes automatizados.",
+      longDescription: "Aplicação backend estruturada em arquitetura modular (livros, usuários, empréstimos, database) com persistência em SQLite e suíte de testes unitários para garantir integridade e regras de negócio.",
+      tags: ["Python", "SQLite", "Testes Unitários", "Backend", "CRUD"],
+      image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80",
+      liveUrl: "https://github.com/dgphaney-dev/sistema-biblioteca",
+      githubUrl: "https://github.com/dgphaney-dev/sistema-biblioteca",
+      highlights: [
+        "Controle completo de empréstimos e devoluções com validação",
+        "Módulos desacoplados para livros, usuários e camada de dados",
+        "Suíte de testes automatizados garantindo qualidade de código",
+        "Persistência em banco de dados relacional SQLite"
+      ]
+    },
+    {
       id: "sistema-de-registro",
       title: "Sistema de Registro & Validação",
       category: "Backend",

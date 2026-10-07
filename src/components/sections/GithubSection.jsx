@@ -6,12 +6,69 @@ import { portfolioData } from '../../data/portfolioData';
 
 export default function GithubSection() {
   const { personal } = portfolioData;
-  const [repos, setRepos] = useState([]);
-  const [loadingRepos, setLoadingRepos] = useState(true);
+  const defaultRepos = [
+    {
+      id: 101,
+      name: 'sistema-biblioteca',
+      description: 'Sistema completo em Python para gestão de acervo bibliográfico, controle de empréstimos, usuários e banco de dados SQLite.',
+      language: 'Python',
+      stargazers_count: 1,
+      html_url: 'https://github.com/dgphaney-dev/sistema-biblioteca',
+      updated_at: '2026-08-09T05:11:09Z',
+    },
+    {
+      id: 102,
+      name: 'sistema-erp',
+      description: 'Aplicação de gestão corporativa integrada e controle de fluxo operacional.',
+      language: 'Python',
+      stargazers_count: 0,
+      html_url: 'https://github.com/dgphaney-dev/sistema-erp',
+      updated_at: '2026-08-26T02:40:32Z',
+    },
+    {
+      id: 103,
+      name: 'sistema-barbearia',
+      description: 'Plataforma web para agendamento de clientes, catálogo de serviços e profissionais.',
+      language: 'HTML / JS',
+      stargazers_count: 1,
+      html_url: 'https://github.com/dgphaney-dev/sistema-barbearia',
+      updated_at: '2026-08-20T17:14:38Z',
+    },
+    {
+      id: 104,
+      name: 'sistema-de-registro',
+      description: 'Aplicação em Python para cadastro, validação e manipulação de registros de usuários.',
+      language: 'Python',
+      stargazers_count: 1,
+      html_url: 'https://github.com/dgphaney-dev/sistema-de-registro',
+      updated_at: '2026-08-12T22:42:37Z',
+    },
+    {
+      id: 105,
+      name: 'site-de-venda-responsivo',
+      description: 'Vitrine digital responsiva e interface comercial otimizada.',
+      language: 'HTML / CSS',
+      stargazers_count: 1,
+      html_url: 'https://github.com/dgphaney-dev/site-de-venda-responsivo',
+      updated_at: '2026-08-09T22:30:51Z',
+    },
+    {
+      id: 106,
+      name: 'exercicios-java',
+      description: 'Estruturas de dados, lógica e algoritmos fundamentais desenvolvidos em Java.',
+      language: 'Java',
+      stargazers_count: 0,
+      html_url: 'https://github.com/dgphaney-dev/exercicios-java',
+      updated_at: '2026-08-17T19:27:05Z',
+    },
+  ];
+
+  const [repos, setRepos] = useState(defaultRepos);
+  const [loadingRepos, setLoadingRepos] = useState(false);
 
   // Busca repositórios públicos em tempo real diretamente da API do GitHub
   useEffect(() => {
-    fetch('https://api.github.com/users/dgphaney-dev/repos?sort=updated&per_page=10')
+    fetch('https://api.github.com/users/dgphaney-dev/repos?sort=updated&per_page=30')
       .then((res) => {
         if (!res.ok) throw new Error('Falha ao carregar repositórios');
         return res.json();
@@ -19,10 +76,19 @@ export default function GithubSection() {
       .then((data) => {
         if (Array.isArray(data)) {
           // Filtra o repositório especial de perfil que tem o mesmo nome do usuário
-          const filtered = data
-            .filter((r) => r.name.toLowerCase() !== 'dgphaney-dev')
-            .slice(0, 6);
-          setRepos(filtered);
+          const withoutProfile = data.filter((r) => r.name.toLowerCase() !== 'dgphaney-dev');
+
+          // Prioriza 'sistema-biblioteca' no topo conforme solicitado
+          const biblioteca = withoutProfile.find((r) => r.name.toLowerCase() === 'sistema-biblioteca');
+          const others = withoutProfile.filter((r) => r.name.toLowerCase() !== 'sistema-biblioteca');
+
+          const customBiblioteca = biblioteca ? {
+            ...biblioteca,
+            description: biblioteca.description || 'Sistema completo em Python para gestão de acervo bibliográfico, controle de empréstimos, usuários e banco SQLite.'
+          } : null;
+
+          const sorted = customBiblioteca ? [customBiblioteca, ...others] : withoutProfile;
+          setRepos(sorted.slice(0, 6));
         }
       })
       .catch((err) => {
