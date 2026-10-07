@@ -34,18 +34,11 @@ export default function Projects() {
   ];
 
   const getNeonTagDetails = (project) => {
-    if (project.id === 'nextgen-erp') {
+    if (project.id === 'nextgen-pdv-erp' || project.id === 'nextgen-erp') {
       return {
         className: 'tag-featured',
         icon: Star,
-        tooltip: 'Arquitetura Empresarial'
-      };
-    }
-    if (project.id === 'pdv-supermercado') {
-      return {
-        className: 'tag-database',
-        icon: Database,
-        tooltip: 'Desktop & MySQL'
+        tooltip: 'Arquitetura Integrada Desktop + Web'
       };
     }
     if (project.id === 'sistema-barbearia') {
@@ -75,7 +68,13 @@ export default function Projects() {
         selectedCategory === 'Todos' ||
         project.category === selectedCategory ||
         (selectedCategory === 'Banco de Dados' &&
-          project.tags.some((t) => t.toLowerCase().includes('sql') || t.toLowerCase().includes('mysql') || t.toLowerCase().includes('banco')));
+          project.tags.some((t) => /sql|mysql|banco/i.test(t))) ||
+        (selectedCategory === 'Desktop' &&
+          (project.category === 'Desktop' || project.tags.some((t) => /desktop|pdv/i.test(t)))) ||
+        (selectedCategory === 'Web' &&
+          (project.category === 'Web' || project.tags.some((t) => /web|react/i.test(t)))) ||
+        (selectedCategory === 'Full Stack' &&
+          (project.category === 'Full Stack' || project.tags.some((t) => /full stack/i.test(t))));
 
       const matchesSearch =
         searchQuery.trim() === '' ||

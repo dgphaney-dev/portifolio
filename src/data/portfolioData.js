@@ -85,29 +85,23 @@ export const portfolioData = {
 
   projects: [
     {
-      id: "nextgen-erp",
-      title: "NextGen ERP - Gestão Integrada",
+      id: "nextgen-pdv-erp",
+      title: "NextGen ERP & PDV Supermercado",
       category: "Full Stack",
       featured: true,
-      description: "Sistema ERP para gestão de empresas, controle de operações, fluxos corporativos e tomada de decisões estratégicas.",
-      longDescription: "Projeto NextGen ERP focado em integrar diferentes setores corporativos, oferecendo controle operacional, organização de dados e interface dinâmica.",
-      tags: ["JavaScript", "React", "Node.js", "MySQL", "Full Stack"],
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      description: "Sistema integrado conectando aplicação Desktop de alta performance (frente de caixa / PDV) a um painel Web corporativo e banco em nuvem MySQL para controle total de estoque, vendas e gestão empresarial.",
+      longDescription: "Solução completa que unifica uma aplicação desktop ágil desenvolvida em Python para operação contínua de caixa e Ponto de Venda (PDV) com um painel web administrativo em React para gestão corporativa, relatórios gerenciais e sincronização em tempo real via MySQL na nuvem.",
+      tags: ["Python", "React", "Desktop PDV", "Painel Web", "MySQL Cloud", "Full Stack"],
+      image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80",
       liveUrl: "#",
       githubUrl: "#",
       isPrivate: true,
-    },
-    {
-      id: "pdv-supermercado",
-      title: "PDV Supermercado - Ponto de Venda & Caixa",
-      category: "Desktop",
-      featured: true,
-      description: "Sistema ágil de Ponto de Venda (PDV) para supermercados, com registro de itens, totalizadores de caixa e baixa de estoque.",
-      longDescription: "Solução para rotina de caixa no varejo, priorizando agilidade na passagem de produtos, fechamento de turno e persistência em banco relacional.",
-      tags: ["Python", "MySQL", "Desktop", "PDV", "Estoque"],
-      image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80",
-      liveUrl: "https://github.com/dgphaney-dev",
-      githubUrl: "https://github.com/dgphaney-dev",
+      highlights: [
+        "Frente de caixa Desktop ágil com baixa automática de estoque",
+        "Painel administrativo Web com visualização e métricas de vendas",
+        "Banco de dados relacional centralizado em nuvem (MySQL)",
+        "Comunicação fluida e segura entre o caixa e a administração"
+      ]
     },
     {
       id: "sistema-barbearia",
