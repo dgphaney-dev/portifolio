@@ -10,7 +10,6 @@ import About from './components/sections/About';
 import TechStack from './components/sections/TechStack';
 import FeaturedProject from './components/sections/FeaturedProject';
 import Projects from './components/sections/Projects';
-import GithubSection from './components/sections/GithubSection';
 import Experience from './components/sections/Experience';
 import Contact from './components/sections/Contact';
 import Footer from './components/sections/Footer';
@@ -50,7 +49,6 @@ function App() {
           <TechStack />
           <FeaturedProject />
           <Projects />
-          <GithubSection />
           <Experience />
           <Contact />
         </main>
