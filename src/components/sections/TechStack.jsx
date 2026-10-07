@@ -24,56 +24,7 @@ export default function TechStack() {
     };
     window.addEventListener('resize', handleResize);
 
-    // --- 1. CAMPO ESTELAR PROFUNDO (350+ estrelas luminosas com brilho e twinkle) ---
-    const starCount = 350;
-    const stars = Array.from({ length: starCount }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      size: Math.random() * 2.5 + 0.8,
-      baseAlpha: Math.random() * 0.5 + 0.35,
-      twinkleSpeed: Math.random() * 2.5 + 1.2,
-      phase: Math.random() * Math.PI * 2,
-      color: [
-        '#ffffff', // Branco estelar
-        '#67e8f9', // Ciano neon
-        '#c084fc', // Violeta cósmico
-        '#fef08a', // Dourado quente
-        '#f472b6', // Rosa nebulosa
-        '#93c5fd', // Azul celeste
-      ][Math.floor(Math.random() * 6)],
-      parallax: Math.random() * 0.09 + 0.03,
-      hasSpikes: Math.random() > 0.88, // Estrelas maiores com diffraction spikes de 4 pontas
-    }));
-
-    // --- 2. METEOROS / SHOOTING STARS DINÂMICOS (Frequência ativa: a cada 2.5s a 5s) ---
-    const meteors = [];
-    const meteorSparks = [];
-    let lastMeteorTime = performance.now();
-    let nextMeteorDelay = 2200;
-
-    const spawnMeteor = () => {
-      const startX = Math.random() * (width * 1.1) - width * 0.05;
-      const startY = Math.random() * (height * 0.4);
-      const angle = Math.PI / 4 + (Math.random() * 0.2 - 0.1);
-      const speed = Math.random() * 5.0 + 7.5; // Velocidade visualmente impressionante
-
-      meteors.push({
-        x: startX,
-        y: startY,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        length: Math.random() * 120 + 90,
-        thickness: Math.random() * 2.2 + 1.4,
-        opacity: 1.0,
-        decay: Math.random() * 0.012 + 0.008,
-        color: Math.random() > 0.45 ? '#38bdf8' : '#f472b6',
-      });
-    };
-
-    // --- 3. DUST DE CURSOR (Poeira estelar interativa) ---
-    const stardust = [];
-
-    // --- 4. DADOS DA CONSTELAÇÃO (LAYOUT RELATIVO EM %) ---
+    // --- DADOS DA CONSTELAÇÃO (LAYOUT RELATIVO EM %) ---
     const rawHubs = [
       { id: 'hub-tools', label: 'Tools', rx: 0.22, ry: 0.32, color: '#a855f7' },
       { id: 'hub-design', label: 'Design', rx: 0.28, ry: 0.65, color: '#f59e0b' },
@@ -257,40 +208,28 @@ export default function TechStack() {
     let skills = [];
 
     const initPositions = () => {
-      hubs = rawHubs.map((h, idx) => ({
+      hubs = rawHubs.map((h) => ({
         ...h,
         x: h.rx * width,
         y: h.ry * height,
         baseX: h.rx * width,
         baseY: h.ry * height,
-        vx: 0,
-        vy: 0,
-        phase: idx * 1.1,
-        floatFreqX: 1.1 + (idx % 3) * 0.2,
-        floatFreqY: 0.9 + (idx % 2) * 0.3,
-        floatAmp: 11,
         isHub: true,
       }));
 
-      skills = rawSkills.map((s, idx) => ({
+      skills = rawSkills.map((s) => ({
         ...s,
         x: s.rx * width,
         y: s.ry * height,
         baseX: s.rx * width,
         baseY: s.ry * height,
-        vx: 0,
-        vy: 0,
-        phase: idx * 0.85 + 2.0,
-        floatFreqX: 1.3 + (idx % 4) * 0.2,
-        floatFreqY: 1.0 + (idx % 3) * 0.25,
-        floatAmp: 13,
         isHub: false,
       }));
     };
 
     initPositions();
 
-    // --- 5. INTERATIVIDADE COM MOUSE & TOQUE ---
+    // --- INTERATIVIDADE DE HOVER E ARRASTO ---
     const mouse = { x: -1000, y: -1000, isHovering: false };
     let draggedNode = null;
     let dragOffset = { x: 0, y: 0 };
@@ -301,25 +240,12 @@ export default function TechStack() {
       mouse.y = e.clientY - rect.top;
       mouse.isHovering = true;
 
-      // Adiciona poeira estelar suave sob o cursor
-      if (Math.random() > 0.4) {
-        stardust.push({
-          x: mouse.x + (Math.random() * 12 - 6),
-          y: mouse.y + (Math.random() * 12 - 6),
-          vx: (Math.random() - 0.5) * 0.8,
-          vy: (Math.random() - 0.5) * 0.8,
-          size: Math.random() * 2.2 + 0.8,
-          alpha: 0.85,
-          color: Math.random() > 0.5 ? '#38bdf8' : '#c084fc',
-        });
-      }
-
       // Detecção de hover para Tooltip
       const allNodes = [...hubs, ...skills];
       let found = null;
       for (const node of allNodes) {
         const dist = Math.hypot(node.x - mouse.x, node.y - mouse.y);
-        const hitRadius = node.isHub ? 24 : node.r + 6;
+        const hitRadius = node.isHub ? 26 : node.r + 6;
         if (dist <= hitRadius) {
           found = node;
           break;
@@ -348,7 +274,7 @@ export default function TechStack() {
       const allNodes = [...hubs, ...skills];
       for (const node of allNodes) {
         const dist = Math.hypot(node.x - clickX, node.y - clickY);
-        const hitRadius = node.isHub ? 26 : node.r + 6;
+        const hitRadius = node.isHub ? 28 : node.r + 8;
         if (dist <= hitRadius) {
           draggedNode = node;
           dragOffset.x = node.x - clickX;
@@ -377,181 +303,27 @@ export default function TechStack() {
     canvas.addEventListener('touchmove', onTouchMove, { passive: true });
     canvas.addEventListener('touchend', onMouseLeave);
 
-    // --- 6. LOOP DE ANIMAÇÃO VIVO E FLUIDO ---
-    let startTime = performance.now();
-    let lastTime = startTime;
-
+    // --- LOOP DE RENDERIZAÇÃO LIMPO (CONSTELAÇÃO PARADA E ESTÁVEL) ---
     const render = () => {
-      const now = performance.now();
-      const dt = Math.min((now - lastTime) * 0.001, 0.1);
-      lastTime = now;
-      const time = (now - startTime) * 0.001; // Tempo em segundos reais
-
+      // 100% transparente para que as estrelas 3D do Three.js apareçam com pureza total
       ctx.clearRect(0, 0, width, height);
 
-      // A. Nebulosa Cósmica Translúcida Suave (Permite que o fundo 3D do site respire por trás)
-      const nebula1 = ctx.createRadialGradient(width * 0.35, height * 0.45, 10, width * 0.35, height * 0.45, 340);
-      nebula1.addColorStop(0, 'rgba(123, 70, 255, 0.16)');
-      nebula1.addColorStop(0.6, 'rgba(123, 70, 255, 0.04)');
-      nebula1.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = nebula1;
-      ctx.fillRect(0, 0, width, height);
-
-      const nebula2 = ctx.createRadialGradient(width * 0.68, height * 0.52, 10, width * 0.68, height * 0.52, 360);
-      nebula2.addColorStop(0, 'rgba(6, 182, 212, 0.14)');
-      nebula2.addColorStop(0.6, 'rgba(6, 182, 212, 0.03)');
-      nebula2.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = nebula2;
-      ctx.fillRect(0, 0, width, height);
-
-      // B. Desenho das Estrelas Vivas (Brilho dinâmico, pulso de luz e diffraction spikes)
-      const mouseParallaxX = (mouse.x - width * 0.5) * 0.03;
-      const mouseParallaxY = (mouse.y - height * 0.5) * 0.03;
-
-      for (const s of stars) {
-        // Pulso cintilante evidente e vivo
-        const twinkle = Math.sin(time * s.twinkleSpeed + s.phase);
-        const alpha = Math.max(0.2, Math.min(1.0, s.baseAlpha + twinkle * 0.4));
-        const sx = s.x - mouseParallaxX * s.parallax;
-        const sy = s.y - mouseParallaxY * s.parallax;
-
-        // Halo suave ao redor da estrela
-        if (s.size > 1.6) {
-          const halo = ctx.createRadialGradient(sx, sy, 0, sx, sy, s.size * 3.5);
-          halo.addColorStop(0, s.color);
-          halo.addColorStop(0.4, s.color + '55');
-          halo.addColorStop(1, 'transparent');
-          ctx.fillStyle = halo;
-          ctx.beginPath();
-          ctx.arc(sx, sy, s.size * 3.5, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        // Núcleo brilhante
-        ctx.fillStyle = '#ffffff';
-        ctx.globalAlpha = alpha;
-        ctx.beginPath();
-        ctx.arc(sx, sy, s.size, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Diffraction spikes em estrelas proeminentes (Cruz cósmica de 4 pontas)
-        if (s.hasSpikes && alpha > 0.6) {
-          ctx.strokeStyle = s.color;
-          ctx.lineWidth = 0.9;
-          ctx.beginPath();
-          const spikeLen = s.size * 4.5;
-          ctx.moveTo(sx - spikeLen, sy);
-          ctx.lineTo(sx + spikeLen, sy);
-          ctx.moveTo(sx, sy - spikeLen);
-          ctx.lineTo(sx, sy + spikeLen);
-          ctx.stroke();
-        }
-      }
-      ctx.globalAlpha = 1.0;
-
-      // C. Poeira Estelar do Cursor (Stardust)
-      for (let i = stardust.length - 1; i >= 0; i--) {
-        const p = stardust[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.alpha -= 0.02;
-        if (p.alpha <= 0) {
-          stardust.splice(i, 1);
-          continue;
-        }
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1.0;
-
-      // D. Meteoros e Cometas (Passando ativamente pelo céu a cada poucos segundos)
-      if (now - lastMeteorTime > nextMeteorDelay) {
-        spawnMeteor();
-        lastMeteorTime = now;
-        nextMeteorDelay = 2200 + Math.random() * 2600; // Entre 2.2s e 4.8s
-      }
-
-      for (let i = meteors.length - 1; i >= 0; i--) {
-        const m = meteors[i];
-        m.x += m.vx;
-        m.y += m.vy;
-        m.opacity -= m.decay;
-
-        if (m.opacity <= 0 || m.x > width + 150 || m.y > height + 150) {
-          meteors.splice(i, 1);
-          continue;
-        }
-
-        const tailX = m.x - (m.vx / 8) * m.length;
-        const tailY = m.y - (m.vy / 8) * m.length;
-
-        // Rastro luminoso do cometa
-        const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
-        grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity})`);
-        grad.addColorStop(0.25, m.color === '#38bdf8' ? `rgba(56, 189, 248, ${m.opacity * 0.9})` : `rgba(244, 114, 182, ${m.opacity * 0.9})`);
-        grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = m.thickness;
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.moveTo(m.x, m.y);
-        ctx.lineTo(tailX, tailY);
-        ctx.stroke();
-
-        // Cabeça intensa do meteoro com brilho solar
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = m.color;
-        ctx.shadowBlur = 12;
-        ctx.beginPath();
-        ctx.arc(m.x, m.y, m.thickness * 1.3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-
-      // E. Física Orgânica, Flutuação Viva e Repulsão Magnética dos Nós
       const allNodes = [...hubs, ...skills];
 
+      // Posições firmes e paradas (somente o arraste manual altera a posição)
       for (const node of allNodes) {
         if (node === draggedNode) {
           node.x = mouse.x + dragOffset.x;
           node.y = mouse.y + dragOffset.y;
-          node.vx = 0;
-          node.vy = 0;
         } else {
-          // Flutuação orgânica harmoniosa perceptível e viva (Amplitude 9 a 13px, período de 3 a 4s)
-          const targetX = node.baseX + Math.sin(time * node.floatFreqX + node.phase) * node.floatAmp;
-          const targetY = node.baseY + Math.cos(time * node.floatFreqY + node.phase) * (node.floatAmp * 0.85);
-
-          // Força de atração à posição flutuante (Spring elástica suave)
-          const k = 0.035;
-          const ax = (targetX - node.x) * k;
-          const ay = (targetY - node.y) * k;
-          node.vx = (node.vx + ax) * 0.90;
-          node.vy = (node.vy + ay) * 0.90;
-
-          // Repulsão Magnética Dinâmica ao se aproximar com o mouse (< 170px)
-          if (mouse.isHovering) {
-            const dx = node.x - mouse.x;
-            const dy = node.y - mouse.y;
-            const dist = Math.hypot(dx, dy);
-            if (dist < 170 && dist > 1) {
-              const force = (170 - dist) / 170;
-              node.vx += (dx / dist) * force * 1.4;
-              node.vy += (dy / dist) * force * 1.4;
-            }
-          }
-
-          node.x += node.vx;
-          node.y += node.vy;
+          // Retorno elástico suave à posição base caso tenha sido arrastado
+          node.x += (node.baseX - node.x) * 0.15;
+          node.y += (node.baseY - node.y) * 0.15;
         }
       }
 
-      // F. Linhas da Constelação Cósmica com Fótons Viajantes
-      rawLinks.forEach((link, linkIdx) => {
+      // Linhas da Constelação Cósmica Firmes e Nítidas
+      rawLinks.forEach((link) => {
         const n1 = allNodes.find((n) => n.id === link.from);
         const n2 = allNodes.find((n) => n.id === link.to);
         if (!n1 || !n2) return;
@@ -570,7 +342,7 @@ export default function TechStack() {
           ctx.strokeStyle = '#22d3ee';
           ctx.lineWidth = 2.4;
           ctx.shadowColor = '#06b6d4';
-          ctx.shadowBlur = 14;
+          ctx.shadowBlur = 12;
         } else {
           ctx.strokeStyle = 'rgba(147, 197, 253, 0.28)';
           ctx.lineWidth = 1.3;
@@ -579,29 +351,16 @@ export default function TechStack() {
 
         ctx.stroke();
         ctx.shadowBlur = 0;
-
-        // Fótons brilhantes viajando pela linha em velocidade fluida
-        const progress1 = (time * 0.75 + linkIdx * 0.27) % 1.0;
-        const px1 = n1.x + (n2.x - n1.x) * progress1;
-        const py1 = n1.y + (n2.y - n1.y) * progress1;
-
-        ctx.fillStyle = isHighlighted ? '#ffffff' : '#38bdf8';
-        ctx.shadowColor = isHighlighted ? '#00e5ff' : '#60a5fa';
-        ctx.shadowBlur = 8;
-        ctx.beginPath();
-        ctx.arc(px1, py1, isHighlighted ? 3.0 : 2.0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
       });
 
-      // G. Hubs Estelares (Estrelas de 4 pontas com rotação viva, aura e satélites)
+      // Hubs Estelares Fixos (Nexus de 4 pontas limpos e radiantes)
       for (const hub of hubs) {
         const isHover = hoveredNode?.id === hub.id;
         ctx.save();
         ctx.translate(hub.x, hub.y);
 
         // Halo Difuso Radiante
-        const haloRadius = isHover ? 32 : 22;
+        const haloRadius = isHover ? 30 : 20;
         const haloGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, haloRadius);
         haloGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
         haloGrad.addColorStop(0.35, isHover ? 'rgba(168, 85, 247, 0.85)' : 'rgba(168, 85, 247, 0.45)');
@@ -611,13 +370,12 @@ export default function TechStack() {
         ctx.arc(0, 0, haloRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Rotação graciosa da estrela nexus
-        ctx.rotate(time * 0.45);
+        // Estrela de 4 pontas fixa
         ctx.fillStyle = '#ffffff';
         ctx.shadowColor = hub.color;
-        ctx.shadowBlur = isHover ? 26 : 16;
+        ctx.shadowBlur = isHover ? 24 : 14;
 
-        const size = isHover ? 19 : 14;
+        const size = isHover ? 18 : 13;
         ctx.beginPath();
         ctx.moveTo(0, -size);
         ctx.quadraticCurveTo(0, 0, size, 0);
@@ -627,40 +385,29 @@ export default function TechStack() {
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        // Mini satélite orbital girando em volta do nexus
-        const satAngle = time * 2.2 + hub.phase;
-        const satDist = isHover ? 28 : 22;
-        const satX = Math.cos(satAngle) * satDist;
-        const satY = Math.sin(satAngle) * satDist;
-        ctx.fillStyle = '#67e8f9';
-        ctx.beginPath();
-        ctx.arc(satX, satY, 1.8, 0, Math.PI * 2);
-        ctx.fill();
-
         ctx.restore();
 
-        // Texto do Hub com brilho
-        ctx.fillStyle = isHover ? '#ffffff' : '#e2e8f0';
+        // Texto do Hub
+        ctx.fillStyle = isHover ? '#ffffff' : '#cbd5e1';
         ctx.font = 'bold 12px Outfit, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.shadowColor = 'rgba(0,0,0,0.9)';
         ctx.shadowBlur = 6;
-        ctx.fillText(hub.label, hub.x, hub.y + 20);
+        ctx.fillText(hub.label, hub.x, hub.y + 18);
         ctx.shadowBlur = 0;
       }
 
-      // H. Nós de Habilidades (Pílulas Glass com anel de neon pulsante e logos)
+      // Nós de Habilidades Firmes e Parados
       for (const skill of skills) {
         const isHover = hoveredNode?.id === skill.id;
         const r = isHover ? skill.r * 1.25 : skill.r;
 
-        // Anel de respiração neon que pulsa continuamente
-        const pulse = Math.sin(time * 2.8 + skill.phase) * 3;
+        // Anel de Aura Neon Fixo
         ctx.beginPath();
-        ctx.arc(skill.x, skill.y, r + 4 + pulse, 0, Math.PI * 2);
+        ctx.arc(skill.x, skill.y, r + 4, 0, Math.PI * 2);
         ctx.strokeStyle = skill.color;
-        ctx.globalAlpha = isHover ? 0.75 : 0.28;
+        ctx.globalAlpha = isHover ? 0.85 : 0.28;
         ctx.lineWidth = 1.2;
         ctx.stroke();
         ctx.globalAlpha = 1.0;
@@ -722,22 +469,21 @@ export default function TechStack() {
         <div className="text-center max-w-3xl mx-auto mb-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-            Constelação Interativa Viva
+            Constelação de Habilidades
           </div>
           <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
             <span className="skills-text-liquid">Skills Constellation</span>
           </h2>
           <p className="mt-3 text-xs sm:text-sm text-slate-400 flex items-center justify-center gap-2">
-            <Sparkles className="w-4 h-4 text-purple-400" />
-            <span>Mova o mouse pelo cosmos para repelir nós, arraste tecnologias e veja meteoros ativos passando em tempo real.</span>
+            <span>Passe o cursor sobre os nós para visualizar detalhes das tecnologias.</span>
           </p>
         </div>
 
-        {/* Constelação Aberta e Integrada ao Espaço Cósmico (Sem caixa, sem bordas) */}
+        {/* Constelação Aberta e Integrada ao Espaço Cósmico (Sem caixa, sem estrelas duplicadas) */}
         <div
           ref={containerRef}
           className="relative w-full overflow-visible"
-          style={{ height: '720px' }}
+          style={{ height: '680px' }}
         >
           <canvas
             ref={canvasRef}
@@ -766,15 +512,11 @@ export default function TechStack() {
           )}
         </div>
 
-        {/* Rodapé da Seção com Badges Sutis */}
-        <div className="mt-4 text-center flex flex-wrap items-center justify-center gap-3">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/60 border border-white/10 backdrop-blur-md text-[11px] text-slate-300 font-mono">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>Física interativa no espaço • Arraste ou aproxime o cursor</span>
-          </span>
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/60 border border-white/10 backdrop-blur-md text-[11px] text-cyan-300 font-mono">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span>☄️ Meteoros ativos em tempo real</span>
+        {/* Rodapé da Seção */}
+        <div className="mt-6 text-center flex items-center justify-center gap-3">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-xs text-slate-400 font-mono">
+            Estrutura conectada entre Frontend, Backend, Banco de Dados, Cloud e Ferramentas.
           </span>
         </div>
 
