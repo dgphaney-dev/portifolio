@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Mail } from 'lucide-react';
+import { ArrowUp, Mail, Heart, Sparkles } from 'lucide-react';
 import { Github, Linkedin } from '../Icons';
 import { portfolioData } from '../../data/portfolioData';
 
@@ -11,30 +11,30 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#080812] border-t border-white/[0.08] pt-14 pb-10 overflow-hidden">
+    <footer className="relative bg-[#080c14] border-t border-white/[0.08] pt-14 pb-12 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-10 border-b border-white/[0.05]">
           
-          {/* Nome e Texto Requerido */}
+          {/* Logo / Nome com efeito cósmico */}
           <div className="text-center md:text-left">
-            <a href="#home" className="inline-flex items-center gap-2.5 mb-2">
-              <span className="text-lg font-bold text-white tracking-tight">
-                {personal.name}
+            <a href="#home" className="inline-flex items-center gap-2.5 mb-2 group">
+              <span className="text-xl font-black text-white tracking-wider font-mono">
+                DOUGLAS<span className="text-cyan-400 group-hover:text-purple-400 transition-colors">.DEV</span>
               </span>
             </a>
-            <p className="text-xs text-slate-400 italic">
+            <p className="text-xs text-slate-400 italic font-mono">
               “Desenvolvendo, aprendendo e evoluindo.”
             </p>
           </div>
 
-          {/* Links: GitHub, LinkedIn, Email + Voltar ao Topo */}
+          {/* Links Sociais e Voltar ao Topo */}
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <a
                 href={personal.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group p-2.5 rounded-xl bg-[#0D0D18] hover:bg-[#111122] text-slate-400 hover:text-white border border-white/[0.08] hover:border-purple-500/50 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:scale-110 active:scale-95 transition-all duration-200"
+                className="group p-2.5 rounded-xl glass-ultra text-slate-400 hover:text-white transition-all duration-200"
                 aria-label="GitHub de Douglas Phaney"
               >
                 <Github className="w-4 h-4 group-hover:rotate-12 transition-transform duration-200" />
@@ -44,7 +44,7 @@ export default function Footer() {
                 href={personal.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group p-2.5 rounded-xl bg-[#0D0D18] hover:bg-[#111122] text-slate-400 hover:text-cyan-400 border border-white/[0.08] hover:border-cyan-400/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] hover:scale-110 active:scale-95 transition-all duration-200"
+                className="group p-2.5 rounded-xl glass-ultra text-slate-400 hover:text-cyan-400 transition-all duration-200"
                 aria-label="LinkedIn de Douglas Phaney"
               >
                 <Linkedin className="w-4 h-4 group-hover:rotate-12 transition-transform duration-200" />
@@ -52,7 +52,7 @@ export default function Footer() {
 
               <a
                 href={`mailto:${personal.email}`}
-                className="group p-2.5 rounded-xl bg-[#0D0D18] hover:bg-[#111122] text-slate-400 hover:text-purple-300 border border-white/[0.08] hover:border-purple-400/50 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:scale-110 active:scale-95 transition-all duration-200"
+                className="group p-2.5 rounded-xl glass-ultra text-slate-400 hover:text-purple-300 transition-all duration-200"
                 aria-label="Enviar E-mail para Douglas Phaney"
               >
                 <Mail className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
@@ -61,20 +61,25 @@ export default function Footer() {
 
             <button
               onClick={scrollToTop}
-              className="p-2.5 px-3.5 rounded-xl bg-purple-600/10 hover:bg-purple-600/25 text-purple-400 hover:text-white border border-purple-500/30 hover:border-purple-400/60 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer flex items-center gap-1.5 text-xs font-semibold"
+              className="btn-star !py-2 !px-3.5 !text-xs cursor-pointer flex items-center gap-1.5"
               title="Voltar ao início da página"
             >
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Topo</span>
             </button>
           </div>
 
         </div>
 
-        {/* Copyright */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-3">
-          <p>© {new Date().getFullYear()} {personal.name}. Todos os direitos reservados.</p>
-          <p className="font-mono">React 19 · Three.js · Tailwind CSS</p>
+        {/* Copyright & Stack */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-3 font-mono">
+          <p>© {new Date().getFullYear()} {personal.name} · Brasília, DF</p>
+          <p className="flex items-center gap-1">
+            <span>Construído com</span>
+            <span className="text-purple-400 font-bold">React 19</span>
+            <span>&</span>
+            <span className="text-cyan-400 font-bold">Tailwind CSS</span>
+          </p>
         </div>
       </div>
     </footer>

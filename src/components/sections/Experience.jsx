@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
-import { Briefcase, GraduationCap, Award, Calendar, Clock, ExternalLink, FileText, CheckCircle2, Copy, Check, Sparkles } from 'lucide-react';
+import { 
+  Briefcase, 
+  GraduationCap, 
+  Award, 
+  Calendar, 
+  Clock, 
+  ExternalLink, 
+  FileText, 
+  CheckCircle2, 
+  Copy, 
+  Check, 
+  Sparkles,
+  ShieldCheck
+} from 'lucide-react';
 import { portfolioData } from '../../data/portfolioData';
 
 export default function Experience() {
@@ -14,34 +27,35 @@ export default function Experience() {
   };
 
   return (
-    <section id="experiencia" className="py-24 relative overflow-hidden bg-[#080812]">
+    <section id="experiencia" className="py-28 relative overflow-hidden bg-[#0b0f19]">
       {/* Background Soft Glow */}
-      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-purple-600/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 right-0 w-[550px] h-[550px] bg-pink-600/10 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-10 left-0 w-[550px] h-[550px] bg-purple-600/10 blur-[160px] rounded-full pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Cabeçalho da Seção */}
+        {/* Cabeçalho da Seção com Liquid Gradient Wave */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-pink-500/10 border border-pink-500/25 text-pink-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             Trajetória & Foco
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Experiência, Formação & Certificações
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+            <span className="journey-text-liquid">Trajetória & Certificações</span>
           </h2>
           <p className="mt-4 text-sm sm:text-base text-slate-400">
             Minha caminhada prática na programação, formação superior na Católica e certificações técnicas comprovadas.
           </p>
         </div>
 
-        {/* Tab Switcher com 3 Abas */}
+        {/* Tab Switcher com 3 Abas Estilo Caio Duque */}
         <div className="flex justify-center mb-14">
-          <div className="inline-flex flex-wrap justify-center p-1.5 rounded-2xl bg-[#0D0D18] border border-white/[0.08] gap-1 sm:gap-1.5 shadow-inner">
+          <div className="inline-flex flex-wrap justify-center p-1.5 rounded-2xl glass-ultra gap-1 sm:gap-2">
             <button
               onClick={() => setActiveTab('experience')}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer ${
+              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 activeTab === 'experience'
-                  ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-lg shadow-purple-500/30'
+                  ? 'bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white shadow-lg shadow-pink-500/30 scale-105'
                   : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
@@ -50,9 +64,9 @@ export default function Experience() {
             </button>
             <button
               onClick={() => setActiveTab('education')}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer ${
+              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 activeTab === 'education'
-                  ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-lg shadow-purple-500/30'
+                  ? 'bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white shadow-lg shadow-pink-500/30 scale-105'
                   : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
@@ -61,9 +75,9 @@ export default function Experience() {
             </button>
             <button
               onClick={() => setActiveTab('certifications')}
-              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer ${
+              className={`flex items-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 activeTab === 'certifications'
-                  ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-lg shadow-purple-500/30'
+                  ? 'bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white shadow-lg shadow-pink-500/30 scale-105'
                   : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
@@ -74,20 +88,20 @@ export default function Experience() {
         </div>
 
         {/* Conteúdo Dinâmico por Aba */}
-        <div className="relative pl-6 sm:pl-8 border-l border-purple-500/30 space-y-10">
+        <div className="relative pl-6 sm:pl-8 border-l border-pink-500/30 space-y-10">
           
           {/* ABA 1: OBJETIVO & PRÁTICA */}
           {activeTab === 'experience' && (
             experience.map((item, index) => (
               <div key={index} className="relative group">
-                <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#080812] border-2 border-cyan-400 group-hover:scale-125 group-hover:bg-cyan-400 transition-all duration-300 shadow-[0_0_10px_#22d3ee]" />
+                <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#0b0f19] border-2 border-cyan-400 group-hover:scale-125 group-hover:bg-cyan-400 transition-all duration-300 shadow-[0_0_12px_#22d3ee]" />
 
-                <div className="p-7 sm:p-8 rounded-3xl bg-[#0D0D18]/80 border border-white/[0.08] hover:border-purple-500/40 transition-all duration-300 shadow-xl hover:-translate-y-1">
+                <div className="p-7 sm:p-8 rounded-3xl glass-ultra">
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                     <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">
                       {item.role}
                     </h3>
-                    <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-[#11111F] text-cyan-300 border border-white/[0.08]">
+                    <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-[#0b0f19] text-cyan-300 border border-white/[0.1] font-mono">
                       <Calendar className="w-3.5 h-3.5" />
                       {item.period}
                     </span>
@@ -106,7 +120,7 @@ export default function Experience() {
                       {item.technologies.map((tech, idx) => (
                         <span
                           key={idx}
-                          className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#11111F] text-slate-300 border border-white/[0.06]"
+                          className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-white/[0.04] text-slate-300 border border-white/[0.08]"
                         >
                           {tech}
                         </span>
@@ -122,14 +136,14 @@ export default function Experience() {
           {activeTab === 'education' && (
             education.map((item, index) => (
               <div key={index} className="relative group">
-                <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#080812] border-2 border-purple-400 group-hover:scale-125 group-hover:bg-purple-400 transition-all duration-300 shadow-[0_0_10px_#c084fc]" />
+                <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#0b0f19] border-2 border-purple-400 group-hover:scale-125 group-hover:bg-purple-400 transition-all duration-300 shadow-[0_0_12px_#c084fc]" />
 
-                <div className="p-7 sm:p-8 rounded-3xl bg-[#0D0D18]/80 border border-white/[0.08] hover:border-purple-500/40 transition-all duration-300 shadow-xl">
+                <div className="p-7 sm:p-8 rounded-3xl glass-ultra">
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                     <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-purple-300 transition-colors">
                       {item.course}
                     </h3>
-                    <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-[#11111F] text-purple-300 border border-white/[0.08]">
+                    <span className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-[#0b0f19] text-purple-300 border border-white/[0.1] font-mono">
                       <Calendar className="w-3.5 h-3.5" />
                       {item.period}
                     </span>
@@ -151,9 +165,9 @@ export default function Experience() {
           {activeTab === 'certifications' && (
             certifications.map((cert) => (
               <div key={cert.id} className="relative group">
-                <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#080812] border-2 border-emerald-400 group-hover:scale-125 group-hover:bg-emerald-400 transition-all duration-300 shadow-[0_0_10px_#34d399]" />
+                <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#0b0f19] border-2 border-emerald-400 group-hover:scale-125 group-hover:bg-emerald-400 transition-all duration-300 shadow-[0_0_12px_#34d399]" />
 
-                <div className="p-7 sm:p-8 rounded-3xl bg-[#0D0D18]/80 border border-white/[0.08] hover:border-emerald-500/40 transition-all duration-300 shadow-xl hover:-translate-y-1">
+                <div className="p-7 sm:p-8 rounded-3xl glass-ultra">
                   
                   {/* Topo do Card de Certificação */}
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
@@ -167,12 +181,12 @@ export default function Experience() {
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                      <span className="flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full bg-[#11111F] text-amber-300 border border-white/[0.08]">
+                    <div className="flex items-center gap-2 font-mono">
+                      <span className="flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full bg-[#0b0f19] text-amber-300 border border-white/[0.1]">
                         <Clock className="w-3.5 h-3.5" />
                         {cert.hours}
                       </span>
-                      <span className="flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full bg-[#11111F] text-slate-300 border border-white/[0.08]">
+                      <span className="flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full bg-[#0b0f19] text-slate-300 border border-white/[0.1]">
                         <Calendar className="w-3.5 h-3.5" />
                         {cert.date}
                       </span>
@@ -180,7 +194,7 @@ export default function Experience() {
                   </div>
 
                   {/* Emissor */}
-                  <p className="text-xs sm:text-sm font-semibold text-purple-400 mb-3">
+                  <p className="text-xs sm:text-sm font-semibold text-pink-400 mb-3">
                     {cert.issuer}
                   </p>
 
@@ -189,23 +203,23 @@ export default function Experience() {
                     {cert.description}
                   </p>
 
-                  {/* Chave de Validação e Ações */}
-                  <div className="p-3.5 rounded-2xl bg-[#080812]/90 border border-white/[0.06] mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  {/* Chave de Validação e Ações com Stardust Button */}
+                  <div className="p-3.5 rounded-2xl bg-[#0b0f19]/90 border border-white/[0.08] mb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="flex items-center gap-2 text-xs font-mono text-slate-400 truncate">
                       <span className="text-slate-500">Chave:</span>
-                      <span className="text-cyan-300 font-semibold truncate">{cert.validationCode}</span>
+                      <span className="text-cyan-300 font-semibold truncate select-all">{cert.validationCode}</span>
                     </div>
 
                     <div className="flex items-center gap-2 shrink-0">
                       <button
                         onClick={() => handleCopy(cert.validationCode)}
-                        className="px-3 py-1.5 rounded-lg bg-[#11111F] hover:bg-white/[0.1] text-[11px] font-mono text-slate-300 hover:text-white transition-colors flex items-center gap-1.5 border border-white/[0.08]"
+                        className="px-3 py-1.5 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-[11px] font-mono text-slate-300 hover:text-white transition-colors flex items-center gap-1.5 border border-white/[0.08] cursor-pointer"
                         title="Copiar código de validação"
                       >
                         {copiedCode === cert.validationCode ? (
                           <>
                             <Check className="w-3.5 h-3.5 text-emerald-400" />
-                            <span className="text-emerald-400">Copiado</span>
+                            <span className="text-emerald-400 font-bold">Copiado</span>
                           </>
                         ) : (
                           <>
@@ -232,7 +246,7 @@ export default function Experience() {
                           href={cert.pdfUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white transition-colors flex items-center gap-1.5 shadow-md shadow-purple-500/20 text-[11px] font-semibold"
+                          className="btn-star text-[11px] py-1.5 px-3"
                         >
                           <FileText className="w-3.5 h-3.5" />
                           <span>Ver Certificado</span>
@@ -247,7 +261,7 @@ export default function Experience() {
                       {cert.skills.map((skill, idx) => (
                         <span
                           key={idx}
-                          className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-[#11111F] text-emerald-300 border border-emerald-500/20"
+                          className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-white/[0.04] text-emerald-300 border border-emerald-500/20"
                         >
                           {skill}
                         </span>

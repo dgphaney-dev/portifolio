@@ -21,10 +21,10 @@ export default function Contact() {
     email: '',
     subject: '',
     message: '',
-    honeypot: '', // Proteção contra bots/spam
+    honeypot: '',
   });
 
-  const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
+  const [status, setStatus] = useState('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [copiedEmail, setCopiedEmail] = useState(false);
 
@@ -37,10 +37,8 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Proteção contra spam (se preencher campo oculto, descarta)
     if (formData.honeypot) return;
 
-    // Validações básicas
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setStatus('error');
       setErrorMessage('Por favor, preencha todos os campos obrigatórios.');
@@ -57,11 +55,9 @@ export default function Contact() {
     setStatus('loading');
     setErrorMessage('');
 
-    // Simulação com transição profissional e fallback de mailto seguro
     setTimeout(() => {
       setStatus('success');
       
-      // Fallback seguro abrindo cliente de email sem expor credenciais
       const mailtoUrl = `mailto:${personal.email}?subject=${encodeURIComponent(
         formData.subject || 'Contato através do Portfólio'
       )}&body=${encodeURIComponent(
@@ -69,24 +65,25 @@ export default function Contact() {
       )}`;
       
       window.location.href = mailtoUrl;
-    }, 1200);
+    }, 1000);
   };
 
   return (
-    <section id="contato" className="py-24 relative overflow-hidden bg-[#080812]">
-      {/* Glow de Fundo */}
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-600/10 blur-[170px] rounded-full pointer-events-none" />
+    <section id="contato" className="py-28 relative overflow-hidden bg-[#0b0f19]">
+      {/* Glow Cósmico Vermelho/Laranja de Fundo */}
+      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-red-600/10 blur-[170px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/3 left-10 w-[500px] h-[500px] bg-purple-600/10 blur-[170px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Cabeçalho da Seção */}
+        {/* Cabeçalho da Seção com Liquid Gradient Wave */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-500/10 border border-red-500/25 text-red-400 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             Vamos Conversar?
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Entre em Contato
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+            <span className="contact-text-liquid">Entre em Contato</span>
           </h2>
           <p className="mt-4 text-sm sm:text-base text-slate-400">
             Estou à disposição para oportunidades de estágio, vagas júnior, dúvidas ou networking.
@@ -97,47 +94,50 @@ export default function Contact() {
           
           {/* Coluna Esquerda: Informações e Canais Diretos */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="p-8 rounded-3xl bg-[#0D0D18]/80 border border-white/[0.08] backdrop-blur-xl shadow-2xl">
+            <div className="p-8 rounded-3xl glass-ultra">
               <h3 className="text-xl font-bold text-white mb-2">
-                Canais de Comunicação
+                Canais Diretos
               </h3>
               <p className="text-xs sm:text-sm text-slate-400 mb-6">
                 Fique à vontade para me enviar um e-mail ou conectar-se através das redes sociais profissionais.
               </p>
 
-              {/* Botão de Copiar E-mail */}
-              <div className="p-4 rounded-2xl bg-[#080812] border border-white/[0.08] flex items-center justify-between gap-3 mb-4">
+              {/* Botão de Copiar E-mail com Diamond Tooltip */}
+              <div className="p-4 rounded-2xl bg-[#0b0f19] border border-white/[0.08] flex items-center justify-between gap-3 mb-4">
                 <div className="flex items-center gap-3 overflow-hidden">
-                  <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/25 flex items-center justify-center text-purple-400 shrink-0">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div className="truncate">
-                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">E-mail</span>
+                    <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">E-mail</span>
                     <span className="text-xs sm:text-sm font-mono text-slate-200 truncate">{personal.email}</span>
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="p-2.5 rounded-xl bg-[#11111F] hover:bg-purple-600/20 text-slate-300 hover:text-purple-300 border border-white/[0.08] transition-all cursor-pointer shrink-0"
-                  title="Copiar endereço de e-mail"
-                >
-                  {copiedEmail ? (
-                    <Check className="w-4 h-4 text-emerald-400" />
-                  ) : (
-                    <Copy className="w-4 h-4" />
-                  )}
-                </button>
+                <div className="tooltip-diamond shrink-0">
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className="p-2.5 rounded-xl bg-white/[0.05] hover:bg-purple-600/20 text-slate-300 hover:text-purple-300 border border-white/[0.08] transition-all cursor-pointer"
+                    aria-label="Copiar endereço de e-mail"
+                  >
+                    {copiedEmail ? (
+                      <Check className="w-4 h-4 text-emerald-400" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+                  <span>{copiedEmail ? 'Copiado!' : 'Copiar'}</span>
+                </div>
               </div>
 
-              {/* Redes Sociais */}
+              {/* Redes Sociais com Diamond Tooltips */}
               <div className="grid grid-cols-2 gap-3 pt-2">
                 <a
                   href={personal.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group p-3.5 rounded-xl bg-[#080812] hover:bg-[#111122] border border-white/[0.08] hover:border-purple-500/60 hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] text-slate-300 hover:text-white transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2.5 text-xs font-semibold"
+                  className="group p-3.5 rounded-xl bg-[#0b0f19] hover:bg-white/[0.05] border border-white/[0.08] hover:border-purple-500/60 hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] text-slate-300 hover:text-white transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2.5 text-xs font-semibold"
                 >
                   <Github className="w-4 h-4 text-purple-400 group-hover:rotate-12 transition-transform duration-200" />
                   <span>GitHub</span>
@@ -148,7 +148,7 @@ export default function Contact() {
                   href={personal.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group p-3.5 rounded-xl bg-[#080812] hover:bg-[#111122] border border-white/[0.08] hover:border-cyan-500/60 hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] text-slate-300 hover:text-cyan-300 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2.5 text-xs font-semibold"
+                  className="group p-3.5 rounded-xl bg-[#0b0f19] hover:bg-white/[0.05] border border-white/[0.08] hover:border-cyan-500/60 hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] text-slate-300 hover:text-cyan-300 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2.5 text-xs font-semibold"
                 >
                   <Linkedin className="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform duration-200" />
                   <span>LinkedIn</span>
@@ -157,9 +157,9 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Elemento Abstrato / Status de Contratação */}
-            <div className="p-6 rounded-3xl bg-[#0D0D18]/60 border border-white/[0.06] hover:border-cyan-500/40 hover:bg-[#111122] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] flex items-center gap-4 cursor-default group">
-              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 group-hover:scale-110 group-hover:bg-cyan-500/20 group-hover:border-cyan-400/50 flex items-center justify-center text-cyan-400 shrink-0 transition-all duration-300">
+            {/* Elemento de Status de Contratação */}
+            <div className="p-6 rounded-3xl glass-ultra flex items-center gap-4 cursor-default group">
+              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/25 group-hover:scale-110 group-hover:bg-cyan-500/20 group-hover:border-cyan-400/50 flex items-center justify-center text-cyan-400 shrink-0 transition-all duration-300">
                 <MessageSquare className="w-6 h-6" />
               </div>
               <div>
@@ -171,9 +171,9 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Coluna Direita: Formulário Moderno */}
+          {/* Coluna Direita: Formulário Moderno Glass-Ultra */}
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-3xl bg-[#0D0D18]/80 border border-white/[0.08] backdrop-blur-2xl shadow-2xl">
+            <div className="p-8 sm:p-10 rounded-3xl glass-ultra">
               <h3 className="text-xl font-bold text-white mb-1">
                 Envie uma Mensagem
               </h3>
@@ -193,7 +193,7 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Honeypot anti-spam (oculto para humanos) */}
+                  {/* Honeypot anti-spam */}
                   <input
                     type="text"
                     name="honeypot"
@@ -214,7 +214,7 @@ export default function Contact() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5 font-mono">
                         Nome *
                       </label>
                       <input
@@ -223,11 +223,11 @@ export default function Contact() {
                         placeholder="Seu nome ou empresa"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-[#080812] border border-white/[0.08] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/40 transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-[#0b0f19] border border-white/[0.08] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/40 transition-all"
                       />
                     </div>
                     <div>
-                      <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                      <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5 font-mono">
                         Email *
                       </label>
                       <input
@@ -236,13 +236,13 @@ export default function Contact() {
                         placeholder="seu@email.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-[#080812] border border-white/[0.08] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/40 transition-all"
+                        className="w-full px-4 py-3 rounded-xl bg-[#0b0f19] border border-white/[0.08] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/40 transition-all"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5 font-mono">
                       Assunto
                     </label>
                     <input
@@ -250,12 +250,12 @@ export default function Contact() {
                       placeholder="Ex: Oportunidade para Desenvolvedor Júnior / Estágio"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#080812] border border-white/[0.08] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/40 transition-all"
+                      className="w-full px-4 py-3 rounded-xl bg-[#0b0f19] border border-white/[0.08] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/40 transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-300 mb-1.5 font-mono">
                       Mensagem *
                     </label>
                     <textarea
@@ -264,14 +264,14 @@ export default function Contact() {
                       placeholder="Escreva sua mensagem ou detalhes da vaga..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#080812] border border-white/[0.08] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/40 transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-[#0b0f19] border border-white/[0.08] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/40 transition-all resize-none"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="w-full py-3.5 px-6 rounded-xl font-semibold text-xs uppercase tracking-wider text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="btn-star w-full py-3.5 !text-xs cursor-pointer disabled:opacity-50"
                   >
                     {status === 'loading' ? (
                       <>

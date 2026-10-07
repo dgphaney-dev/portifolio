@@ -3,9 +3,13 @@ import {
   ArrowRight, 
   User, 
   ChevronDown, 
-  Sparkles,
-  Layers,
-  Terminal
+  GraduationCap,
+  Code2,
+  Trophy,
+  Award,
+  GitCommit,
+  Terminal,
+  ExternalLink
 } from 'lucide-react';
 import { Github, Linkedin } from '../Icons';
 import { portfolioData } from '../../data/portfolioData';
@@ -14,126 +18,189 @@ import DeveloperAvatar3D from '../3d/DeveloperAvatar3D';
 export default function Hero() {
   const { personal } = portfolioData;
 
-  return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden"
-    >
-      {/* Glows de Fundo Ambientais */}
-      <div className="absolute top-1/4 left-1/4 w-[450px] h-[450px] bg-purple-600/15 blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-600/10 blur-[150px] rounded-full pointer-events-none" />
+  const badges = [
+    {
+      id: 1,
+      title: 'ADS @ Católica (UCB)',
+      icon: GraduationCap,
+      delay: 'animate-float',
+      color: 'from-purple-500 to-indigo-600',
+    },
+    {
+      id: 2,
+      title: 'Python & React Dev',
+      icon: Code2,
+      delay: 'animate-float-delay-1',
+      color: 'from-cyan-400 to-blue-600',
+    },
+    {
+      id: 3,
+      title: 'Medalhista JUDF 🏆',
+      icon: Trophy,
+      delay: 'animate-float-delay-2',
+      color: 'from-amber-400 to-yellow-600',
+    },
+    {
+      id: 4,
+      title: 'FIAP & AWS Certificado',
+      icon: Award,
+      delay: 'animate-float-delay-3',
+      color: 'from-emerald-400 to-teal-600',
+    },
+    {
+      id: 5,
+      title: '724+ Contribuições Git',
+      icon: GitCommit,
+      delay: 'animate-float-delay-1',
+      color: 'from-fuchsia-500 to-pink-600',
+    },
+  ];
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Coluna Esquerda: Apresentação e Botões */}
-          <div className="lg:col-span-7 text-center lg:text-left">
-            {/* Badge de Disponibilidade & Foto */}
-            <div className="inline-flex items-center gap-3 p-1.5 pr-4 rounded-full bg-[#0D0D18]/90 border border-white/[0.08] hover:border-emerald-500/40 hover:bg-[#111124] shadow-lg mb-6 backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-default">
-              <div className="w-8 h-8 rounded-full overflow-hidden border border-purple-500/40">
+  return (
+    <section id="home" className="relative pt-20 pb-16 overflow-hidden">
+      {/* Banner Cósmico com Fade Mask (Estilo Caio Duque) */}
+      <div className="relative w-full h-[220px] sm:h-[260px] fade-mask overflow-hidden bg-gradient-to-r from-slate-950 via-indigo-950/60 to-purple-950/50">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-600/25 via-purple-600/15 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:32px_32px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+        
+        {/* Card de Perfil que Sobrepõe o Banner (-mt-24) */}
+        <div className="glass-ultra rounded-3xl p-6 sm:p-9 -mt-24 sm:-mt-28 mb-12 relative shadow-2xl">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+            
+            {/* Esquerda: Avatar + Glitch Name + Bio */}
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
+              {/* Foto com Anel Luminoso e Float */}
+              <div className="relative group shrink-0">
+                <div className="absolute -inset-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 rounded-full blur-md opacity-40 group-hover:opacity-80 transition duration-700 animate-pulse pointer-events-none" />
                 <img
                   src={personal.avatar}
                   alt={personal.name}
-                  className="w-full h-full object-cover"
+                  className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-full ring-4 ring-indigo-500/50 object-cover shadow-2xl animate-float bg-slate-900"
                 />
               </div>
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>{personal.availability}</span>
+
+              {/* Textos */}
+              <div className="max-w-xl">
+                {/* Glitch Name */}
+                <div className="glitch-wrapper mb-2">
+                  <h2
+                    className="glitch-text text-3xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] via-[#00d4ff] to-[#a855f7]"
+                    data-text={personal.name}
+                  >
+                    {personal.name}
+                  </h2>
+                </div>
+
+                {/* Subtítulo Tecnológico */}
+                <p className="text-sm sm:text-base font-semibold text-purple-300/90 font-mono mb-2">
+                  Estudante de Análise e Desenvolvimento de Sistemas (ADS)
+                </p>
+
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-prose">
+                  Graduando na <span className="text-white font-semibold">Universidade Católica de Brasília (UCB)</span>. 
+                  Desenvolvedor com foco em <span className="text-cyan-300 font-semibold">Python</span>,{' '}
+                  <span className="text-amber-300 font-semibold">MySQL</span> e{' '}
+                  <span className="text-purple-300 font-semibold">React</span>, construindo sistemas completos do desktop à nuvem.
+                </p>
+
+                {/* Status Pills */}
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 mt-3 pt-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    {personal.availability}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono text-slate-400 bg-white/[0.04] border border-white/[0.08]">
+                    Brasília, DF • Remoto & Híbrido
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* Nome */}
-            <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight leading-[1.08] mb-3">
-              <span className="bg-gradient-to-r from-white via-slate-100 to-purple-200 bg-clip-text text-transparent">
-                {personal.name}
-              </span>
-            </h1>
-
-            {/* Título Oficial */}
-            <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 via-magenta-400 to-cyan-300 bg-clip-text text-transparent mb-4">
-              {personal.role}
-            </h2>
-
-            {/* Subtítulo */}
-            <p className="text-base sm:text-lg font-medium text-slate-200 mb-4 italic">
-              “{personal.tagline}”
-            </p>
-
-            {/* Descrição Profissional Curta */}
-            <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-8">
-              {personal.shortBio}
-            </p>
-
-            {/* Botões Requeridos com Microinterações */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 mb-10">
-              {/* Ver Projetos */}
-              <a
-                href="#projetos"
-                className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider text-white bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 shadow-lg shadow-purple-500/25 hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] hover:scale-105 active:scale-95 transition-all duration-200"
-              >
-                <span>Ver Projetos</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-200" />
-              </a>
-
-              {/* Sobre Mim */}
-              <a
-                href="#sobre"
-                className="group inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider text-slate-200 bg-[#0D0D18]/90 hover:bg-[#11111F] border border-white/[0.08] hover:border-purple-500/60 hover:text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.25)] hover:scale-105 active:scale-95 transition-all duration-200"
-              >
-                <User className="w-3.5 h-3.5 text-purple-400 group-hover:scale-110 transition-transform" />
-                <span>Sobre Mim</span>
-              </a>
-
-              {/* GitHub */}
-              <a
-                href={personal.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-4 py-3 rounded-xl font-semibold text-xs text-slate-300 bg-[#0D0D18]/80 hover:bg-[#11111F] border border-white/[0.08] hover:border-purple-400 hover:text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:scale-105 active:scale-95 transition-all duration-200"
-                title="GitHub Douglas Phaney"
-              >
-                <Github className="w-4 h-4 text-purple-400 group-hover:rotate-12 transition-transform duration-200" />
-                <span>GitHub</span>
-              </a>
-
-              {/* LinkedIn */}
-              <a
-                href={personal.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-4 py-3 rounded-xl font-semibold text-xs text-slate-300 bg-[#0D0D18]/80 hover:bg-[#11111F] border border-white/[0.08] hover:border-cyan-400 hover:text-cyan-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:scale-105 active:scale-95 transition-all duration-200"
-                title="LinkedIn Douglas Phaney"
-              >
-                <Linkedin className="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform duration-200" />
-                <span>LinkedIn</span>
-              </a>
+            {/* Direita: Badges Flutuantes com Diamond Gleam Tooltip (Estilo Caio Duque) */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3.5 shrink-0">
+              {badges.map((badge) => {
+                const IconComponent = badge.icon;
+                return (
+                  <div
+                    key={badge.id}
+                    className={`tooltip-diamond relative group cursor-pointer ${badge.delay}`}
+                  >
+                    <div className="w-12 h-12 rounded-2xl bg-[#131726] border border-white/[0.12] hover:border-cyan-400/60 p-2.5 flex items-center justify-center text-slate-300 group-hover:text-white transition-all duration-300 shadow-lg shadow-black/40 group-hover:scale-115 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.4)]">
+                      <IconComponent className="w-6 h-6 transition-transform group-hover:rotate-6" />
+                    </div>
+                    <span>{badge.title}</span>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Mini Terminal Status */}
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-slate-500 bg-[#0D0D18]/60 px-3.5 py-1.5 rounded-lg border border-white/[0.05]">
-              <Terminal className="w-3.5 h-3.5 text-purple-400" />
-              <span>ADS @ Católica · Python, MySQL & React</span>
-            </div>
           </div>
 
-          {/* Coluna Direita: Elemento 3D Interativo */}
-          <div className="lg:col-span-5 relative flex items-center justify-center">
-            {/* Glow sob o 3D */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 via-magenta-500/10 to-cyan-500/20 rounded-full blur-[80px] pointer-events-none" />
-            
-            <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
-              <DeveloperAvatar3D />
-            </div>
-          </div>
+          {/* Linha de Ações Rápidas (Stardust Buttons) */}
+          <div className="mt-8 pt-6 border-t border-white/[0.06] flex flex-wrap items-center justify-center sm:justify-start gap-3">
+            <a href="#projetos" className="btn-star">
+              <span>Ver Projetos</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
 
+            <a href="#sobre" className="btn-star">
+              <User className="w-3.5 h-3.5 text-purple-400" />
+              <span>Sobre Mim</span>
+            </a>
+
+            <a
+              href={personal.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-star"
+            >
+              <Github className="w-3.5 h-3.5 text-cyan-400" />
+              <span>GitHub</span>
+            </a>
+
+            <a
+              href={personal.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-star"
+            >
+              <Linkedin className="w-3.5 h-3.5 text-purple-400" />
+              <span>LinkedIn</span>
+            </a>
+          </div>
         </div>
+
+        {/* Quadro Interativo com o Script Python */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-7 space-y-4 text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-semibold uppercase tracking-wider">
+              <Terminal className="w-3.5 h-3.5" />
+              Terminal Interativo • Execução em Tempo Real
+            </div>
+
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Código limpo, lógica consistente e aprendizado contínuo.
+            </h3>
+
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-xl">
+              Passe o mouse sobre o quadro de execução ao lado para assistir à digitação dinâmica em tempo real do script de autodescrição do desenvolvedor.
+            </p>
+          </div>
+
+          <div className="lg:col-span-5 flex items-center justify-center">
+            <DeveloperAvatar3D />
+          </div>
+        </div>
+
       </div>
 
       {/* Indicação Discreta de Scroll */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-slate-500 text-[11px] font-mono tracking-widest uppercase pointer-events-none animate-bounce">
-        <span>Scroll</span>
-        <ChevronDown className="w-4 h-4 text-purple-400/80" />
+      <div className="flex flex-col items-center gap-1 mt-12 text-slate-500 text-[10px] font-mono tracking-widest uppercase pointer-events-none animate-bounce">
+        <span>Scroll Down</span>
+        <ChevronDown className="w-4 h-4 text-purple-400" />
       </div>
     </section>
   );
