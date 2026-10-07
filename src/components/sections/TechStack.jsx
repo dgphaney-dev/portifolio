@@ -39,26 +39,26 @@ export default function TechStack() {
       parallax: Math.random() * 0.08 + 0.02,
     }));
 
-    // --- METEOROS / SHOOTING STARS ---
+    // --- METEOROS / SHOOTING STARS SUAVES E ESPAÇADOS ---
     const meteors = [];
     let lastMeteorTime = 0;
 
     const spawnMeteor = () => {
-      // Nasce no canto superior ou lateral
-      const startX = Math.random() * width * 1.2 - width * 0.1;
-      const startY = Math.random() * (height * 0.4);
-      const angle = Math.PI / 4 + (Math.random() * 0.3 - 0.15); // ~45 graus
-      const speed = Math.random() * 10 + 12;
+      // Nasce suavemente no topo ou lateral
+      const startX = Math.random() * width * 1.1 - width * 0.05;
+      const startY = Math.random() * (height * 0.35);
+      const angle = Math.PI / 4 + (Math.random() * 0.2 - 0.1);
+      const speed = Math.random() * 3.5 + 4.5; // Velocidade suave e elegante
 
       meteors.push({
         x: startX,
         y: startY,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
-        length: Math.random() * 90 + 70,
-        thickness: Math.random() * 1.8 + 1.2,
-        opacity: 1,
-        decay: Math.random() * 0.012 + 0.008,
+        length: Math.random() * 100 + 80,
+        thickness: Math.random() * 1.6 + 1,
+        opacity: 0.9,
+        decay: Math.random() * 0.005 + 0.003, // Desvanece devagar
         color: Math.random() > 0.4 ? '#38bdf8' : '#e879f9',
       });
     };
@@ -381,7 +381,7 @@ export default function TechStack() {
       const mouseParallaxY = (mouse.y - height * 0.5) * 0.03;
 
       for (const s of stars) {
-        const currentAlpha = s.baseAlpha + Math.sin(time * 3 * s.twinkleSpeed * 60 + s.phase) * 0.25;
+        const currentAlpha = s.baseAlpha + Math.sin(time * 0.8 * s.twinkleSpeed * 20 + s.phase) * 0.2;
         ctx.fillStyle = s.color;
         ctx.globalAlpha = Math.max(0.1, Math.min(1, currentAlpha));
 
@@ -394,8 +394,8 @@ export default function TechStack() {
       }
       ctx.globalAlpha = 1;
 
-      // 3. Atualização e Desenho dos Meteoros
-      if (time - lastMeteorTime > Math.random() * 2.5 + 1.8) {
+      // 3. Atualização e Desenho dos Meteoros (Espaçados e calmos)
+      if (time - lastMeteorTime > Math.random() * 5 + 4.5) {
         spawnMeteor();
         lastMeteorTime = time;
       }
@@ -411,8 +411,8 @@ export default function TechStack() {
           continue;
         }
 
-        const tailX = m.x - (m.vx / 15) * m.length;
-        const tailY = m.y - (m.vy / 15) * m.length;
+        const tailX = m.x - (m.vx / 10) * m.length;
+        const tailY = m.y - (m.vy / 10) * m.length;
 
         const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
         grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity})`);
@@ -430,11 +430,11 @@ export default function TechStack() {
         // Cabeça brilhante do meteoro
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
-        ctx.arc(m.x, m.y, m.thickness * 1.2, 0, Math.PI * 2);
+        ctx.arc(m.x, m.y, m.thickness * 1.1, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // 4. Física Interativa dos Nós da Constelação
+      // 4. Física Suave dos Nós da Constelação
       const allNodes = [...hubs, ...skills];
 
       for (const node of allNodes) {
@@ -444,17 +444,17 @@ export default function TechStack() {
           node.vx = 0;
           node.vy = 0;
         } else {
-          // Movimento orgânico flutuante (Gravidade zero)
-          const floatOffset = Math.sin(time * 1.5 + node.phase) * 6;
+          // Movimento orgânico flutuante calmo (Gravidade zero lenta)
+          const floatOffset = Math.sin(time * 0.45 + node.phase) * 3.5;
           const targetY = node.baseY + floatOffset;
-          const targetX = node.baseX + Math.cos(time * 1.2 + node.phase) * 4;
+          const targetX = node.baseX + Math.cos(time * 0.35 + node.phase) * 2.5;
 
-          // Força de atração à posição base (Spring)
-          const k = 0.04;
+          // Força de atração suave à posição base (Spring fluida)
+          const k = 0.025;
           const ax = (targetX - node.x) * k;
           const ay = (targetY - node.y) * k;
-          node.vx = (node.vx + ax) * 0.86;
-          node.vy = (node.vy + ay) * 0.86;
+          node.vx = (node.vx + ax) * 0.92;
+          node.vy = (node.vy + ay) * 0.92;
 
           // Repulsão suave do mouse ao se aproximar (< 160px)
           if (mouse.isHovering) {
@@ -463,8 +463,8 @@ export default function TechStack() {
             const dist = Math.hypot(dx, dy);
             if (dist < 160 && dist > 1) {
               const force = (160 - dist) / 160;
-              node.vx += (dx / dist) * force * 1.6;
-              node.vy += (dy / dist) * force * 1.6;
+              node.vx += (dx / dist) * force * 0.5;
+              node.vy += (dy / dist) * force * 0.5;
             }
           }
 
@@ -473,7 +473,7 @@ export default function TechStack() {
         }
       }
 
-      // 5. Linhas da Constelação com Energia e Pulso de Luz
+      // 5. Linhas da Constelação com Pulso Suave de Luz
       for (const link of rawLinks) {
         const n1 = allNodes.find((n) => n.id === link.from);
         const n2 = allNodes.find((n) => n.id === link.to);
@@ -495,26 +495,26 @@ export default function TechStack() {
           ctx.shadowColor = '#06b6d4';
           ctx.shadowBlur = 12;
         } else {
-          ctx.strokeStyle = 'rgba(147, 197, 253, 0.25)';
-          ctx.lineWidth = 1.3;
+          ctx.strokeStyle = 'rgba(147, 197, 253, 0.22)';
+          ctx.lineWidth = 1.2;
           ctx.shadowBlur = 0;
         }
 
         ctx.stroke();
         ctx.shadowBlur = 0;
 
-        // Pulso de fóton viajando pela linha
-        const pulsePos = (Math.sin(time * 2 + (n1.x + n2.y) * 0.01) + 1) * 0.5;
+        // Pulso suave de fóton viajando pela linha
+        const pulsePos = (Math.sin(time * 0.6 + (n1.x + n2.y) * 0.005) + 1) * 0.5;
         const px = n1.x + (n2.x - n1.x) * pulsePos;
         const py = n1.y + (n2.y - n1.y) * pulsePos;
 
-        ctx.fillStyle = isHighlighted ? '#ffffff' : 'rgba(192, 132, 252, 0.7)';
+        ctx.fillStyle = isHighlighted ? '#ffffff' : 'rgba(192, 132, 252, 0.6)';
         ctx.beginPath();
-        ctx.arc(px, py, isHighlighted ? 2.8 : 1.8, 0, Math.PI * 2);
+        ctx.arc(px, py, isHighlighted ? 2.5 : 1.6, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // 6. Desenho dos Hubs Estelares (Nexus de 4 pontas com brilho radiante)
+      // 6. Desenho dos Hubs Estelares (Nexus de 4 pontas com rotação lenta e majestosa)
       for (const hub of hubs) {
         const isHover = hoveredNode?.id === hub.id;
         ctx.save();
@@ -523,15 +523,15 @@ export default function TechStack() {
         // Halo Difuso
         const haloGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, isHover ? 26 : 18);
         haloGrad.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
-        haloGrad.addColorStop(0.3, isHover ? 'rgba(168, 85, 247, 0.8)' : 'rgba(168, 85, 247, 0.4)');
+        haloGrad.addColorStop(0.3, isHover ? 'rgba(168, 85, 247, 0.8)' : 'rgba(168, 85, 247, 0.35)');
         haloGrad.addColorStop(1, 'rgba(168, 85, 247, 0)');
         ctx.fillStyle = haloGrad;
         ctx.beginPath();
         ctx.arc(0, 0, isHover ? 26 : 18, 0, Math.PI * 2);
         ctx.fill();
 
-        // Estrela de 4 Pontas Radiante (Estilo Caio Duque)
-        ctx.rotate(time * 0.4);
+        // Rotação majestosa lenta
+        ctx.rotate(time * 0.08);
         ctx.fillStyle = '#ffffff';
         ctx.shadowColor = hub.color;
         ctx.shadowBlur = isHover ? 22 : 12;
