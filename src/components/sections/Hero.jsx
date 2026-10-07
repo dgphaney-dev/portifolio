@@ -58,10 +58,10 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative pt-20 pb-16 overflow-hidden">
-      {/* Banner Cósmico com Fade Mask (Estilo Caio Duque) */}
-      <div className="relative w-full h-[220px] sm:h-[260px] fade-mask overflow-hidden bg-gradient-to-r from-slate-950 via-indigo-950/60 to-purple-950/50">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-600/25 via-purple-600/15 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:32px_32px]" />
+      {/* Banner Cósmico Translúcido (Permite que as estrelas do fundo brilhem) */}
+      <div className="relative w-full h-[220px] sm:h-[260px] fade-mask overflow-hidden bg-gradient-to-r from-transparent via-purple-900/15 to-transparent">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-500/15 via-purple-500/10 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 opacity-15 bg-[linear-gradient(to_right,#6366f1_1px,transparent_1px),linear-gradient(to_bottom,#6366f1_1px,transparent_1px)] bg-[size:36px_36px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_80%)]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
