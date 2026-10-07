@@ -27,7 +27,7 @@ export default function Experience() {
   };
 
   return (
-    <section id="experiencia" className="py-28 relative overflow-hidden bg-[#0b0f19]">
+    <section id="experiencia" className="py-28 relative overflow-hidden bg-transparent">
       {/* Background Soft Glow */}
       <div className="absolute top-1/2 right-0 w-[550px] h-[550px] bg-pink-600/10 blur-[160px] rounded-full pointer-events-none" />
       <div className="absolute bottom-10 left-0 w-[550px] h-[550px] bg-purple-600/10 blur-[160px] rounded-full pointer-events-none" />

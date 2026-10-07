@@ -2,142 +2,123 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 export default function ParticleBackground() {
-  const containerRef = useRef(null);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
-    // Verificar preferência de redução de movimento do usuário
+    // Preferência de redução de movimento do usuário
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    const container = containerRef.current;
-    if (!container) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    // 1. Configuração da Cena, Câmera 3D e Renderizador WebGL
+    // 1. Configuração da Cena, Névoa Cósmica e Câmera Perspectiva (Fiel ao caioduque.dev)
     const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0b0f19, 0.002);
 
     const camera = new THREE.PerspectiveCamera(
-      60,
+      75,
       window.innerWidth / window.innerHeight,
-      1,
-      3000
+      0.1,
+      1000
     );
-    camera.position.z = 700;
+    camera.position.z = 5;
 
     const renderer = new THREE.WebGLRenderer({
+      canvas: canvas,
       alpha: true,
       antialias: true,
       powerPreference: 'high-performance',
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
 
-    // 2. Universo de Estrelas em 360 Graus (Esfera Cósmica Completa)
-    const starCount = window.innerWidth < 768 ? 1000 : 2200;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(starCount * 3);
-    const colors = new Float32Array(starCount * 3);
-    const sizes = new Float32Array(starCount);
+    // 2. Sistema de Partículas / Estrelas (Cores e Distribuição Caio Duque)
+    const particleCount = window.innerWidth < 768 ? 900 : 1600;
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    const sizes = new Float32Array(particleCount);
 
-    const palette = [
-      new THREE.Color('#ffffff'), // Branco puro
-      new THREE.Color('#93c5fd'), // Azul estelar suave
-      new THREE.Color('#38bdf8'), // Ciano neon
-      new THREE.Color('#c084fc'), // Roxo cósmico
-      new THREE.Color('#f472b6'), // Rosa nebulosa
+    const colorPalette = [
+      new THREE.Color('#7b46ff'), // Roxo Cósmico Primário
+      new THREE.Color('#00d4ff'), // Ciano Neon
+      new THREE.Color('#ffffff'), // Estrela Branca
+      new THREE.Color('#f472b6'), // Rosa Nebulosa
     ];
 
-    for (let i = 0; i < starCount; i++) {
-      // Distribuição esférica em 360 graus para imersão total
-      const radius = 300 + Math.random() * 1200;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(Math.random() * 2 - 1);
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 22;     // x
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 22; // y
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 22; // z
 
-      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      positions[i * 3 + 2] = radius * Math.cos(phi);
-
-      const color = palette[Math.floor(Math.random() * palette.length)];
+      const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
       colors[i * 3] = color.r;
       colors[i * 3 + 1] = color.g;
       colors[i * 3 + 2] = color.b;
 
-      sizes[i] = Math.random() * 2.8 + 1.2;
+      sizes[i] = Math.random() * 2 + 0.5;
     }
 
+    const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
-    // Textura circular suave para as partículas
-    const canvas = document.createElement('canvas');
-    canvas.width = 32;
-    canvas.height = 32;
-    const ctx = canvas.getContext('2d');
+    // Textura circular suave para as estrelas brilharem como orbes cósmicos
+    const starCanvas = document.createElement('canvas');
+    starCanvas.width = 32;
+    starCanvas.height = 32;
+    const ctx = starCanvas.getContext('2d');
     const grad = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
     grad.addColorStop(0, 'rgba(255,255,255,1)');
-    grad.addColorStop(0.3, 'rgba(255,255,255,0.8)');
-    grad.addColorStop(0.7, 'rgba(168,85,247,0.3)');
+    grad.addColorStop(0.25, 'rgba(255,255,255,0.9)');
+    grad.addColorStop(0.7, 'rgba(255,255,255,0.25)');
     grad.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 32, 32);
-    const texture = new THREE.CanvasTexture(canvas);
+    const texture = new THREE.CanvasTexture(starCanvas);
 
     const material = new THREE.PointsMaterial({
-      size: 4,
-      vertexColors: true,
+      size: 0.12,
       map: texture,
+      vertexColors: true,
+      blending: THREE.AdditiveBlending,
       transparent: true,
       opacity: 0.85,
-      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true,
       depthWrite: false,
     });
 
-    const starField = new THREE.Points(geometry, material);
-    scene.add(starField);
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
 
-    // 3. Nebulosa Cósmica de Poeira Espacial Secundária
-    const dustGeometry = new THREE.BufferGeometry();
-    const dustCount = 400;
-    const dustPositions = new Float32Array(dustCount * 3);
-    for (let i = 0; i < dustCount; i++) {
-      dustPositions[i * 3] = (Math.random() - 0.5) * 1600;
-      dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 1600;
-      dustPositions[i * 3 + 2] = (Math.random() - 0.5) * 1600;
-    }
-    dustGeometry.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
-
-    const dustMaterial = new THREE.PointsMaterial({
-      size: 7,
-      color: 0x7c3aed,
+    // 3. Linhas da Constelação Cósmica (Connections geométrica em tempo real)
+    const lineMaterial = new THREE.LineBasicMaterial({
+      color: 0x7b46ff,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.22,
       blending: THREE.AdditiveBlending,
-      depthWrite: false,
     });
-    const dustField = new THREE.Points(dustGeometry, dustMaterial);
-    scene.add(dustField);
 
-    // 4. Interação com o Mouse (Controle de Câmera 360 Graus)
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetRotationX = 0;
-    let targetRotationY = 0;
-    let scrollY = 0;
-    let targetScrollY = 0;
+    const lineGeometry = new THREE.BufferGeometry();
+    const linePos = new Float32Array(1500 * 3);
+    lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
+    const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+    scene.add(lines);
 
-    const handleMouseMove = (e) => {
-      // Coordenadas normalizadas [-1, 1]
-      const nx = (e.clientX / window.innerWidth) * 2 - 1;
-      const ny = -(e.clientY / window.innerHeight) * 2 + 1;
+    // 4. Interação com o Mouse (Parallax 3D Suave)
+    const mouse = new THREE.Vector2();
+    let scrollY = window.scrollY;
 
-      // Ângulos de rotação 360 no espaço
-      targetRotationY = nx * Math.PI * 0.7; // Rotação horizontal (Yaw 360)
-      targetRotationX = ny * Math.PI * 0.35; // Rotação vertical (Pitch)
+    const handleMouseMove = (event) => {
+      const windowHalfX = window.innerWidth / 2;
+      const windowHalfY = window.innerHeight / 2;
+      mouse.x = (event.clientX - windowHalfX) * 0.001;
+      mouse.y = (event.clientY - windowHalfY) * 0.001;
     };
 
     const handleScroll = () => {
-      targetScrollY = window.scrollY;
+      scrollY = window.scrollY;
     };
 
     const handleResize = () => {
@@ -148,29 +129,63 @@ export default function ParticleBackground() {
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize, { passive: true });
+    window.addEventListener('resize', handleResize);
 
-    // 5. Loop de Renderização Contínua em 60fps/120fps
+    // 5. Loop de Animação
+    const clock = new THREE.Clock();
     let animationFrameId;
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
-      // Rotação autônoma lenta do universo
-      starField.rotation.y += 0.0003;
-      dustField.rotation.y -= 0.0002;
+      const elapsedTime = clock.getElapsedTime();
 
-      // Interpolação suave (lerp) com a posição do mouse em 360
-      mouseX += (targetRotationY - mouseX) * 0.04;
-      mouseY += (targetRotationX - mouseY) * 0.04;
-      scrollY += (targetScrollY - scrollY) * 0.06;
+      // Rotação sutil do universo
+      particles.rotation.y += 0.0008;
+      particles.rotation.x += 0.0004;
 
-      // Efeito de rolamento (Warp através do espaço 3D conforme scrolla o site)
-      camera.position.x = Math.sin(mouseX) * 700;
-      camera.position.z = Math.cos(mouseX) * 700 - scrollY * 0.15;
-      camera.position.y = mouseY * 250 - scrollY * 0.08;
+      lines.rotation.y = particles.rotation.y;
+      lines.rotation.x = particles.rotation.x;
 
-      camera.lookAt(0, -scrollY * 0.05, -scrollY * 0.15);
+      // Ondulação suave
+      const floatY = Math.sin(elapsedTime * 0.2) * 0.2;
+      particles.position.y = floatY;
+      lines.position.y = floatY;
+
+      // Parallax de câmera com o mouse e rolagem da página
+      const scrollInfluence = scrollY * 0.0005;
+      camera.position.x += (mouse.x * 2.5 - camera.position.x) * 0.025;
+      camera.position.y += (-mouse.y * 2.5 - scrollInfluence - camera.position.y) * 0.025;
+      camera.lookAt(scene.position);
+
+      // Atualização dinâmica das conexões entre partículas próximas (Constelação 3D)
+      let vertexIndex = 0;
+      const particlePositions = particles.geometry.attributes.position.array;
+      const connectionCount = 220;
+
+      for (let i = 0; i < connectionCount; i++) {
+        for (let j = i + 1; j < connectionCount; j++) {
+          const dx = particlePositions[i * 3] - particlePositions[j * 3];
+          const dy = particlePositions[i * 3 + 1] - particlePositions[j * 3 + 1];
+          const dz = particlePositions[i * 3 + 2] - particlePositions[j * 3 + 2];
+          const distSq = dx * dx + dy * dy + dz * dz;
+
+          if (distSq < 1.7) {
+            if (vertexIndex < linePos.length - 6) {
+              linePos[vertexIndex++] = particlePositions[i * 3];
+              linePos[vertexIndex++] = particlePositions[i * 3 + 1];
+              linePos[vertexIndex++] = particlePositions[i * 3 + 2];
+
+              linePos[vertexIndex++] = particlePositions[j * 3];
+              linePos[vertexIndex++] = particlePositions[j * 3 + 1];
+              linePos[vertexIndex++] = particlePositions[j * 3 + 2];
+            }
+          }
+        }
+      }
+
+      lineGeometry.setDrawRange(0, vertexIndex / 3);
+      lineGeometry.attributes.position.needsUpdate = true;
 
       renderer.render(scene, camera);
     };
@@ -183,23 +198,20 @@ export default function ParticleBackground() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
 
-      // Limpeza de recursos WebGL
       geometry.dispose();
       material.dispose();
-      dustGeometry.dispose();
-      dustMaterial.dispose();
+      lineGeometry.dispose();
+      lineMaterial.dispose();
       texture.dispose();
       renderer.dispose();
-      if (container && renderer.domElement) {
-        container.removeChild(renderer.domElement);
-      }
     };
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="fixed inset-0 pointer-events-none -z-10 overflow-hidden"
+    <canvas
+      id="bg-canvas"
+      ref={canvasRef}
+      className="fixed inset-0 w-full h-full pointer-events-none -z-10"
       aria-hidden="true"
     />
   );

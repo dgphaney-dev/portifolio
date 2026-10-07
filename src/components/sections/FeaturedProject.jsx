@@ -34,7 +34,7 @@ export default function FeaturedProject() {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-[#0b0f19]">
+    <section className="py-24 relative overflow-hidden bg-transparent">
       {/* Glow Cósmico Central */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[450px] bg-gradient-to-r from-purple-600/15 via-emerald-600/10 to-cyan-500/15 blur-[160px] rounded-full pointer-events-none" />
 

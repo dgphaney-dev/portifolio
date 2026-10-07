@@ -69,7 +69,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contato" className="py-28 relative overflow-hidden bg-[#0b0f19]">
+    <section id="contato" className="py-28 relative overflow-hidden bg-transparent">
       {/* Glow Cósmico Vermelho/Laranja de Fundo */}
       <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-red-600/10 blur-[170px] rounded-full pointer-events-none" />
       <div className="absolute top-1/3 left-10 w-[500px] h-[500px] bg-purple-600/10 blur-[170px] rounded-full pointer-events-none" />

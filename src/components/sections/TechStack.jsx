@@ -621,7 +621,7 @@ export default function TechStack() {
   }, []);
 
   return (
-    <section id="tecnologias" className="py-24 relative overflow-hidden bg-[#0b0f19]">
+    <section id="tecnologias" className="py-24 relative overflow-hidden bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Cabeçalho da Seção */}

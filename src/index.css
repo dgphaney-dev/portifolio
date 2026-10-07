@@ -62,6 +62,17 @@
   filter: blur(50px);
 }
 
+/* Three.js Background Canvas (Fiel ao caioduque.dev) */
+canvas#bg-canvas {
+  display: block;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
 /* Glassmorphism Ultra Premium (Caio Duque style) */
 .glass-ultra {
   background: rgba(20, 24, 38, 0.55);

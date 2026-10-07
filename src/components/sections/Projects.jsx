@@ -89,7 +89,7 @@ export default function Projects() {
   }, [projects, selectedCategory, searchQuery]);
 
   return (
-    <section id="projetos" className="py-28 relative overflow-hidden bg-[#0b0f19]">
+    <section id="projetos" className="py-28 relative overflow-hidden bg-transparent">
       {/* Glow Suave Cósmico */}
       <div className="absolute top-1/4 left-10 w-[600px] h-[600px] bg-purple-600/10 blur-[160px] rounded-full pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-[600px] h-[600px] bg-cyan-600/10 blur-[160px] rounded-full pointer-events-none" />

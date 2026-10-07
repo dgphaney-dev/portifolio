@@ -5,7 +5,7 @@ export default function Stats() {
   const { stats } = portfolioData;
 
   return (
-    <section className="py-12 relative z-10 bg-[#0b0f19]">
+    <section className="py-12 relative z-10 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {stats.map((stat, index) => (

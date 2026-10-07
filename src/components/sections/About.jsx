@@ -26,7 +26,7 @@ export default function About() {
   };
 
   return (
-    <section id="sobre" className="py-28 relative overflow-hidden bg-[#0b0f19]">
+    <section id="sobre" className="py-28 relative overflow-hidden bg-transparent">
       {/* Glow Suave de Fundo */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-purple-600/10 blur-[130px] rounded-full pointer-events-none" />
       <div className="absolute bottom-10 right-0 w-96 h-96 bg-cyan-600/10 blur-[130px] rounded-full pointer-events-none" />
