@@ -12,7 +12,8 @@ import {
   Database,
   Flame,
   ShieldAlert,
-  Zap
+  Zap,
+  Bot
 } from 'lucide-react';
 import { Github } from '../Icons';
 import { portfolioData } from '../../data/portfolioData';
@@ -27,6 +28,7 @@ export default function Projects() {
 
   const categories = [
     'Todos',
+    'Bots Discord',
     'Web',
     'Desktop',
     'Backend',
@@ -35,6 +37,13 @@ export default function Projects() {
   ];
 
   const getNeonTagDetails = (project) => {
+    if (project.id === 'discord-bot-automacao') {
+      return {
+        className: 'tag-featured',
+        icon: Bot,
+        tooltip: 'Bot Discord & Automação'
+      };
+    }
     if (project.id === 'nextgen-pdv-erp' || project.id === 'nextgen-erp') {
       return {
         className: 'tag-featured',
@@ -68,6 +77,8 @@ export default function Projects() {
       const matchesCategory =
         selectedCategory === 'Todos' ||
         project.category === selectedCategory ||
+        (selectedCategory === 'Bots Discord' &&
+          (project.category === 'Bots Discord' || project.tags.some((t) => /discord|bot/i.test(t)))) ||
         (selectedCategory === 'Banco de Dados' &&
           project.tags.some((t) => /sql|mysql|banco/i.test(t))) ||
         (selectedCategory === 'Desktop' &&

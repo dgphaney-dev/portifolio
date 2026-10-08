@@ -2,9 +2,9 @@ export const portfolioData = {
   personal: {
     name: "Douglas Phaney",
     role: "Estudante de Análise e Desenvolvimento de Sistemas",
-    tagline: "Desenvolvendo soluções, explorando tecnologia e evoluindo constantemente.",
-    shortBio: "Desenvolvedor de software com 1 ano e meio de prática e estudos focado no desenvolvimento de sistemas web, bancos de dados, aplicações desktop e interesse contínuo em novas tecnologias. Busco criar soluções seguras, eficientes e escaláveis.",
-    bio: "Sou estudante de Análise e Desenvolvimento de Sistemas na Católica e entusiasta de tecnologia e desenvolvimento de software. Tenho genuína curiosidade em entender como os sistemas funcionam por baixo dos panos, o que me motiva a aprender continuamente sobre programação, arquitetura de software, modelagem de banco de dados e a criação de sistemas completos do início ao fim.",
+    tagline: "Desenvolvendo soluções web, desktop e bots interativos para Discord.",
+    shortBio: "Desenvolvedor de software com 1 ano e meio de prática e estudos focado em sistemas web, desktop, bancos de dados e criação de bots para Discord (automação, moderação e integrações com APIs). Busco criar soluções seguras, eficientes e escaláveis.",
+    bio: "Sou estudante de Análise e Desenvolvimento de Sistemas na Católica e entusiasta de tecnologia e desenvolvimento de software. Tenho genuína curiosidade em entender como os sistemas funcionam por baixo dos panos, o que me motiva a aprender continuamente sobre programação, arquitetura de software, modelagem de banco de dados e a criação de sistemas completos do início ao fim: desde aplicações desktop e interfaces web ágeis até bots automatizados para Discord com comandos slash, webhooks e integrações.",
     location: "Brasil (Disponível para Remoto e Híbrido)",
     availability: "Disponível para Estágio & Júnior",
     email: "douglasphalbuquerque@gmail.com",
@@ -20,8 +20,8 @@ export const portfolioData = {
   aboutCards: [
     {
       title: "DESENVOLVIMENTO",
-      subtitle: "Sistemas Web e Desktop",
-      description: "Criação de aplicações web interativas e soluções desktop robustas.",
+      subtitle: "Web, Desktop & Bots Discord",
+      description: "Criação de aplicações web interativas, soluções desktop e bots automatizados para Discord com comandos slash e integrações.",
       icon: "Code2",
     },
     {
@@ -101,6 +101,25 @@ export const portfolioData = {
         "Painel administrativo Web com visualização e métricas de vendas",
         "Banco de dados relacional centralizado em nuvem (MySQL)",
         "Comunicação fluida e segura entre o caixa e a administração"
+      ]
+    },
+    {
+      id: "discord-bot-automacao",
+      title: "Bot Discord - Automação & Moderação",
+      category: "Bots Discord",
+      featured: true,
+      description: "Desenvolvimento de bots personalizados para comunidades e servidores no Discord, incluindo comandos slash modernos (/), moderação automatizada, logs de eventos e integração com APIs externas.",
+      longDescription: "Solução completa para servidores e comunidades no Discord desenvolvida com arquitetura assíncrona orientada a eventos. O bot integra comandos slash interativos, menus suspensos, botões dinâmicos, sistema de moderação com histórico, boas-vindas com cards visuais e webhooks para notificações automáticas.",
+      tags: ["Bots Discord", "Python", "Node.js", "discord.py", "Discord API", "Webhooks", "Automação"],
+      image: "https://images.unsplash.com/photo-1614680376593-902f749f7ffc?auto=format&fit=crop&w=1200&q=80",
+      liveUrl: "https://github.com/dgphaney-dev",
+      githubUrl: "https://github.com/dgphaney-dev",
+      highlights: [
+        "Comandos Slash (/), botões e menus suspensos interativos",
+        "Moderação automatizada, filtros anti-spam e logs em tempo real",
+        "Notificações automáticas via Webhooks e integração com APIs",
+        "Estrutura assíncrona orientada a eventos para respostas instantâneas",
+        "Personalização completa para servidores de comunidades ou empresas"
       ]
     },
     {

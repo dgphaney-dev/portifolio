@@ -10,7 +10,8 @@ import {
   GitCommit,
   Terminal,
   ExternalLink,
-  Eye
+  Eye,
+  Bot
 } from 'lucide-react';
 import { Github, Linkedin } from '../Icons';
 import { portfolioData } from '../../data/portfolioData';
@@ -36,23 +37,30 @@ export default function Hero({ visitorCount }) {
     },
     {
       id: 3,
-      title: 'Handebol @ UCB',
-      icon: Trophy,
+      title: 'Bots para Discord',
+      icon: Bot,
       delay: 'animate-float-delay-2',
-      color: 'from-amber-400 to-yellow-600',
+      color: 'from-indigo-400 to-purple-600',
     },
     {
       id: 4,
-      title: 'FIAP & AWS Certificado',
-      icon: Award,
+      title: 'Handebol @ UCB',
+      icon: Trophy,
       delay: 'animate-float-delay-3',
-      color: 'from-emerald-400 to-teal-600',
+      color: 'from-amber-400 to-yellow-600',
     },
     {
       id: 5,
+      title: 'FIAP & AWS Certificado',
+      icon: Award,
+      delay: 'animate-float-delay-1',
+      color: 'from-emerald-400 to-teal-600',
+    },
+    {
+      id: 6,
       title: '959+ Contribuições Git',
       icon: GitCommit,
-      delay: 'animate-float-delay-1',
+      delay: 'animate-float-delay-2',
       color: 'from-fuchsia-500 to-pink-600',
     },
   ];
@@ -100,8 +108,9 @@ export default function Hero({ visitorCount }) {
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-prose">
                   Graduando na <span className="text-white font-semibold">Universidade Católica de Brasília (UCB)</span>. 
                   Desenvolvedor com foco em <span className="text-cyan-300 font-semibold">Python</span>,{' '}
-                  <span className="text-amber-300 font-semibold">MySQL</span> e{' '}
-                  <span className="text-purple-300 font-semibold">React</span>, construindo sistemas completos do desktop à nuvem.
+                  <span className="text-amber-300 font-semibold">MySQL</span>,{' '}
+                  <span className="text-purple-300 font-semibold">React</span> e criação de{' '}
+                  <span className="text-indigo-300 font-semibold">Bots para Discord</span>, construindo soluções completas do desktop à nuvem.
                 </p>
 
                 {/* Status Pills */}
