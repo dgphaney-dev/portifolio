@@ -1,24 +1,24 @@
-# 🚀 Portfólio Dev Moderno & Profissional
+# Portfólio Dev Moderno & Profissional
 
 Um portfólio web de alta performance construído com **React 19**, **Vite** e **Tailwind CSS**, projetado estrategicamente para impressionar recrutadores e gestores de tecnologia.
 
 ---
 
-## ✨ Destaques do Portfólio
+## Destaques do Portfólio
 
-- 💎 **Design Moderno & Glassmorphism:** Interface limpa, responsiva, com visual escuro elegante (Dark Theme) e efeitos visuais sutis.
-- ⚡ **Desempenho Extremo:** Criado com Vite 8 e React 19, compilando em menos de 1 segundo.
-- 🎯 **Foco em Recrutamento:**
+- **Design Moderno & Glassmorphism:** Interface limpa, responsiva, com visual escuro elegante (Dark Theme) e efeitos visuais sutis.
+- **Desempenho Extremo:** Criado com Vite 8 e React 19, compilando em menos de 1 segundo.
+- **Foco em Recrutamento:**
   - Badge dinâmica de disponibilidade ("Disponível para contratação").
   - Estatísticas de impacto profissional (Projetos entregues, Tecnologias, Horas de código).
   - Terminal interativo com stack e build status.
   - Seção com diferenciais ("Clean Code", "Design Responsivo", "Foco no Negócio").
-- 📂 **Showcase de Projetos Avançado:**
+- **Showcase de Projetos Avançado:**
   - Filtros por categoria (*Todos*, *Full Stack*, *Frontend*, *Backend*).
   - Campo de busca em tempo real por tecnologia ou palavra-chave.
   - Botões diretos para demonstração ao vivo (*Live Demo*) e código no GitHub.
   - **Modal Interativo de Detalhes:** Apresenta problemas resolvidos, arquitetura e lista de funcionalidades.
-- 📬 **Contato Facilitado para Recrutadores:**
+- **Contato Facilitado para Recrutadores:**
   - Botão de cópia de e-mail com 1 clique e feedback instantâneo.
   - Botão direto para WhatsApp com mensagem profissional pronta.
   - Links para LinkedIn, GitHub e Currículo PDF.
@@ -26,10 +26,10 @@ Um portfólio web de alta performance construído com **React 19**, **Vite** e *
 
 ---
 
-## 🛠️ Como Personalizar Seus Dados
+## Como Personalizar Seus Dados
 
 Tudo que você precisa alterar está centralizado em um único arquivo:  
-👉 **`src/data/portfolioData.js`**
+**`src/data/portfolioData.js`**
 
 Nele você pode alterar:
 1. **`personal`**: Seu nome, cargo, resumo, localização, e-mail, telefone/WhatsApp, links de redes sociais e link para baixar seu currículo.
@@ -40,7 +40,7 @@ Nele você pode alterar:
 
 ---
 
-## 💻 Como Rodar o Projeto Localmente
+## Como Rodar o Projeto Localmente
 
 1. Certifique-se de ter o [Node.js](https://nodejs.org) instalado.
 2. Abra o terminal na pasta do projeto e instale as dependências (caso ainda não tenha feito):
@@ -55,7 +55,7 @@ Nele você pode alterar:
 
 ---
 
-## 🌐 Como Hospedar na Web (Gratuitamente)
+## Como Hospedar na Web (Gratuitamente)
 
 ### Opção 1: Vercel (Recomendada - Mais fácil e rápida)
 1. Crie uma conta gratuita em [vercel.com](https://vercel.com).
@@ -80,7 +80,7 @@ Nele você pode alterar:
 
 ---
 
-## 🎯 Dicas de Ouro para Conquistar Vagas:
+## Dicas de Ouro para Conquistar Vagas:
 1. **Sempre tenha os projetos online:** Recrutadores e tech leads adoram clicar e testar a aplicação funcionando antes de abrir o código.
 2. **Tenha bons READMEs no GitHub:** Para cada projeto listado, inclua prints de tela, tecnologias usadas e como rodar.
 3. **Mantenha os links de contato atualizados:** Teste o botão de WhatsApp e E-mail para garantir que eles direcionem para você.
