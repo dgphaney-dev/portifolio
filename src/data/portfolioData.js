@@ -111,7 +111,7 @@ export const portfolioData = {
       description: "Desenvolvimento de bots personalizados para comunidades e servidores no Discord, incluindo comandos slash modernos (/), moderação automatizada, logs de eventos e integração com APIs externas.",
       longDescription: "Solução completa para servidores e comunidades no Discord desenvolvida com arquitetura assíncrona orientada a eventos. O bot integra comandos slash interativos, menus suspensos, botões dinâmicos, sistema de moderação com histórico, boas-vindas com cards visuais e webhooks para notificações automáticas.",
       tags: ["Bots Discord", "Python", "Node.js", "discord.py", "Discord API", "Webhooks", "Automação"],
-      image: "https://images.unsplash.com/photo-1614680376593-902f749f7ffc?auto=format&fit=crop&w=1200&q=80",
+      image: "/discord_bot_preview.svg",
       liveUrl: "https://github.com/dgphaney-dev",
       githubUrl: "https://github.com/dgphaney-dev",
       highlights: [
