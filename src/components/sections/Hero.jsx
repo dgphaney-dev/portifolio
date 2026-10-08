@@ -122,21 +122,17 @@ export default function Hero({ visitorCount }) {
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono text-slate-400 bg-white/[0.04] border border-white/[0.08]">
                     Brasília, DF • Remoto & Híbrido
                   </span>
-                  <a
-                    href="https://hits.sh/douglasphaney-dev.github.io/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono text-cyan-300 bg-cyan-500/10 border border-cyan-500/25 hover:border-cyan-400/50 hover:bg-cyan-500/20 transition-all cursor-pointer"
-                    title="Contador real em nuvem - Clique para abrir o painel de acessos"
+                  <div
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono text-cyan-300 bg-cyan-500/10 border border-cyan-500/25 shadow-sm"
+                    title="Contador de visitantes únicos em tempo real"
                   >
                     <Eye className="w-3.5 h-3.5 text-cyan-400" />
                     <span>Visitas:</span>
-                    <img
-                      src="https://hits.sh/douglasphaney-dev.github.io.svg?style=flat-square&label=&color=06b6d4&labelColor=0b0f19"
-                      alt="Contador Real de Visitas"
-                      className="h-3.5 rounded"
-                    />
-                  </a>
+                    <span className="inline-flex items-center rounded overflow-hidden text-[10px] font-mono leading-none border border-cyan-500/30">
+                      <span className="bg-[#0b0f19] text-slate-300 px-1.5 py-0.5 font-semibold">hits</span>
+                      <span className="bg-[#06b6d4] text-slate-950 font-bold px-1.5 py-0.5">{visitorCount}</span>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

@@ -16,17 +16,10 @@ import Footer from './components/sections/Footer';
 
 import { Sparkles, MessageSquare, MapPin, Eye } from 'lucide-react';
 
-function App() {
-  const [visitorCount, setVisitorCount] = useState(132);
+import { useVisitorCount } from './hooks/useVisitorCount';
 
-  useEffect(() => {
-    // Contador inteligente de visitantes com baseline e incremento contínuo
-    const BASE_SEED = 132;
-    const stored = localStorage.getItem('dg_portfolio_visits');
-    const current = stored ? parseInt(stored, 10) + 1 : BASE_SEED + 1;
-    localStorage.setItem('dg_portfolio_visits', current.toString());
-    setVisitorCount(current);
-  }, []);
+function App() {
+  const visitorCount = useVisitorCount();
 
   return (
     <div className="relative min-h-screen bg-[#0b0f19] text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-purple-600 selection:text-white">
@@ -61,19 +54,12 @@ function App() {
         <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
         <span className="font-semibold text-xs tracking-wide text-white">Douglas Phaney</span>
         <span className="text-slate-500">•</span>
-        <a
-          href="https://hits.sh/douglasphaney-dev.github.io/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center hover:opacity-85 transition-opacity"
-          title="Contador global em nuvem (clique para ver analytics em tempo real)"
-        >
-          <img
-            src="https://hits.sh/douglasphaney-dev.github.io.svg?style=flat-square&label=VISITAS&color=06b6d4&labelColor=0b0f19"
-            alt="Contador Real de Visitas"
-            className="h-4 rounded"
-          />
-        </a>
+        <div className="flex items-center" title="Contador de visitantes únicos em tempo real">
+          <span className="inline-flex items-center rounded overflow-hidden text-[10px] font-mono leading-none border border-cyan-500/30 shadow-sm">
+            <span className="bg-[#0b0f19] text-slate-300 px-1.5 py-0.5 font-semibold">VISITAS</span>
+            <span className="bg-[#06b6d4] text-slate-950 font-bold px-1.5 py-0.5">{visitorCount}</span>
+          </span>
+        </div>
         <span className="text-slate-500">•</span>
         <span className="text-[11px] text-emerald-400 font-mono">Online</span>
       </aside>
